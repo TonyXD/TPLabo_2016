@@ -4,6 +4,8 @@ public class Mesa {
 
 	int Capacidad;
 	int IdMesa;
-	int IdMozoAsignado;
-	int TipoEstado;
+	int IdMozo;
+	int IdEstado;
+	float PosicionX;
+	float PosicionY;
 }
