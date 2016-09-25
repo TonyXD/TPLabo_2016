@@ -15,12 +15,13 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Toolkit;
+import javax.swing.JPasswordField;
 
 public class LogIn_View {
 
 	private JFrame frame;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -50,46 +51,41 @@ public class LogIn_View {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(LogIn_View.class.getResource("/Images/dishes-798316_1280.png")));
-		frame.setBounds(100, 100, 369, 620);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(LogIn_View.class.getResource("/Imagenes/dishes-798316_1280.png")));
+		frame.setBounds(100, 100, 369, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		Panel panel = new Panel();
-		panel.setBounds(10, 10, 329, 315);
-		frame.getContentPane().add(panel);
-		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnNewButton.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)));
-		btnNewButton.setMargin(new Insets(0, 0, 0, 0));
-		btnNewButton.setIcon(new ImageIcon(LogIn_View.class.getResource("/Images/LogInIcon_300x300px.jpg")));
-		panel.add(btnNewButton);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(10, 331, 333, 2);
 		frame.getContentPane().add(separator);
 		
 		textField = new JTextField();
-		textField.setBounds(74, 389, 200, 20);
+		textField.setBounds(139, 361, 200, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(74, 440, 200, 20);
-		frame.getContentPane().add(textField_1);
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(250, 548, 89, 23);
-		frame.getContentPane().add(btnNewButton_1);
+		JButton btn_LogIn = new JButton("Ingresar");
+		btn_LogIn.setBounds(254, 427, 89, 23);
+		frame.getContentPane().add(btn_LogIn);
 		
 		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
-		lblContrasea.setBounds(74, 420, 110, 14);
+		lblContrasea.setBounds(29, 395, 110, 14);
 		frame.getContentPane().add(lblContrasea);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
-		lblUsuario.setBounds(74, 364, 63, 14);
+		lblUsuario.setBounds(29, 364, 63, 14);
 		frame.getContentPane().add(lblUsuario);
+		
+		passwordField = new JPasswordField();
+		passwordField.setEchoChar('X');
+		passwordField.setBounds(139, 392, 200, 20);
+		frame.getContentPane().add(passwordField);
+		
+		JButton btn_ImagenPerfil = new JButton("");
+		btn_ImagenPerfil.setMargin(new Insets(0, 0, 0, 0));
+		btn_ImagenPerfil.setIcon(new ImageIcon(LogIn_View.class.getResource("/Imagenes/LogInIcon_300x300px.jpg")));
+		btn_ImagenPerfil.setBounds(29, 11, 300, 300);
+		frame.getContentPane().add(btn_ImagenPerfil);
 	}
 }
