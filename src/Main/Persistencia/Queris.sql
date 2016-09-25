@@ -104,3 +104,9 @@ ADD CONSTRAINT `idEstados`
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
 
+  ALTER TABLE `tplabo_2016`.`domicilio` 
+DROP COLUMN `NroDpto`;
+
+ALTER TABLE `tplabo_2016`.`localidad` 
+ADD COLUMN `CodigoPostal` INT NULL AFTER `Descripcion`;
+
