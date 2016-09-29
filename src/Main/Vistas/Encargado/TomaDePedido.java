@@ -22,16 +22,17 @@ import java.awt.Color;
 public class TomaDePedido extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
-	private JTable table_1;
-	private JTable table_2;
+	private JTable tblEntradaSelect;
+	private JTable tblPrincipalSelect;
+	private JTable tblPostreSelect;
 	private JTextField textField;
-	private JTable table_3;
+	private JTable tblBebidaSelect;
 	private JTable tbl_Menu;
 	private JTable tbl_Entrada;
 	private JTable tbl_Principal;
 	private JTable tbl_Postres;
 	private JTable tbl_Bebidas;
+	private JTable tblMenuSelect;
 
 	/**
 	 * Launch the application.
@@ -53,6 +54,7 @@ public class TomaDePedido extends JFrame {
 	 * Create the frame.
 	 */
 	public TomaDePedido() {
+		setTitle("Toma De Pedidos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1218, 800);
 		contentPane = new JPanel();
@@ -81,7 +83,7 @@ public class TomaDePedido extends JFrame {
 				"Nombre", "Precio"
 			}
 		));
-		scPnl_Entrada.setViewportView(tbl_Entrada);
+		scPnl_Entrada.setColumnHeaderView(tbl_Entrada);
 		
 		JScrollPane scPnl_Principal = new JScrollPane();
 		tabbedPane.addTab("Principal", null, scPnl_Principal, null);
@@ -144,22 +146,22 @@ public class TomaDePedido extends JFrame {
 		contentPane.add(pnl_Observaciones);
 		pnl_Observaciones.setLayout(null);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(10, 36, 300, 102);
-		pnl_Observaciones.add(textPane);
+		JTextPane txtObservaciones = new JTextPane();
+		txtObservaciones.setBounds(10, 36, 300, 102);
+		pnl_Observaciones.add(txtObservaciones);
 		
 		JLabel lblNewLabel_1 = new JLabel("Observaciones");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel_1.setBounds(10, 0, 142, 36);
 		pnl_Observaciones.add(lblNewLabel_1);
 		
-		JButton btnNewButton = new JButton("Agregar");
-		btnNewButton.setBounds(700, 104, 120, 34);
-		pnl_Observaciones.add(btnNewButton);
+		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setBounds(700, 104, 120, 34);
+		pnl_Observaciones.add(btnAgregar);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(607, 104, 83, 34);
-		pnl_Observaciones.add(spinner);
+		JSpinner spnCantidad = new JSpinner();
+		spnCantidad.setBounds(607, 104, 83, 34);
+		pnl_Observaciones.add(spnCantidad);
 		
 		JLabel lblCantidad = new JLabel("Cantidad:");
 		lblCantidad.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -178,12 +180,12 @@ public class TomaDePedido extends JFrame {
 		lblEntrada.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 57, 322, 120);
+		scrollPane.setBounds(10, 57, 322, 86);
 		pnl_PreVisualisacionPedido.add(scrollPane);
 		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
+		tblEntradaSelect = new JTable();
+		scrollPane.setViewportView(tblEntradaSelect);
+		tblEntradaSelect.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
 			},
@@ -193,16 +195,16 @@ public class TomaDePedido extends JFrame {
 		));
 		
 		JLabel lblPrincipal = new JLabel("Principal");
-		lblPrincipal.setBounds(10, 188, 90, 30);
+		lblPrincipal.setBounds(10, 154, 90, 30);
 		pnl_PreVisualisacionPedido.add(lblPrincipal);
 		lblPrincipal.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 229, 322, 120);
+		scrollPane_1.setBounds(10, 195, 322, 86);
 		pnl_PreVisualisacionPedido.add(scrollPane_1);
 		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
+		tblPrincipalSelect = new JTable();
+		tblPrincipalSelect.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
 			},
@@ -210,19 +212,19 @@ public class TomaDePedido extends JFrame {
 				"Nombre", "Observaciones", "Cantidad"
 			}
 		));
-		scrollPane_1.setViewportView(table_1);
+		scrollPane_1.setViewportView(tblPrincipalSelect);
 		
-		JLabel lblBebida = new JLabel("Bebida");
-		lblBebida.setBounds(10, 357, 90, 30);
-		pnl_PreVisualisacionPedido.add(lblBebida);
-		lblBebida.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		JLabel lblPostre = new JLabel("Postre");
+		lblPostre.setBounds(10, 292, 90, 30);
+		pnl_PreVisualisacionPedido.add(lblPostre);
+		lblPostre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(10, 398, 322, 120);
+		scrollPane_2.setBounds(10, 333, 322, 86);
 		pnl_PreVisualisacionPedido.add(scrollPane_2);
 		
-		table_2 = new JTable();
-		table_2.setModel(new DefaultTableModel(
+		tblPostreSelect = new JTable();
+		tblPostreSelect.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
 			},
@@ -230,19 +232,19 @@ public class TomaDePedido extends JFrame {
 				"Nombre", "Observaciones", "Cantidad"
 			}
 		));
-		scrollPane_2.setViewportView(table_2);
+		scrollPane_2.setViewportView(tblPostreSelect);
 		
 		JLabel label = new JLabel("Bebida");
-		label.setBounds(10, 530, 90, 30);
+		label.setBounds(10, 430, 90, 30);
 		pnl_PreVisualisacionPedido.add(label);
 		label.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(10, 571, 320, 120);
+		scrollPane_3.setBounds(10, 471, 320, 86);
 		pnl_PreVisualisacionPedido.add(scrollPane_3);
 		
-		table_3 = new JTable();
-		table_3.setModel(new DefaultTableModel(
+		tblBebidaSelect = new JTable();
+		tblBebidaSelect.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
 			},
@@ -250,7 +252,22 @@ public class TomaDePedido extends JFrame {
 				"Nombre", "Observaciones", "Cantidad"
 			}
 		));
-		scrollPane_3.setViewportView(table_3);
+		scrollPane_3.setViewportView(tblBebidaSelect);
+
+		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setBounds(10, 609, 320, 86);
+		pnl_PreVisualisacionPedido.add(scrollPane_4);
+		
+		tblMenuSelect = new JTable();
+		tblMenuSelect.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"Nombre", "Observaciones", "Cantidad"
+			}
+		));
+		scrollPane_4.setViewportView((tblMenuSelect));
 		
 		textField = new JTextField();
 		textField.setBounds(224, 702, 114, 31);
@@ -261,5 +278,10 @@ public class TomaDePedido extends JFrame {
 		lblNewLabel.setBounds(124, 702, 90, 31);
 		pnl_PreVisualisacionPedido.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		
+		JLabel lblMenu = new JLabel("Menu");
+		lblMenu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
+		lblMenu.setBounds(10, 568, 90, 30);
+		pnl_PreVisualisacionPedido.add(lblMenu);
 	}
 }
