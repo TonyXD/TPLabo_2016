@@ -1,8 +1,8 @@
-package Modelo.Clases;
+package Modelo.DTO;
 
 import java.util.List;
 
-import DTO.Localidad_DTO;
+import Modelo.DTO.General.Localidad_DTO;
 import Persistencia.DAO.Localidad_DAO;
 
 public class Localidad {

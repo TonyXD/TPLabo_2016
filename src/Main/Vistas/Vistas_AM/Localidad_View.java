@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import Controllers.Localidad_Controller;
-import DTO.Localidad_DTO;
+import Modelo.DTO.General.Localidad_DTO;
 
 
 

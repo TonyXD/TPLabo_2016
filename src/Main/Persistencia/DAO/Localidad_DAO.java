@@ -2,7 +2,7 @@ package Persistencia.DAO;
 
 import java.util.List;
 
-import DTO.Localidad_DTO;
+import Modelo.DTO.General.Localidad_DTO;
 
 public class Localidad_DAO {
 

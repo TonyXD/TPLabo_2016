@@ -1,4 +1,4 @@
-package Modelo.Clases.Comidas;
+package Modelo.DTO.Comidas;
 
 public class Ingredientes {
 

@@ -1,5 +1,5 @@
-package Modelo.Clases.RecursosHumanos;
+package Modelo.DTO.RecursosHumanos;
 
 public abstract class Empleado {
-
+	
 }

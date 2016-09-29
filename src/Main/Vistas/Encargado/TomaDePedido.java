@@ -1,20 +1,16 @@
 package Vistas.Encargado;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JEditorPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JSpinner;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;

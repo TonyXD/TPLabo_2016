@@ -1,30 +1,31 @@
-package Modelo.Clases.Comidas;
+package Modelo.DTO.Comidas;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public abstract class Plato {
+
+	private String nombre;
+	private BigDecimal precio;
+
+	public Plato(String nombre, BigDecimal precio){
+		this.nombre = nombre;
+		this.precio = precio;
+	}
 	
-	private String Descripcion;
-	private List<Ingredientes> Ingredientes;
-	private BigDecimal Precio;
-	public String getDescripcion() {
-		return Descripcion;
+	public String getNombre() {
+		return this.nombre;
 	}
-	public void setDescripcion(String descripcion) {
-		Descripcion = descripcion;
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public List<Ingredientes> getIngredientes() {
-		return Ingredientes;
-	}
-	public void setIngredientes(List<Ingredientes> ingredientes) {
-		Ingredientes = ingredientes;
-	}
+
 	public BigDecimal getPrecio() {
-		return Precio;
+		return this.precio;
 	}
+
 	public void setPrecio(BigDecimal precio) {
-		Precio = precio;
+		this.precio = precio;
 	}
 
 }

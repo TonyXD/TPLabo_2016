@@ -1,4 +1,4 @@
-package DTO;
+package Modelo.DTO.General;
 
 
 public class Localidad_DTO 
