@@ -15,7 +15,8 @@ public class cafeDAO {
 	private static final String delete = "DELETE FROM cafe WHERE idCafe = ?";
 	private static final String readall = "SELECT * FROM cafe";
 	private static final Conexion conexion = Conexion.getConexion();
-
+	
+	
 	public boolean insert(cafeDTO cafe) {
 		PreparedStatement statement;
 		try {

@@ -23,15 +23,14 @@ public class Carta {
 	private sinAlcoholDAO sinAlcohol;
 	private cafeDAO cafe;
 
-	public Carta(entradaDAO entrada, principalDAO principal, postreDAO postre, conAlcoholDAO conAlcohol,
-			sinAlcoholDAO sinAlcohol, cafeDAO cafe) {
+	public Carta() {
 
-		this.entrada = entrada;
-		this.principal = principal;
-		this.postre = postre;
-		this.conAlcohol = conAlcohol;
-		this.sinAlcohol = sinAlcohol;
-		this.cafe = cafe;
+		this.entrada = new entradaDAO();
+		this.principal = new principalDAO();
+		this.postre = new postreDAO();
+		this.conAlcohol = new conAlcoholDAO();
+		this.sinAlcohol = new sinAlcoholDAO();
+		this.cafe = new cafeDAO();
 	}
 
 	public void agregarEntrada(entradaDTO x) {

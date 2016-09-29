@@ -13,8 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Controllers.AM_Plato_Controller;
-
 import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
 
@@ -32,10 +30,8 @@ public class AM_Plato extends JFrame {
 	private JButton btnBorrarPlato;
 	private JButton btnAgregarPlato;
 
-	private AM_Plato_Controller controlador;
-
 	
-	public AM_Plato(AM_Plato_Controller controlador) {
+	public AM_Plato() {
 
 		setTitle("Gesti\u00F3n de Platos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -100,26 +96,20 @@ public class AM_Plato extends JFrame {
 		tblPlato.setModel(
 				new DefaultTableModel(new Object[][] { { null, null }, }, new String[] { "Nombre", "Precio" }));
 		
-		this.controlador = controlador;
-		
 		btnAgregarPlato = new JButton("Agregar Plato");
 		btnAgregarPlato.setBounds(340, 698, 134, 23);
-		btnAgregarPlato.addActionListener(this.controlador);
 		contentPane.add(btnAgregarPlato);
 
 		btnCargarPlato = new JButton("Cargar Tabla");
 		btnCargarPlato.setBounds(340, 65, 134, 23);
-		btnCargarPlato.addActionListener(this.controlador);
 		contentPane.add(btnCargarPlato);
 
 		btnEditarPlato = new JButton("Editar Plato");
 		btnEditarPlato.setBounds(376, 607, 98, 23);
-		btnEditarPlato.addActionListener(this.controlador);
 		contentPane.add(btnEditarPlato);
 
 		btnBorrarPlato = new JButton("Borrar Plato");
 		btnBorrarPlato.setBounds(10, 607, 150, 23);
-		btnBorrarPlato.addActionListener(this.controlador);
 		contentPane.add(btnBorrarPlato);
 	}
 	

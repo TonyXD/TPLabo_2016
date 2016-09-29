@@ -14,6 +14,7 @@ public class entradaDAO {
 	private static final String insert = "INSERT INTO entrada(idEntrada, nombre, precio) VALUES(?,?,?)";
 	private static final String delete = "DELETE FROM entrada WHERE idEntrada = ?";
 	private static final String readall = "SELECT * FROM entrada";
+	
 	private static final Conexion conexion = Conexion.getConexion();
 
 	public boolean insert(entradaDTO entrada) {

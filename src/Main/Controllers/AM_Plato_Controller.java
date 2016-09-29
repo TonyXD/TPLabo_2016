@@ -24,13 +24,17 @@ public class AM_Plato_Controller implements ActionListener {
 	public AM_Plato_Controller(AM_Plato vistaPlatos, Carta carta) {
 		this.vistaPlatos = vistaPlatos;
 		this.carta = carta;
-		this.inicializar();
 	}
 
 	public void inicializar() {
 		this.setEntrada(carta.obtenerEntradas());
 		this.setPrincipal(carta.obtenerPrincipales());
 		this.setPostre(carta.obtenerPostres());
+		
+		this.vistaPlatos.getBtnAgregar().addActionListener(this);
+		this.vistaPlatos.getBtnCargar().addActionListener(this);
+		this.vistaPlatos.getBtnEditar().addActionListener(this);
+		this.vistaPlatos.getBtnBorrar().addActionListener(this);
 	}
 
 	@Override

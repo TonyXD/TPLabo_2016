@@ -76,6 +76,60 @@ CREATE TABLE `tplabo_2016`.`empleado` (
         ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
+/*ENTRADA*/
+
+CREATE TABLE `tplabo_2016`.`entrada` (
+	`idEntrada` INT NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR (45) NOT NULL,
+	`precio` DECIMAL NOT NULL,
+	PRIMARY KEY(`idEntrada`)
+);
+
+/*PRINCIPAL*/
+
+CREATE TABLE `tplabo_2016`.`principal` (
+	`idPrincipal` INT NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR (45) NOT NULL,
+	`precio` DECIMAL NOT NULL,
+	PRIMARY KEY(`idPrincipal`)
+);
+
+/*POSTRE*/
+
+CREATE TABLE `tplabo_2016`.`postre` (
+	`idPostre` INT NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR (45) NOT NULL,
+	`precio` DECIMAL NOT NULL,
+	PRIMARY KEY(`idPostre`)
+);
+
+/*CONALCOHOL*/
+
+CREATE TABLE `tplabo_2016`.`conAlcohol` (
+	`idConAlcohol` INT NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR (45) NOT NULL,
+	`precio` DECIMAL NOT NULL,
+	PRIMARY KEY(`idConAlcohol`)
+);
+
+/*SINALCOHOL*/
+
+CREATE TABLE `tplabo_2016`.`sinAlcohol` (
+	`idSinAlcohol` INT NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR (45) NOT NULL,
+	`precio` DECIMAL NOT NULL,
+	PRIMARY KEY(`idSinAlcohol`)
+);
+
+/*CAFE*/
+
+CREATE TABLE `tplabo_2016`.`cafe` (
+	`idCafe` INT NOT NULL AUTO_INCREMENT,
+	`nombre` VARCHAR (45) NOT NULL,
+	`precio` DECIMAL NOT NULL,
+	PRIMARY KEY(`idCafe`)
+);
+
 /*MESA */ 
 
 CREATE TABLE `tplabo_2016`.`mesa` (
