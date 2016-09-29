@@ -1,34 +1,26 @@
 package Vistas.Encargado;
 
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.border.EmptyBorder;
-
-import Utils.MainBackGround;
-import java.awt.Toolkit;
-import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-
-import java.awt.Panel;
-import java.awt.Color;
-import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.JTabbedPane;
-import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+
+import Utils.PA_PreView;
+import Utils.PB_PreView;
 
 public class EncargadoMain_View extends JFrame {
 
 	private static final long serialVersionUID = -6200816652032876979L;
-	private JTable table;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -50,7 +42,7 @@ public class EncargadoMain_View extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(EncargadoMain_View.class.getResource("/Imagenes/dishes-798316_1280.png")));
 		setTitle("Nombre a definir");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 720);
+		setBounds(100, 100, 1218, 720);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -68,112 +60,68 @@ public class EncargadoMain_View extends JFrame {
 		mnNewMenu_1.add(mntmNewMenuItem_1);
 
 
-		MainBackGround mainPanel = new MainBackGround();
+		JPanel mainPanel = new JPanel();
 		mainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainPanel);
 		mainPanel.setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 10, 627, 641);
-		mainPanel.add(tabbedPane);
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 11, 1178, 43);
+		mainPanel.add(panel);
+		panel.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		tabbedPane.addTab("Salon", null, scrollPane, null);
+		JButton btnNewButton = new JButton("Ver Conina");
+		btnNewButton.setBounds(0, 0, 130, 43);
+		panel.add(btnNewButton);
 		
-		table = new JTable();
-		table.setDragEnabled(true);
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-			},
-			new String[] {
-				"Sector 01", "Sector 02", "Entrada", "Entrada", "Sector 03", "Sector 04"
-			}
-		) {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] columnEditables = new boolean[] {
-				false, true, true, true, true, true
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
+		JButton btnNewButton_1 = new JButton("Pedido");
+		btnNewButton_1.setBounds(140, 0, 130, 43);
+		panel.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Reserva");
+		btnNewButton_2.setBounds(280, 0, 130, 43);
+		panel.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Ver Stock");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(5).setPreferredWidth(87);
+		btnNewButton_3.setBounds(700, 0, 130, 43);
+		panel.add(btnNewButton_3);
 		
-		JScrollPane scrollPane2 = new JScrollPane();
-		tabbedPane.addTab("Cocina", null, scrollPane2, null);
+		JButton btnPlatos = new JButton("Carta");
+		btnPlatos.setBounds(560, 0, 130, 43);
+		panel.add(btnPlatos);
 		
-		table = new JTable();
-		scrollPane2.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null},
-			},
-			new String[] {
-				"New column"
-			}
-		));
+		JButton btnBebidas = new JButton("Control Mesa");
+		btnBebidas.setActionCommand("Control\r\n\r\nMesa");
+		btnBebidas.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnBebidas.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnBebidas.setBounds(420, 0, 130, 43);
+		panel.add(btnBebidas);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(647, 10, 1, 640);
-		separator.setForeground(new Color(0, 0, 0));
-		separator.setOrientation(SwingConstants.VERTICAL);
-		mainPanel.add(separator);
+		JButton button_5 = new JButton("New button");
+		button_5.setBounds(840, 0, 130, 43);
+		panel.add(button_5);
 		
-		JPanel pnl_Acciones = new JPanel();
-		pnl_Acciones.setBounds(654, 10, 320, 641);
-		pnl_Acciones.setOpaque(false);
-		mainPanel.add(pnl_Acciones);
-		pnl_Acciones.setLayout(null);
+		JButton button_6 = new JButton("New button");
+		button_6.setBounds(980, 0, 130, 43);
+		panel.add(button_6);
 		
-		JLabel lbl_NombreResto = new JLabel("Nombre del Lugar");
-		lbl_NombreResto.setHorizontalTextPosition(SwingConstants.CENTER);
-		lbl_NombreResto.setFocusable(false);
-		lbl_NombreResto.setFont(new Font("Segoe Print", lbl_NombreResto.getFont().getStyle() | Font.BOLD | Font.ITALIC, 20));
-		lbl_NombreResto.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_NombreResto.setBounds(10, 0, 300, 42);
-		pnl_Acciones.add(lbl_NombreResto);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(10, 65, 1178, 585);
+		mainPanel.add(panel_1);
+		panel_1.setLayout(null);
 		
-		JButton btnStock = new JButton("Control Stock");
-		btnStock.setBounds(173, 194, 130, 130);
-		pnl_Acciones.add(btnStock);
 		
-		JButton btnPedido = new JButton("Pedido");
-		btnPedido.setBounds(20, 53, 130, 130);
-		pnl_Acciones.add(btnPedido);
+		PA_PreView pnl_PA = new PA_PreView();
+		pnl_PA.setBounds(592, 11, 576, 563);
+		panel_1.add(pnl_PA);		
 		
-		JButton btnCarta = new JButton("Carta");
-		btnCarta.setBounds(20, 194, 130, 130);
-		pnl_Acciones.add(btnCarta);
-		
-		JButton btnPlato = new JButton("Gestionar Platos");
-		btnPlato.setBounds(20, 335, 130, 130);
-		pnl_Acciones.add(btnPlato);
-		
-		JButton btnGestionarMesas = new JButton("Gestionar Mesas");
-		btnGestionarMesas.setBounds(20, 476, 130, 130);
-		pnl_Acciones.add(btnGestionarMesas);
-		
-		JButton btnGestionarSalon = new JButton("Gestionar Salon");
-		btnGestionarSalon.setBounds(173, 476, 130, 130);
-		pnl_Acciones.add(btnGestionarSalon);
-		
-		JButton btnMenu = new JButton("Gestionar Menu");
-		btnMenu.setBounds(173, 335, 130, 130);
-		pnl_Acciones.add(btnMenu);
-		
-		JButton btnGenerarControl = new JButton("Generar Control");
-		btnGenerarControl.setBounds(173, 53, 130, 130);
-		pnl_Acciones.add(btnGenerarControl);
+		PB_PreView pnl_PB = new PB_PreView();
+		pnl_PB.setBounds(10, 11, 576, 563);
+		panel_1.add(pnl_PB);
 		
 		
 	}
