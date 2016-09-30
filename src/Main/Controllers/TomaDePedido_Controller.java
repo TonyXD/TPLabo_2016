@@ -2,7 +2,11 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JTextPane;
 
 import Modelo.DTO.Bebidas.Bebida;
 import Modelo.DTO.Bebidas.cafeDTO;
@@ -38,10 +42,19 @@ public class TomaDePedido_Controller implements ActionListener {
 	private Pedido pedido;
 	private Carta carta;
 
+	private int cantidadSeleccionada;
+	private BigDecimal total;
+
 	public TomaDePedido_Controller(TomaDePedido vistaPedido, Pedido pedido, Carta carta) {
 		this.setVistaPedido(vistaPedido);
 		this.setPedido(pedido);
 		this.carta = carta;
+		this.cantidadSeleccionada = 5;
+		this.total = new BigDecimal(0);
+		this.vistaPedido.getBtnAgregar().addActionListener(this);
+		this.vistaPedido.getBtnQuitarDelPedido().addActionListener(this);
+		this.vistaPedido.getBtnCrearPedido().addActionListener(this);
+		this.vistaPedido.getBtnCancelarPedido().addActionListener(this);
 
 		this.inicializar();
 	}
@@ -54,21 +67,132 @@ public class TomaDePedido_Controller implements ActionListener {
 		this.setConAlcohol(carta.obtenerConAlcoholes());
 		this.setSinAlcohol(carta.obtenerSinAlcoholes());
 		this.setCafe(carta.obtenerCafes());
-
+		this.bebidas = new ArrayList<Bebida>();
 		this.cargarTablas();
 
-		// this.vistaPlatos.getBtnAgregar().addActionL1istener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		// if (e.getSource() == this.vistaPlatos.getBtnAgregar()) {
-		//
-		// }
+		if (e.getSource() == this.vistaPedido.getBtnAgregar()) {
+
+			int tabSelect = this.vistaPedido.getTabbedPane().getSelectedIndex();
+			int indice = 0;
+			String observaciones = this.vistaPedido.getTxtObservaciones().getText();
+			Integer cantidad = (Integer) this.vistaPedido.getSpnCantidad().getValue();
+
+			if (tabSelect >= 0) {
+
+				if (tabSelect == 0) {
+
+					int filaSelect = this.vistaPedido.getTblEntrada().getSelectedRow();
+
+					if (filaSelect >= 0) {
+
+						for (int i = 0; i < this.cantidadSeleccionada; i++) {
+							String filin = (String) this.vistaPedido.getTblPedidoSelect().getValueAt(i, 0);
+							if (filin.equals("Principales:")) {
+								indice = i;
+								this.sumarTotal(this.entrada.get(filaSelect).getPrecio(), cantidad);
+							}
+						}
+
+						Object[] fila = { this.entrada.get(filaSelect).getNombre(), observaciones, cantidad };
+						this.vistaPedido.getModelSelect().insertRow(indice, fila);
+
+						cantidadSeleccionada = cantidadSeleccionada + 1;
+					}
+
+				} else if (tabSelect == 1) {
+
+					int filaSelect = this.vistaPedido.getTblPrincipal().getSelectedRow();
+
+					if (filaSelect >= 0) {
+
+						for (int i = 0; i < this.cantidadSeleccionada; i++) {
+							if (this.vistaPedido.getTblPedidoSelect().getValueAt(i, 0).equals("Postres:")) {
+								indice = i;
+								this.sumarTotal(this.principal.get(filaSelect).getPrecio(), cantidad);
+							}
+						}
+
+						Object[] fila = { this.principal.get(filaSelect).getNombre(), observaciones, cantidad };
+						this.vistaPedido.getModelSelect().insertRow(indice, fila);
+
+						cantidadSeleccionada = cantidadSeleccionada + 1;
+
+					}
+
+				} else if (tabSelect == 2) {
+
+					int filaSelect = this.vistaPedido.getTblPostres().getSelectedRow();
+
+					if (filaSelect >= 0) {
+
+						for (int i = 0; i < this.cantidadSeleccionada; i++) {
+							if (this.vistaPedido.getTblPedidoSelect().getValueAt(i, 0).equals("Bebidas:")) {
+								indice = i;
+								this.sumarTotal(this.postre.get(filaSelect).getPrecio(), cantidad);
+							}
+						}
+
+						Object[] fila = { this.postre.get(filaSelect).getNombre(), observaciones, cantidad };
+						this.vistaPedido.getModelSelect().insertRow(indice, fila);
+
+						cantidadSeleccionada = cantidadSeleccionada + 1;
+					}
+
+				} else if (tabSelect == 3) {
+
+					int filaSelect = this.vistaPedido.getTblBebidas().getSelectedRow();
+
+					if (filaSelect >= 0) {
+
+						for (int i = 0; i < this.cantidadSeleccionada; i++) {
+							if (this.vistaPedido.getTblPedidoSelect().getValueAt(i, 0).equals("Menus:")) {
+								indice = i;
+								this.sumarTotal(this.bebidas.get(filaSelect).getPrecio(), cantidad);
+							}
+						}
+
+						Object[] fila = { this.bebidas.get(filaSelect).getNombre(), observaciones, cantidad };
+						this.vistaPedido.getModelSelect().insertRow(indice, fila);
+
+						cantidadSeleccionada = cantidadSeleccionada + 1;
+					}
+
+				} else {
+
+//					int filaSelect = this.vistaPedido.getTblMenu().getSelectedRow();
+//
+//					if (filaSelect >= 0) {
+//						
+//						this.sumarTotal(this.menu.get(filaSelect).getPrecio());
+//						
+//						Object[] fila = { this.entrada.get(filaSelect).getNombre(), observaciones, cantidad };
+//						this.vistaPedido.getModelSelect().addRow(fila);
+//
+//						cantidadSeleccionada = cantidadSeleccionada + 1;
+//					}
+
+				}
+			}
+		}
 	}
 
 	public void cargarTablas() {
+
+		Object[] filaE = { "Entradas:" };
+		this.vistaPedido.getModelSelect().addRow(filaE);
+		Object[] filaP = { "Principales:" };
+		this.vistaPedido.getModelSelect().addRow(filaP);
+		Object[] filaPo = { "Postres:" };
+		this.vistaPedido.getModelSelect().addRow(filaPo);
+		Object[] filaB = { "Bebidas:" };
+		this.vistaPedido.getModelSelect().addRow(filaB);
+		Object[] filaM = { "Menus:" };
+		this.vistaPedido.getModelSelect().addRow(filaM);
 
 		for (int i = 0; i < this.entrada.size(); i++) {
 			Object[] fila = { this.entrada.get(i).getNombre(), this.entrada.get(i).getPrecio().toString() };
@@ -87,11 +211,10 @@ public class TomaDePedido_Controller implements ActionListener {
 
 		this.cargarBebida();
 
-		// for (int i = 0; i < this.entrada.size(); i++) {
-		// Object[] fila = { this.entrada.get(i).getNombre(),
-		// this.entrada.get(i).getPrecio().toString() };
-		// this.vistaPedido.getModelEntrada().addRow(fila);
-		// }
+		for (int i = 0; i < this.bebidas.size(); i++) {
+			Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio().toString() };
+			this.vistaPedido.getModelBebidas().addRow(fila);
+		}
 	}
 
 	public void cargarBebida() {
@@ -104,6 +227,14 @@ public class TomaDePedido_Controller implements ActionListener {
 		for (int i = 0; i < this.cafe.size(); i++) {
 			this.bebidas.add(this.cafe.get(i));
 		}
+	}
+	
+	public void sumarTotal(BigDecimal precio, Integer cantidad){
+	
+		for(int i=0;i<cantidad;i++){
+			this.total= total.add(precio);
+		}
+		this.vistaPedido.getTxfTotal().setText(total.toString());
 	}
 
 	public List<entradaDTO> getEntrada() {

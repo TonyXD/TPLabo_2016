@@ -11,11 +11,11 @@ import Modelo.DTO.Comidas.entradaDTO;
 import Modelo.DTO.Comidas.postreDTO;
 import Modelo.DTO.Comidas.principalDTO;
 import Modelo.Negocio.Carta;
-import Vistas.Vistas_AM.AM_Plato;
+import Vistas.Vistas_AM.ABM_Plato;
 
 public class AM_Plato_Controller implements ActionListener {
 
-	private AM_Plato vistaPlatos;
+	private ABM_Plato vistaPlatos;
 
 	private List<entradaDTO> entrada;
 	private List<principalDTO> principal;
@@ -23,7 +23,7 @@ public class AM_Plato_Controller implements ActionListener {
 
 	private Carta carta;
 
-	public AM_Plato_Controller(AM_Plato vistaPlatos, Carta carta) {
+	public AM_Plato_Controller(ABM_Plato vistaPlatos, Carta carta) {
 		this.vistaPlatos = vistaPlatos;
 		this.carta = carta;
 

@@ -10,15 +10,12 @@ import javax.swing.JOptionPane;
 import Modelo.DTO.Bebidas.cafeDTO;
 import Modelo.DTO.Bebidas.conAlcoholDTO;
 import Modelo.DTO.Bebidas.sinAlcoholDTO;
-import Modelo.DTO.Comidas.entradaDTO;
-import Modelo.DTO.Comidas.postreDTO;
-import Modelo.DTO.Comidas.principalDTO;
 import Modelo.Negocio.Carta;
-import Vistas.Vistas_AM.AM_Bebida;
+import Vistas.Vistas_AM.ABM_Bebida;
 
 public class AM_Bebida_Controller implements ActionListener {
 
-	private AM_Bebida vistaBebida;
+	private ABM_Bebida vistaBebida;
 
 	private List<conAlcoholDTO> conAlcohol;
 	private List<sinAlcoholDTO> sinAlcohol;
@@ -26,7 +23,7 @@ public class AM_Bebida_Controller implements ActionListener {
 
 	private Carta carta;
 
-	public AM_Bebida_Controller(AM_Bebida vistaBebidas, Carta carta) {
+	public AM_Bebida_Controller(ABM_Bebida vistaBebidas, Carta carta) {
 		this.vistaBebida = vistaBebidas;
 		this.carta = carta;
 

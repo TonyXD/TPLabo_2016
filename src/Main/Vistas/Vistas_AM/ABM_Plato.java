@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
 
-public class AM_Plato extends JFrame {
+public class ABM_Plato extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txfNombre;
@@ -37,7 +37,7 @@ public class AM_Plato extends JFrame {
 	private JTextField txfPrecioSe;
 
 	
-	public AM_Plato() {
+	public ABM_Plato() {
 
 		setTitle("Gesti\u00F3n de Platos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

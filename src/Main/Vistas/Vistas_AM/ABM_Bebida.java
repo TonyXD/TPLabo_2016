@@ -17,7 +17,7 @@ import Controllers.AM_Bebida_Controller;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
 
-public class AM_Bebida extends JFrame {
+public class ABM_Bebida extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txfNombre;
@@ -41,7 +41,7 @@ public class AM_Bebida extends JFrame {
 	private JTextField txfPrecioSe;
 	private JLabel label_2;
 
-	public AM_Bebida() {
+	public ABM_Bebida() {
 
 		setTitle("Gestion de Bebidas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
