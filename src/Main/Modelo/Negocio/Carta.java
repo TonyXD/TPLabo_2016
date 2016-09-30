@@ -104,4 +104,28 @@ public class Carta {
 	public List<cafeDTO> obtenerCafes() {
 		return this.cafe.readAll();
 	}
+	
+	public void editarEntrada(entradaDTO x) {
+		this.entrada.update(x);
+	}
+	
+	public void editarPrincipal(principalDTO x) {
+		this.principal.update(x);
+	}
+	
+	public void editarPostre(postreDTO x) {
+		this.postre.update(x);
+	}
+	
+	public void editarConAlcohol(conAlcoholDTO x) {
+		this.conAlcohol.update(x);
+	}
+	
+	public void editarSinAlcohol(sinAlcoholDTO x) {
+		this.sinAlcohol.update(x);
+	}
+	
+	public void editarCafe(cafeDTO x) {
+		this.cafe.update(x);
+	}
 }

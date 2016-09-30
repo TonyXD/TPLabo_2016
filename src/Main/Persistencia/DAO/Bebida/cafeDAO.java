@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modelo.DTO.Bebidas.cafeDTO;
+import Modelo.DTO.Comidas.entradaDTO;
 import Persistencia.Conexion.Conexion;
 
 public class cafeDAO {
 
 	private static final String insert = "INSERT INTO cafe(idCafe, nombre, precio) VALUES(?,?,?)";
 	private static final String delete = "DELETE FROM cafe WHERE idCafe = ?";
+	private static final String update = "UPDATE cafe SET nombre=?, precio=? WHERE idCafe=?";
 	private static final String readall = "SELECT * FROM cafe";
 	private static final Conexion conexion = Conexion.getConexion();
 	
@@ -77,6 +79,30 @@ public class cafeDAO {
 	}
 
 	public boolean update() {
+		return false;
+	}
+	
+	public boolean update(cafeDTO cafe) {
+		PreparedStatement statement;
+		int chequeoUpdate=0;
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(update);
+			statement.setString(1, cafe.getNombre());
+			statement.setBigDecimal(2, cafe.getPrecio());
+			statement.setInt(3, cafe.getIdCafe());
+			chequeoUpdate = statement.executeUpdate();
+			if(chequeoUpdate > 0) //Si se ejecut� devuelvo true
+				return true;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
 		return false;
 	}
 }

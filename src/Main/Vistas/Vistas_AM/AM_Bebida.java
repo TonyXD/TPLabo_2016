@@ -24,16 +24,24 @@ public class AM_Bebida extends JFrame {
 	private JTextField txfPrecio;
 	
 	private JComboBox<String> cbxTipoBebida;
+	
 	private JTable tblBebidas;
+	private DefaultTableModel modelPersonas;
 
 	private JButton btnCargar;
 	private JButton btnEditarBebida;
 	private JButton btnBorrarBebida;
 	private JButton btnAgregarBebida;
 
-	private AM_Bebida_Controller controlador;
+	private  String[] nombreColumnas = {"Nombre", "Precio"};
+	private JLabel lblBebidaSeleccionada;
+	private JLabel label;
+	private JTextField txfNombreSe;
+	private JLabel label_1;
+	private JTextField txfPrecioSe;
+	private JLabel label_2;
 
-	public AM_Bebida(AM_Bebida_Controller controlador) {
+	public AM_Bebida() {
 
 		setTitle("Gestion de Bebidas");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,61 +71,85 @@ public class AM_Bebida extends JFrame {
 		contentPane.add(cbxTipoBebida);
 
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 657, 80, 14);
+		lblNombre.setBounds(10, 672, 80, 14);
 		contentPane.add(lblNombre);
 
 		txfNombre = new JTextField();
-		txfNombre.setBounds(81, 654, 150, 20);
+		txfNombre.setBounds(81, 669, 150, 20);
 		contentPane.add(txfNombre);
 		txfNombre.setColumns(10);
 
 		JLabel lblPrecio = new JLabel("Precio");
-		lblPrecio.setBounds(255, 657, 46, 14);
+		lblPrecio.setBounds(255, 672, 46, 14);
 		contentPane.add(lblPrecio);
 
 		txfPrecio = new JTextField();
-		txfPrecio.setBounds(324, 654, 150, 20);
+		txfPrecio.setBounds(324, 669, 150, 20);
 		contentPane.add(txfPrecio);
 		txfPrecio.setColumns(10);
 
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 685, 464, 2);
-		contentPane.add(separator_1);
-
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(10, 641, 464, 2);
+		separator_2.setBounds(10, 611, 464, 2);
 		contentPane.add(separator_2);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 100, 464, 496);
+		scrollPane.setBounds(10, 100, 464, 393);
 		contentPane.add(scrollPane);
 
-		tblBebidas = new JTable();
+		modelPersonas = new DefaultTableModel(null, new String[] { "Nombre", "Precio" });
+		tblBebidas = new JTable(modelPersonas);
+		tblBebidas.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblBebidas.getColumnModel().getColumn(0).setResizable(false);
+		tblBebidas.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblBebidas.getColumnModel().getColumn(1).setResizable(false);
+		
 		scrollPane.setViewportView(tblBebidas);
-		tblBebidas.setModel(
-				new DefaultTableModel(new Object[][] { { null, null }, }, new String[] { "Nombre", "Precio" }));
-
-		this.controlador = controlador;
 
 		btnAgregarBebida = new JButton("Agregar Bebida");
-		btnAgregarBebida.setBounds(324, 698, 150, 23);
-		btnAgregarBebida.addActionListener(this.controlador);
+		btnAgregarBebida.setBounds(324, 697, 150, 23);
 		contentPane.add(btnAgregarBebida);
 
 		btnCargar = new JButton("Cargar Tabla");
 		btnCargar.setBounds(340, 65, 134, 23);
-		btnCargar.addActionListener(this.controlador);
 		contentPane.add(btnCargar);
 
 		btnEditarBebida = new JButton("Editar Bebida");
-		btnEditarBebida.setBounds(324, 607, 150, 23);
-		btnEditarBebida.addActionListener(this.controlador);
+		btnEditarBebida.setBounds(324, 577, 150, 23);
 		contentPane.add(btnEditarBebida);
 
 		btnBorrarBebida = new JButton("Borrar Bebida");
-		btnBorrarBebida.setBounds(10, 607, 150, 23);
-		btnBorrarBebida.addActionListener(this.controlador);
+		btnBorrarBebida.setBounds(10, 577, 150, 23);
 		contentPane.add(btnBorrarBebida);
+		
+		lblBebidaSeleccionada = new JLabel("Bebida Seleccionada:");
+		lblBebidaSeleccionada.setHorizontalAlignment(SwingConstants.LEFT);
+		lblBebidaSeleccionada.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		lblBebidaSeleccionada.setBounds(10, 504, 221, 34);
+		contentPane.add(lblBebidaSeleccionada);
+		
+		label = new JLabel("Nombre");
+		label.setBounds(10, 552, 80, 14);
+		contentPane.add(label);
+		
+		txfNombreSe = new JTextField();
+		txfNombreSe.setColumns(10);
+		txfNombreSe.setBounds(81, 549, 150, 20);
+		contentPane.add(txfNombreSe);
+		
+		label_1 = new JLabel("Precio");
+		label_1.setBounds(255, 552, 46, 14);
+		contentPane.add(label_1);
+		
+		txfPrecioSe = new JTextField();
+		txfPrecioSe.setColumns(10);
+		txfPrecioSe.setBounds(324, 549, 150, 20);
+		contentPane.add(txfPrecioSe);
+		
+		label_2 = new JLabel("Bebida Seleccionada:");
+		label_2.setHorizontalAlignment(SwingConstants.LEFT);
+		label_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		label_2.setBounds(10, 624, 221, 34);
+		contentPane.add(label_2);
 	}
 	
 	public JTextField getNombre(){
@@ -170,5 +202,37 @@ public class AM_Bebida extends JFrame {
 	
 	public JTable getTablaBebida(){
 		return this.tblBebidas;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	public void setNombreColumnas(String[] nombreColumnas) {
+		this.nombreColumnas = nombreColumnas;
+	}
+
+	public DefaultTableModel getModelPersonas() {
+		return modelPersonas;
+	}
+
+	public void setModelPersonas(DefaultTableModel modelPersonas) {
+		this.modelPersonas = modelPersonas;
+	}
+
+	public JTextField getTxfNombreSe() {
+		return txfNombreSe;
+	}
+
+	public void setTxfNombreSe(JTextField txfNombreSe) {
+		this.txfNombreSe = txfNombreSe;
+	}
+
+	public JTextField getTxfPrecioSe() {
+		return txfPrecioSe;
+	}
+
+	public void setTxfPrecioSe(JTextField txfPrecioSe) {
+		this.txfPrecioSe = txfPrecioSe;
 	}
 }

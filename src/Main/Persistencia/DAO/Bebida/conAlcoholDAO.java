@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Modelo.DTO.Bebidas.conAlcoholDTO;
+import Modelo.DTO.Comidas.entradaDTO;
 import Persistencia.Conexion.Conexion;
 
 public class conAlcoholDAO {
 
 	private static final String insert = "INSERT INTO conAlcohol(idConAlcohol, nombre, precio) VALUES(?,?,?)";
 	private static final String delete = "DELETE FROM conAlcohol WHERE idConAlcohol = ?";
+	private static final String update = "UPDATE conAlcohol SET nombre=?, precio=? WHERE idConAlcohol=?";
 	private static final String readall = "SELECT * FROM conAlcohol";
 	private static final Conexion conexion = Conexion.getConexion();
 
@@ -75,7 +77,27 @@ public class conAlcoholDAO {
 		return conAlcoholes;
 	}
 
-	public boolean update() {
+	public boolean update(conAlcoholDTO conAlcohol) {
+		PreparedStatement statement;
+		int chequeoUpdate=0;
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(update);
+			statement.setString(1, conAlcohol.getNombre());
+			statement.setBigDecimal(2, conAlcohol.getPrecio());
+			statement.setInt(3, conAlcohol.getIdConAlcohol());
+			chequeoUpdate = statement.executeUpdate();
+			if(chequeoUpdate > 0) //Si se ejecut� devuelvo true
+				return true;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
 		return false;
 	}
 }

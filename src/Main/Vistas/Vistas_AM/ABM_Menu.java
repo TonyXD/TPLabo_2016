@@ -1,6 +1,5 @@
-package Main.Vistas;
+package Vistas.Vistas_AM;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -134,12 +133,12 @@ public class ABM_Menu extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Menu", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(844, 11, 354, 732);
+		panel_1.setBounds(844, 11, 354, 470);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(6, 16, 338, 705);
+		scrollPane_2.setBounds(6, 16, 338, 450);
 		panel_1.add(scrollPane_2);
 		
 		table_2 = new JTable();

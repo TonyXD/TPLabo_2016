@@ -23,12 +23,18 @@ public class AM_Plato extends JFrame {
 	private JTextField txfPrecio;
 	
 	private JComboBox<String> cbxTipoPlato;
+	
 	private JTable tblPlato;
+	private DefaultTableModel modelPersonas;
 	
 	private JButton btnCargarPlato;
 	private JButton btnEditarPlato;
 	private JButton btnBorrarPlato;
 	private JButton btnAgregarPlato;
+	
+	private  String[] nombreColumnas = {"Nombre", "Precio"};
+	private JTextField txfNombreSe;
+	private JTextField txfPrecioSe;
 
 	
 	public AM_Plato() {
@@ -62,42 +68,53 @@ public class AM_Plato extends JFrame {
 		contentPane.add(cbxTipoPlato);
 
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(10, 657, 80, 14);
+		lblNombre.setBounds(10, 672, 80, 14);
 		contentPane.add(lblNombre);
 
 		txfNombre = new JTextField();
-		txfNombre.setBounds(81, 654, 150, 20);
+		txfNombre.setBounds(81, 669, 150, 20);
 		contentPane.add(txfNombre);
 		txfNombre.setColumns(10);
 
 		JLabel lblPrecio = new JLabel("Precio");
-		lblPrecio.setBounds(255, 657, 46, 14);
+		lblPrecio.setBounds(255, 672, 46, 14);
 		contentPane.add(lblPrecio);
 
 		txfPrecio = new JTextField();
-		txfPrecio.setBounds(324, 654, 150, 20);
+		txfPrecio.setBounds(324, 669, 150, 20);
 		contentPane.add(txfPrecio);
 		txfPrecio.setColumns(10);
 
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 685, 464, 2);
-		contentPane.add(separator_1);
-
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(10, 641, 464, 2);
+		separator_2.setBounds(10, 611, 464, 2);
 		contentPane.add(separator_2);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 100, 464, 496);
+		scrollPane.setBounds(10, 100, 464, 393);
 		contentPane.add(scrollPane);
-
-		tblPlato = new JTable();
+		
+		modelPersonas = new DefaultTableModel(null, this.nombreColumnas);
+		tblPlato = new JTable(modelPersonas);
+		tblPlato.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblPlato.getColumnModel().getColumn(0).setResizable(false);
+		tblPlato.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblPlato.getColumnModel().getColumn(1).setResizable(false);
 		scrollPane.setViewportView(tblPlato);
-		tblPlato.setModel(
-				new DefaultTableModel(new Object[][] { { null, null }, }, new String[] { "Nombre", "Precio" }));
+		
+		tblPlato.addMouseListener(new java.awt.event.MouseAdapter() {
+		    @Override
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		        int row = tblPlato.rowAtPoint(evt.getPoint());
+		        int col = tblPlato.columnAtPoint(evt.getPoint());
+		        if (row >= 0 && col >= 0) {
+		        	txfNombreSe.setText((String) tblPlato.getValueAt(row, 0));
+		        	txfPrecioSe.setText((String) tblPlato.getValueAt(row, 1));
+		        }
+		    }
+		});
 		
 		btnAgregarPlato = new JButton("Agregar Plato");
-		btnAgregarPlato.setBounds(340, 698, 134, 23);
+		btnAgregarPlato.setBounds(340, 697, 134, 23);
 		contentPane.add(btnAgregarPlato);
 
 		btnCargarPlato = new JButton("Cargar Tabla");
@@ -105,12 +122,42 @@ public class AM_Plato extends JFrame {
 		contentPane.add(btnCargarPlato);
 
 		btnEditarPlato = new JButton("Editar Plato");
-		btnEditarPlato.setBounds(376, 607, 98, 23);
+		btnEditarPlato.setBounds(340, 577, 134, 23);
 		contentPane.add(btnEditarPlato);
 
 		btnBorrarPlato = new JButton("Borrar Plato");
-		btnBorrarPlato.setBounds(10, 607, 150, 23);
+		btnBorrarPlato.setBounds(10, 577, 150, 23);
 		contentPane.add(btnBorrarPlato);
+		
+		JLabel lblPlatoSeleccionado = new JLabel("Plato Seleccionado:");
+		lblPlatoSeleccionado.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPlatoSeleccionado.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		lblPlatoSeleccionado.setBounds(10, 504, 221, 34);
+		contentPane.add(lblPlatoSeleccionado);
+		
+		JLabel label = new JLabel("Nombre");
+		label.setBounds(10, 552, 80, 14);
+		contentPane.add(label);
+		
+		txfNombreSe = new JTextField();
+		txfNombreSe.setColumns(10);
+		txfNombreSe.setBounds(81, 549, 150, 20);
+		contentPane.add(txfNombreSe);
+		
+		JLabel label_1 = new JLabel("Precio");
+		label_1.setBounds(255, 552, 46, 14);
+		contentPane.add(label_1);
+		
+		txfPrecioSe = new JTextField();
+		txfPrecioSe.setColumns(10);
+		txfPrecioSe.setBounds(324, 549, 150, 20);
+		contentPane.add(txfPrecioSe);
+		
+		JLabel lblPlatoNuevo = new JLabel("Plato Nuevo:");
+		lblPlatoNuevo.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPlatoNuevo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		lblPlatoNuevo.setBounds(10, 624, 221, 34);
+		contentPane.add(lblPlatoNuevo);
 	}
 	
 	public JTextField getNombre(){
@@ -144,8 +191,44 @@ public class AM_Plato extends JFrame {
 	public void setCbxTipoPlato(JComboBox<String> cbxTipoPlato) {
 		this.cbxTipoPlato = cbxTipoPlato;
 	}
-	
-	public JTable getTablaPlato(){
-		return this.tblPlato;
+
+	public DefaultTableModel getModelPersonas() {
+		return modelPersonas;
+	}
+
+	public void setModelPersonas(DefaultTableModel modelPersonas) {
+		this.modelPersonas = modelPersonas;
+	}
+
+	public JTable getTabla() {
+		return tblPlato;
+	}
+
+	public void setTabla(JTable tabla) {
+		this.tblPlato = tabla;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	public void setNombreColumnas(String[] nombreColumnas) {
+		this.nombreColumnas = nombreColumnas;
+	}
+
+	public JTextField getTxfNombreSe() {
+		return txfNombreSe;
+	}
+
+	public void setTxfNombreSe(JTextField txfNombreSe) {
+		this.txfNombreSe = txfNombreSe;
+	}
+
+	public JTextField getTxfPrecioSe() {
+		return txfPrecioSe;
+	}
+
+	public void setTxfPrecioSe(JTextField txfPrecioSe) {
+		this.txfPrecioSe = txfPrecioSe;
 	}
 }

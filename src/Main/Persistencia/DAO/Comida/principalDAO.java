@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Modelo.DTO.Comidas.entradaDTO;
 import Modelo.DTO.Comidas.principalDTO;
 import Persistencia.Conexion.Conexion;
 
@@ -13,6 +14,7 @@ public class principalDAO {
 
 	private static final String insert = "INSERT INTO principal(idPrincipal, nombre, precio) VALUES(?,?,?)";
 	private static final String delete = "DELETE FROM principal WHERE idPrincipal = ?";
+	private static final String update = "UPDATE principal SET nombre=?, precio=? WHERE idPrincipal=?";
 	private static final String readall = "SELECT * FROM principal";
 	private static final Conexion conexion = Conexion.getConexion();
 
@@ -75,7 +77,27 @@ public class principalDAO {
 		return principales;
 	}
 
-	public boolean update() {
+	public boolean update(principalDTO principal) {
+		PreparedStatement statement;
+		int chequeoUpdate=0;
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(update);
+			statement.setString(1, principal.getNombre());
+			statement.setBigDecimal(2, principal.getPrecio());
+			statement.setInt(3, principal.getIdPrincipal());
+			chequeoUpdate = statement.executeUpdate();
+			if(chequeoUpdate > 0) //Si se ejecut� devuelvo true
+				return true;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
 		return false;
 	}
 }

@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import Modelo.DTO.Comidas.entradaDTO;
 import Modelo.DTO.Comidas.postreDTO;
 import Modelo.DTO.Comidas.principalDTO;
@@ -24,17 +26,19 @@ public class AM_Plato_Controller implements ActionListener {
 	public AM_Plato_Controller(AM_Plato vistaPlatos, Carta carta) {
 		this.vistaPlatos = vistaPlatos;
 		this.carta = carta;
+
+		this.vistaPlatos.getBtnAgregar().addActionListener(this);
+		this.vistaPlatos.getBtnCargar().addActionListener(this);
+		this.vistaPlatos.getBtnEditar().addActionListener(this);
+		this.vistaPlatos.getBtnBorrar().addActionListener(this);
+		
+		this.inicializar();
 	}
 
 	public void inicializar() {
 		this.setEntrada(carta.obtenerEntradas());
 		this.setPrincipal(carta.obtenerPrincipales());
 		this.setPostre(carta.obtenerPostres());
-		
-		this.vistaPlatos.getBtnAgregar().addActionListener(this);
-		this.vistaPlatos.getBtnCargar().addActionListener(this);
-		this.vistaPlatos.getBtnEditar().addActionListener(this);
-		this.vistaPlatos.getBtnBorrar().addActionListener(this);
 	}
 
 	@Override
@@ -50,8 +54,10 @@ public class AM_Plato_Controller implements ActionListener {
 
 		} else if (e.getSource() == this.vistaPlatos.getBtnEditar()) {
 
+			this.editarPlato(this.vistaPlatos.getCbxTipoPlato().getSelectedIndex());
+
 		} else if (e.getSource() == this.vistaPlatos.getBtnBorrar()) {
-			
+
 			this.borrarPlato(this.vistaPlatos.getCbxTipoPlato().getSelectedIndex());
 		}
 	}
@@ -62,65 +68,131 @@ public class AM_Plato_Controller implements ActionListener {
 		BigDecimal precio = new BigDecimal(this.vistaPlatos.getPrecio().getText().replaceAll(",", ""));
 
 		if (indice == 0) {
-
-			this.carta.agregarEntrada(new entradaDTO(1, nombre, precio));
+			entradaDTO ent = new entradaDTO(0, nombre, precio);
+			this.carta.agregarEntrada(ent);
+			this.entrada.add(ent);
+			this.cargarTabla(0);
 
 		} else if (indice == 1) {
-
-			this.carta.agregarPrincipal(new principalDTO(1, nombre, precio));
+			principalDTO prin = new principalDTO(0, nombre, precio);
+			this.carta.agregarPrincipal(prin);
+			this.principal.add(prin);
+			this.cargarTabla(1);
 
 		} else {
-
-			this.carta.agregarPostre(new postreDTO(1, nombre, precio));
+			postreDTO pos = new postreDTO(0, nombre, precio);
+			this.carta.agregarPostre(pos);
+			this.postre.add(pos);
+			this.cargarTabla(2);
 		}
 	}
 
 	public void cargarTabla(int indice) {
 
-		this.vistaPlatos.getTablaPlato().removeAll();
+		this.vistaPlatos.getModelPersonas().setRowCount(0);
+		this.vistaPlatos.getModelPersonas().setColumnCount(0);
+		this.vistaPlatos.getModelPersonas().setColumnIdentifiers(this.vistaPlatos.getNombreColumnas());
 
 		if (indice == 0) {
 			for (int i = 0; i < this.entrada.size(); i++) {
-				vistaPlatos.getTablaPlato().setValueAt(entrada.get(i).getNombre(), i, 0);
-				vistaPlatos.getTablaPlato().setValueAt(entrada.get(i).getPrecio(), i, 1);
+				Object[] fila = { this.entrada.get(i).getNombre(), this.entrada.get(i).getPrecio().toString() };
+				this.vistaPlatos.getModelPersonas().addRow(fila);
+				this.vistaPlatos.getTxfNombreSe().setText("");
+				this.vistaPlatos.getTxfPrecioSe().setText("");
 			}
 		} else if (indice == 1) {
 			for (int i = 0; i < this.principal.size(); i++) {
-				vistaPlatos.getTablaPlato().setValueAt(principal.get(i).getNombre(), i, 0);
-				vistaPlatos.getTablaPlato().setValueAt(principal.get(i).getPrecio(), i, 1);
+				Object[] fila = { this.principal.get(i).getNombre(), this.principal.get(i).getPrecio().toString() };
+				this.vistaPlatos.getModelPersonas().addRow(fila);
+				this.vistaPlatos.getTxfNombreSe().setText("");
+				this.vistaPlatos.getTxfPrecioSe().setText("");
 			}
 		} else {
 			for (int i = 0; i < this.postre.size(); i++) {
-				vistaPlatos.getTablaPlato().setValueAt(postre.get(i).getNombre(), i, 0);
-				vistaPlatos.getTablaPlato().setValueAt(postre.get(i).getPrecio(), i, 1);
+				Object[] fila = { this.postre.get(i).getNombre(), this.postre.get(i).getPrecio().toString() };
+				this.vistaPlatos.getModelPersonas().addRow(fila);
+				this.vistaPlatos.getTxfNombreSe().setText("");
+				this.vistaPlatos.getTxfPrecioSe().setText("");
 			}
 		}
 	}
-	
-	public void borrarPlato(int indice){
-		
-		Integer seleccion = this.vistaPlatos.getTablaPlato().getSelectedRow();
-		
-		if(indice==0){
-			
-			this.carta.borrarEntrada(this.entrada.get(seleccion));
-			this.entrada.remove(seleccion);
-			this.cargarTabla(0);
-			
-		}else if(indice==1){
-			
-			this.carta.borrarPrincipal(this.principal.get(seleccion));
-			this.principal.remove(seleccion);
-			this.cargarTabla(1);
-			
-		}else{
-			
-			this.carta.borrarPostre(this.postre.get(seleccion));
-			this.postre.remove(seleccion);
-			this.cargarTabla(2);
+
+	public void borrarPlato(int indice) {
+
+		int seleccion = this.vistaPlatos.getTabla().getSelectedRow();
+
+		if (seleccion >= 0) {
+			if (indice == 0) {
+
+				this.carta.borrarEntrada(this.entrada.get(seleccion));
+				this.entrada.remove(seleccion);
+				this.cargarTabla(0);
+				this.vistaPlatos.getTxfNombreSe().setText("");
+				this.vistaPlatos.getTxfPrecioSe().setText("");
+
+			} else if (indice == 1) {
+
+				this.carta.borrarPrincipal(this.principal.get(seleccion));
+				this.principal.remove(seleccion);
+				this.cargarTabla(1);
+				this.vistaPlatos.getTxfNombreSe().setText("");
+				this.vistaPlatos.getTxfPrecioSe().setText("");
+
+			} else {
+
+				this.carta.borrarPostre(this.postre.get(seleccion));
+				this.postre.remove(seleccion);
+				this.cargarTabla(2);
+				this.vistaPlatos.getTxfNombreSe().setText("");
+				this.vistaPlatos.getTxfPrecioSe().setText("");
+			}
+		} else {
+			JOptionPane.showMessageDialog(vistaPlatos, "Seleccione una fila");
 		}
 	}
-	
+
+	public void editarPlato(int indice) {
+		
+		int seleccion = this.vistaPlatos.getTabla().getSelectedRow();
+		
+		if(seleccion>=0){
+			
+			String nombre = this.vistaPlatos.getTxfNombreSe().getText();
+			BigDecimal precio = new BigDecimal(this.vistaPlatos.getTxfPrecioSe().getText().replaceAll(",", ""));
+			
+			if (indice == 0) {
+				
+				entradaDTO edit = new entradaDTO(this.entrada.get(seleccion).getIdEntrada(), nombre, precio);
+				this.carta.editarEntrada(edit);
+				this.entrada = carta.obtenerEntradas();
+				this.cargarTabla(0);
+				this.vistaPlatos.getTxfNombreSe().setText("");
+				this.vistaPlatos.getTxfPrecioSe().setText("");
+
+			} else if (indice == 1) {
+				
+				principalDTO edit = new principalDTO(this.principal.get(seleccion).getIdPrincipal(), nombre, precio);
+				this.carta.editarPrincipal(edit);
+				this.principal = carta.obtenerPrincipales();
+				this.cargarTabla(1);
+				this.vistaPlatos.getTxfNombreSe().setText("");
+				this.vistaPlatos.getTxfPrecioSe().setText("");
+				
+			} else {
+				
+				postreDTO edit = new postreDTO(this.postre.get(seleccion).getIdPostre(), nombre, precio);
+				this.carta.editarPostre(edit);
+				this.postre = carta.obtenerPostres();
+				this.cargarTabla(2);
+				this.vistaPlatos.getTxfNombreSe().setText("");
+				this.vistaPlatos.getTxfPrecioSe().setText("");
+				
+			}
+		}else {
+			JOptionPane.showMessageDialog(vistaPlatos, "Seleccione una fila");
+		}
+	}
+
 	public List<entradaDTO> getEntrada() {
 		return entrada;
 	}

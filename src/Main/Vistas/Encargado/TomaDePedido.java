@@ -22,17 +22,29 @@ import java.awt.Color;
 public class TomaDePedido extends JFrame {
 
 	private JPanel contentPane;
+	
+	private JTextField txfTotal;
+	
 	private JTable tblEntradaSelect;
 	private JTable tblPrincipalSelect;
 	private JTable tblPostreSelect;
-	private JTextField textField;
 	private JTable tblBebidaSelect;
-	private JTable tbl_Menu;
-	private JTable tbl_Entrada;
-	private JTable tbl_Principal;
-	private JTable tbl_Postres;
-	private JTable tbl_Bebidas;
 	private JTable tblMenuSelect;
+	
+	private JTable tblMenu;
+	private JTable tblEntrada;
+	private JTable tblPrincipal;
+	private JTable tblPostres;
+	private JTable tblBebidas;
+	
+	private DefaultTableModel modelEntrada;
+	private DefaultTableModel modelPrincipal;
+	private DefaultTableModel modelPostre;
+	private DefaultTableModel modelBebidas;
+	private DefaultTableModel modelMenus;
+	
+	private  String[] nombreColumnas = {"Nombre", "Precio"};
+	private  String[] nombreColumnasS = {"Nombre","Observaciones" ,"Cantidad"};
 
 	/**
 	 * Launch the application.
@@ -74,72 +86,69 @@ public class TomaDePedido extends JFrame {
 		JScrollPane scPnl_Entrada = new JScrollPane();
 		tabbedPane.addTab("Entrada", null, scPnl_Entrada, null);
 		
-		tbl_Entrada = new JTable();
-		tbl_Entrada.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-			},
-			new String[] {
-				"Nombre", "Precio"
-			}
-		));
-		scPnl_Entrada.setColumnHeaderView(tbl_Entrada);
+		modelEntrada = new DefaultTableModel(null, this.nombreColumnas);
+		setTblEntrada(new JTable(modelEntrada));
+		tblEntrada.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblEntrada.getColumnModel().getColumn(0).setResizable(false);
+		tblEntrada.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblEntrada.getColumnModel().getColumn(1).setResizable(false);
+		scPnl_Entrada.setViewportView(tblEntrada);
+		
+//		tblEntrada.addMouseListener(new java.awt.event.MouseAdapter() {
+//		    @Override
+//		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+//		        int row = tblEntrada.rowAtPoint(evt.getPoint());
+//		        int col = tblEntrada.columnAtPoint(evt.getPoint());
+//		        if (row >= 0 && col >= 0) {
+//		        	txfNombreSe.setText((String) tblEntrada.getValueAt(row, 0));
+//		        	txfPrecioSe.setText((String) tblEntrada.getValueAt(row, 1));
+//		        }
+//		    }
+//		});
 		
 		JScrollPane scPnl_Principal = new JScrollPane();
 		tabbedPane.addTab("Principal", null, scPnl_Principal, null);
 		
-		tbl_Principal = new JTable();
-		tbl_Principal.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-			},
-			new String[] {
-				"Nombre", "Precio"
-			}
-		));
-		scPnl_Principal.setViewportView(tbl_Principal);
+		modelPrincipal = new DefaultTableModel(null, this.nombreColumnas);
+		setTblPrincipal(new JTable(modelPrincipal));
+		tblPrincipal.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblPrincipal.getColumnModel().getColumn(0).setResizable(false);
+		tblPrincipal.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblPrincipal.getColumnModel().getColumn(1).setResizable(false);
+		scPnl_Principal.setViewportView(tblPrincipal);
 		
 		JScrollPane scPnl_Postres = new JScrollPane();
 		tabbedPane.addTab("Postres", null, scPnl_Postres, null);
 		
-		tbl_Postres = new JTable();
-		tbl_Postres.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-			},
-			new String[] {
-				"Nombre", "Precio"
-			}
-		));
-		scPnl_Postres.setViewportView(tbl_Postres);
+		modelPostre = new DefaultTableModel(null, this.nombreColumnas);
+		setTblPostres(new JTable(modelPostre));
+		tblPostres.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblPostres.getColumnModel().getColumn(0).setResizable(false);
+		tblPostres.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblPostres.getColumnModel().getColumn(1).setResizable(false);
+		scPnl_Postres.setViewportView(tblPostres);
 		
 		JScrollPane scPnl_Bebidas = new JScrollPane();
 		tabbedPane.addTab("Bebidas", null, scPnl_Bebidas, null);
 		
-		tbl_Bebidas = new JTable();
-		tbl_Bebidas.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-			},
-			new String[] {
-				"Nombre", "Precio"
-			}
-		));
-		scPnl_Bebidas.setViewportView(tbl_Bebidas);
+		modelBebidas = new DefaultTableModel(null, this.nombreColumnas);
+		setTblBebidas(new JTable(modelBebidas));
+		tblBebidas.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblBebidas.getColumnModel().getColumn(0).setResizable(false);
+		tblBebidas.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblBebidas.getColumnModel().getColumn(1).setResizable(false);
+		scPnl_Bebidas.setViewportView(tblBebidas);
 		
 		JScrollPane scPnl_Menu = new JScrollPane();
 		tabbedPane.addTab("Menús", null, scPnl_Menu, null);
 		
-		tbl_Menu = new JTable();
-		tbl_Menu.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null},
-			},
-			new String[] {
-				"Nombre", "Precio"
-			}
-		));
-		scPnl_Menu.setViewportView(tbl_Menu);
+		setModelMenus(new DefaultTableModel(null, this.nombreColumnas));
+		setTblMenu(new JTable(modelMenus));
+		tblMenu.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblMenu.getColumnModel().getColumn(0).setResizable(false);
+		tblMenu.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblMenu.getColumnModel().getColumn(1).setResizable(false);
+		scPnl_Menu.setViewportView(tblMenu);
 		
 		JPanel pnl_Observaciones = new JPanel();
 		pnl_Observaciones.setBounds(10, 602, 830, 149);
@@ -269,10 +278,10 @@ public class TomaDePedido extends JFrame {
 		));
 		scrollPane_4.setViewportView((tblMenuSelect));
 		
-		textField = new JTextField();
-		textField.setBounds(224, 702, 114, 31);
-		pnl_PreVisualisacionPedido.add(textField);
-		textField.setColumns(10);
+		txfTotal = new JTextField();
+		txfTotal.setBounds(224, 702, 114, 31);
+		pnl_PreVisualisacionPedido.add(txfTotal);
+		txfTotal.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Total:");
 		lblNewLabel.setBounds(124, 702, 90, 31);
@@ -283,5 +292,101 @@ public class TomaDePedido extends JFrame {
 		lblMenu.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		lblMenu.setBounds(10, 568, 90, 30);
 		pnl_PreVisualisacionPedido.add(lblMenu);
+	}
+
+	public DefaultTableModel getModelEntrada() {
+		return modelEntrada;
+	}
+
+	public void setModelEntrada(DefaultTableModel modelEntrada) {
+		this.modelEntrada = modelEntrada;
+	}
+
+	public DefaultTableModel getModelPrincipal() {
+		return modelPrincipal;
+	}
+
+	public void setModelPrincipal(DefaultTableModel modelPrincipal) {
+		this.modelPrincipal = modelPrincipal;
+	}
+
+	public DefaultTableModel getModelPostre() {
+		return modelPostre;
+	}
+
+	public void setModelPostre(DefaultTableModel modelPostre) {
+		this.modelPostre = modelPostre;
+	}
+
+	public DefaultTableModel getModelBebidas() {
+		return modelBebidas;
+	}
+
+	public void setModelBebidas(DefaultTableModel modelBebidas) {
+		this.modelBebidas = modelBebidas;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	public void setNombreColumnas(String[] nombreColumnas) {
+		this.nombreColumnas = nombreColumnas;
+	}
+
+	public String[] getNombreColumnasS() {
+		return nombreColumnasS;
+	}
+
+	public void setNombreColumnasS(String[] nombreColumnasS) {
+		this.nombreColumnasS = nombreColumnasS;
+	}
+
+	public JTable getTblEntrada() {
+		return tblEntrada;
+	}
+
+	public void setTblEntrada(JTable tblEntrada) {
+		this.tblEntrada = tblEntrada;
+	}
+
+	public JTable getTblMenu() {
+		return tblMenu;
+	}
+
+	public void setTblMenu(JTable tblMenu) {
+		this.tblMenu = tblMenu;
+	}
+
+	public JTable getTblPrincipal() {
+		return tblPrincipal;
+	}
+
+	public void setTblPrincipal(JTable tblPrincipal) {
+		this.tblPrincipal = tblPrincipal;
+	}
+
+	public JTable getTblPostres() {
+		return tblPostres;
+	}
+
+	public void setTblPostres(JTable tblPostres) {
+		this.tblPostres = tblPostres;
+	}
+
+	public JTable getTblBebidas() {
+		return tblBebidas;
+	}
+
+	public void setTblBebidas(JTable tblBebidas) {
+		this.tblBebidas = tblBebidas;
+	}
+
+	public DefaultTableModel getModelMenus() {
+		return modelMenus;
+	}
+
+	public void setModelMenus(DefaultTableModel modelMenus) {
+		this.modelMenus = modelMenus;
 	}
 }
