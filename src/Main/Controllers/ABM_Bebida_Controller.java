@@ -13,7 +13,7 @@ import Modelo.DTO.Bebidas.sinAlcoholDTO;
 import Modelo.Negocio.Carta;
 import Vistas.Vistas_AM.ABM_Bebida;
 
-public class AM_Bebida_Controller implements ActionListener {
+public class ABM_Bebida_Controller implements ActionListener {
 
 	private ABM_Bebida vistaBebida;
 
@@ -23,7 +23,7 @@ public class AM_Bebida_Controller implements ActionListener {
 
 	private Carta carta;
 
-	public AM_Bebida_Controller(ABM_Bebida vistaBebidas, Carta carta) {
+	public ABM_Bebida_Controller(ABM_Bebida vistaBebidas, Carta carta) {
 		this.vistaBebida = vistaBebidas;
 		this.carta = carta;
 

@@ -18,11 +18,22 @@ import java.awt.Toolkit;
 public class ABM_Menu extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
-	private JTable table_1;
-	private JTable table_2;
-	private JTable table2;
-	private JTable table3;
+	private JTable tblEntrada;
+	private JTable tblBebida;
+	private JTable tblMenu;
+	private JTable tblPrincipal;
+	private JTable tblPostre;
+	
+	private DefaultTableModel modelEntrada;
+	private DefaultTableModel modelPrincipal;
+	private DefaultTableModel modelPostre;
+	private DefaultTableModel modelBebida;
+	private DefaultTableModel modelMenu;
+	
+	private JButton btnAgregarAlMenu;
+	private JButton btnQuitarDelMenu;
+	
+	private  String[] nombreColumnas = {"Nombre", "Precio"};
 
 	/**
 	 * Launch the application.
@@ -45,7 +56,7 @@ public class ABM_Menu extends JFrame {
 	 */
 	public ABM_Menu() {
 		setForeground(Color.WHITE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ABM_Menu.class.getResource("/Main/Imagenes/dishes-798316_1280.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ABM_Menu.class.getResource("/Imagenes/dishes-798316_1280.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1218, 800);
 		contentPane = new JPanel();
@@ -62,74 +73,62 @@ public class ABM_Menu extends JFrame {
 		tabbedPane.setBounds(10, 11, 703, 349);
 		panel.add(tabbedPane);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		tabbedPane.addTab("Entrada", null, scrollPane, null);
+		JScrollPane scpEntrada = new JScrollPane();
+		tabbedPane.addTab("Entrada", null, scpEntrada, null);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		));
-		scrollPane.setViewportView(table);
+		modelEntrada = new DefaultTableModel(null, this.nombreColumnas);
+		tblEntrada =new JTable(modelEntrada);
+		tblEntrada.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblEntrada.getColumnModel().getColumn(0).setResizable(false);
+		tblEntrada.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblEntrada.getColumnModel().getColumn(1).setResizable(false);
+		scpEntrada.setViewportView(tblEntrada);
 		
-		JScrollPane scrollPane2 = new JScrollPane();
-		tabbedPane.addTab("Principal", null, scrollPane2, null);
+		JScrollPane scrPrincipal = new JScrollPane();
+		tabbedPane.addTab("Principal", null, scrPrincipal, null);
 		
-		table2 = new JTable();
-		table2.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		));
-		scrollPane2.setViewportView(table2);
+		modelPrincipal = new DefaultTableModel(null, this.nombreColumnas);
+		tblPrincipal = new JTable(modelPrincipal);
+		tblPrincipal.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblPrincipal.getColumnModel().getColumn(0).setResizable(false);
+		tblPrincipal.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblPrincipal.getColumnModel().getColumn(1).setResizable(false);
+		scrPrincipal.setViewportView(tblPrincipal);
 		
-		JScrollPane scrollPane3 = new JScrollPane();
-		tabbedPane.addTab("Postre", null, scrollPane3, null);
+		JScrollPane scrPostre = new JScrollPane();
+		tabbedPane.addTab("Postre", null, scrPostre, null);
 		
-		table3 = new JTable();
-		table3.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		));
-		scrollPane3.setViewportView(table3);
+		modelPostre = new DefaultTableModel(null, this.nombreColumnas);
+		tblPostre = new JTable(modelPostre);
+		tblPostre.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblPostre.getColumnModel().getColumn(0).setResizable(false);
+		tblPostre.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblPostre.getColumnModel().getColumn(1).setResizable(false);
+		scrPostre.setViewportView(tblPostre);
 		
 		
 		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane_1.setBounds(10, 370, 703, 344);
 		panel.add(tabbedPane_1);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		tabbedPane_1.addTab("Bebidas", null, scrollPane_1, null);
+		JScrollPane scrBebida = new JScrollPane();
+		tabbedPane_1.addTab("Bebidas", null, scrBebida, null);
 		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		));
-		scrollPane_1.setViewportView(table_1);
+		modelBebida = new DefaultTableModel(null, this.nombreColumnas);
+		tblBebida = new JTable(modelBebida);
+		tblBebida.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblBebida.getColumnModel().getColumn(0).setResizable(false);
+		tblBebida.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblBebida.getColumnModel().getColumn(1).setResizable(false);
+		scrBebida.setViewportView(tblBebida);
 		
-		JButton btnNewButton = new JButton("<<");
-		btnNewButton.setBounds(743, 378, 89, 59);
-		contentPane.add(btnNewButton);
+		btnQuitarDelMenu = new JButton("<<");
+		btnQuitarDelMenu.setBounds(743, 378, 89, 59);
+		contentPane.add(btnQuitarDelMenu);
 		
-		JButton btnNewButton_1 = new JButton(">>");
-		btnNewButton_1.setBounds(743, 308, 89, 59);
-		contentPane.add(btnNewButton_1);
+		btnAgregarAlMenu = new JButton(">>");
+		btnAgregarAlMenu.setBounds(743, 308, 89, 59);
+		contentPane.add(btnAgregarAlMenu);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Menu", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -137,19 +136,72 @@ public class ABM_Menu extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(6, 16, 338, 450);
-		panel_1.add(scrollPane_2);
+		JScrollPane scrMenu = new JScrollPane();
+		scrMenu.setBounds(6, 16, 338, 450);
+		panel_1.add(scrMenu);
 		
-		table_2 = new JTable();
-		table_2.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-			},
-			new String[] {
-				"Nombre", "Descripcion", "Precio"
-			}
-		));
-		scrollPane_2.setViewportView(table_2);
+		modelMenu = new DefaultTableModel(null, this.nombreColumnas);
+		tblMenu = new JTable(modelMenu);
+		tblMenu.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblMenu.getColumnModel().getColumn(0).setResizable(false);
+		tblMenu.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblMenu.getColumnModel().getColumn(1).setResizable(false);
+		scrMenu.setViewportView(tblMenu);
+	}
+
+	public DefaultTableModel getModelEntrada() {
+		return modelEntrada;
+	}
+
+	public void setModelEntrada(DefaultTableModel modelEntrada) {
+		this.modelEntrada = modelEntrada;
+	}
+
+	public DefaultTableModel getModelPrincipal() {
+		return modelPrincipal;
+	}
+
+	public void setModelPrincipal(DefaultTableModel modelPrincipal) {
+		this.modelPrincipal = modelPrincipal;
+	}
+
+	public DefaultTableModel getModelPostre() {
+		return modelPostre;
+	}
+
+	public void setModelPostre(DefaultTableModel modelPostre) {
+		this.modelPostre = modelPostre;
+	}
+
+	public DefaultTableModel getModelBebida() {
+		return modelBebida;
+	}
+
+	public void setModelBebida(DefaultTableModel modelBebida) {
+		this.modelBebida = modelBebida;
+	}
+
+	public DefaultTableModel getModelMenu() {
+		return modelMenu;
+	}
+
+	public void setModelMenu(DefaultTableModel modelMenu) {
+		this.modelMenu = modelMenu;
+	}
+
+	public JButton getBtnAgregarAlMenu() {
+		return btnAgregarAlMenu;
+	}
+
+	public void setBtnAgregarAlMenu(JButton btnAgregarAlMenu) {
+		this.btnAgregarAlMenu = btnAgregarAlMenu;
+	}
+
+	public JButton getBtnQuitarDelMenu() {
+		return btnQuitarDelMenu;
+	}
+
+	public void setBtnQuitarDelMenu(JButton btnQuitarDelMenu) {
+		this.btnQuitarDelMenu = btnQuitarDelMenu;
 	}
 }

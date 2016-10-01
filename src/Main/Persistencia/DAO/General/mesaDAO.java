@@ -24,7 +24,7 @@ public class mesaDAO {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
 			statement.setInt(1, mesa.getIdMesa());
 			statement.setInt(2, mesa.getCapacidad());
-			statement.setInt(3, mesa.getMozo().getIdMozo());
+//			statement.setInt(3, mesa.getMozo().getIdMozo());
 			statement.setInt(3, mesa.getEstado().getIdEstado());
 
 			if (statement.executeUpdate() > 0) // Si se ejecuta devuelvo true
@@ -67,7 +67,7 @@ public class mesaDAO {
 			while (resultSet.next()) {
 				mozoDTO mozo = dameMozo(resultSet.getInt("mozo"));
 				estadoDTO estado = dameEstado(resultSet.getInt("estado"));
-				mesas.add(new mesaDTO(resultSet.getInt("idMesa"), resultSet.getInt("capacidad"), mozo, estado));
+//				mesas.add(new mesaDTO(resultSet.getInt("idMesa"), resultSet.getInt("capacidad"), mozo, estado));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

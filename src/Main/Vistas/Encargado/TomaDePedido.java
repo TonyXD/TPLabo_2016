@@ -80,7 +80,7 @@ public class TomaDePedido extends JFrame {
 	public TomaDePedido() {
 		setTitle("Toma De Pedidos");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1218, 800);
+		setBounds(100, 100, 1218, 631);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,7 +92,7 @@ public class TomaDePedido extends JFrame {
 		pnl_Seleccion.setLayout(null);
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 830, 580);
+		tabbedPane.setBounds(0, 0, 490, 580);
 		pnl_Seleccion.add(tabbedPane);
 
 		JScrollPane scPnl_Entrada = new JScrollPane();
@@ -163,8 +163,8 @@ public class TomaDePedido extends JFrame {
 		scPnl_Menu.setViewportView(tblMenu);
 
 		JPanel pnl_Observaciones = new JPanel();
-		pnl_Observaciones.setBounds(10, 602, 830, 149);
-		contentPane.add(pnl_Observaciones);
+		pnl_Observaciones.setBounds(500, 23, 320, 557);
+		pnl_Seleccion.add(pnl_Observaciones);
 		pnl_Observaciones.setLayout(null);
 
 		txtObservaciones = new JTextPane();
@@ -176,26 +176,26 @@ public class TomaDePedido extends JFrame {
 		lblNewLabel_1.setBounds(10, 0, 142, 36);
 		pnl_Observaciones.add(lblNewLabel_1);
 
-		btnAgregarAlPedido = new JButton("Agregar al Pedido");
-		btnAgregarAlPedido.setBounds(700, 11, 120, 34);
+		btnAgregarAlPedido = new JButton(">>");
+		btnAgregarAlPedido.setBounds(97, 221, 120, 67);
 		pnl_Observaciones.add(btnAgregarAlPedido);
 
 		spnCantidad = new JSpinner();
 		spnCantidad.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-		spnCantidad.setBounds(607, 11, 83, 34);
+		spnCantidad.setBounds(227, 151, 83, 34);
 		pnl_Observaciones.add(spnCantidad);
 
 		JLabel lblCantidad = new JLabel("Cantidad:");
 		lblCantidad.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblCantidad.setBounds(507, 11, 90, 34);
+		lblCantidad.setBounds(127, 149, 90, 34);
 		pnl_Observaciones.add(lblCantidad);
 		
-		btnQuitarDelPedido = new JButton("Quitar del Pedido");
-		btnQuitarDelPedido.setBounds(700, 56, 120, 34);
+		btnQuitarDelPedido = new JButton("<<");
+		btnQuitarDelPedido.setBounds(97, 320, 120, 80);
 		pnl_Observaciones.add(btnQuitarDelPedido);
 
 		JPanel pnl_PreVisualisacionPedido = new JPanel();
-		pnl_PreVisualisacionPedido.setBounds(848, 11, 344, 740);
+		pnl_PreVisualisacionPedido.setBounds(848, 11, 344, 580);
 		contentPane.add(pnl_PreVisualisacionPedido);
 		pnl_PreVisualisacionPedido.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Pedido",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -207,7 +207,7 @@ public class TomaDePedido extends JFrame {
 		lblEntrada.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
 		
 		JScrollPane scPnl_Select = new JScrollPane();
-		scPnl_Select.setBounds(10, 57, 322, 518);
+		scPnl_Select.setBounds(10, 57, 322, 398);
 		pnl_PreVisualisacionPedido.add(scPnl_Select);
 		
 		modelSelect = new DefaultTableModel(null, this.nombreColumnasS);
@@ -219,26 +219,26 @@ public class TomaDePedido extends JFrame {
 		scPnl_Select.setViewportView(tblPedidoSelect);
 
 		txfTotal = new JTextField();
-		txfTotal.setBounds(224, 616, 114, 31);
+		txfTotal.setBounds(218, 466, 114, 31);
 		pnl_PreVisualisacionPedido.add(txfTotal);
 		txfTotal.setColumns(10);
 
 		JLabel lblNewLabel = new JLabel("SubTotal:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(10, 616, 204, 31);
+		lblNewLabel.setBounds(4, 466, 204, 31);
 		pnl_PreVisualisacionPedido.add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 658, 322, 7);
+		separator.setBounds(4, 508, 322, 7);
 		pnl_PreVisualisacionPedido.add(separator);
 		
 		btnCrearPedido = new JButton("Crear Pedido");
-		btnCrearPedido.setBounds(202, 695, 130, 34);
+		btnCrearPedido.setBounds(196, 545, 130, 34);
 		pnl_PreVisualisacionPedido.add(btnCrearPedido);
 		
 		btnCancelarPedido = new JButton("Cancelar Pedido");
-		btnCancelarPedido.setBounds(10, 695, 130, 34);
+		btnCancelarPedido.setBounds(4, 545, 130, 34);
 		pnl_PreVisualisacionPedido.add(btnCancelarPedido);
 	}
 

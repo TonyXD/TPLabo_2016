@@ -185,12 +185,16 @@ public class TomaDePedido_Controller implements ActionListener {
 
 		Object[] filaE = { "Entradas:" };
 		this.vistaPedido.getModelSelect().addRow(filaE);
+		
 		Object[] filaP = { "Principales:" };
 		this.vistaPedido.getModelSelect().addRow(filaP);
+		
 		Object[] filaPo = { "Postres:" };
 		this.vistaPedido.getModelSelect().addRow(filaPo);
+		
 		Object[] filaB = { "Bebidas:" };
 		this.vistaPedido.getModelSelect().addRow(filaB);
+		
 		Object[] filaM = { "Menus:" };
 		this.vistaPedido.getModelSelect().addRow(filaM);
 

@@ -1,18 +1,14 @@
 package Modelo.DTO.General;
 
-import Modelo.DTO.RecursosHumanos.mozoDTO;
-
 public class mesaDTO {
 	
 	private int idMesa;
 	private int capacidad;
-	private mozoDTO mozo;
 	private estadoDTO estado;
 	
-	public mesaDTO(int idMesa, int capacidad, mozoDTO mozo , estadoDTO estado){
+	public mesaDTO(int idMesa, int capacidad, estadoDTO estado){
 		this.idMesa = idMesa;
 		this.capacidad = capacidad;
-		this.mozo = mozo;
 		this.estado = estado;
 	}
 	
@@ -33,13 +29,5 @@ public class mesaDTO {
 	}
 	public void setEstado(estadoDTO estado) {
 		this.estado = estado;
-	}
-
-	public mozoDTO getMozo() {
-		return mozo;
-	}
-
-	public void setMozo(mozoDTO mozo) {
-		this.mozo = mozo;
 	}
 }

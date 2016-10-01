@@ -25,7 +25,7 @@ public class ABM_Plato extends JFrame {
 	private JComboBox<String> cbxTipoPlato;
 	
 	private JTable tblPlato;
-	private DefaultTableModel modelPersonas;
+	private DefaultTableModel modelPlato;
 	
 	private JButton btnCargarPlato;
 	private JButton btnEditarPlato;
@@ -93,8 +93,8 @@ public class ABM_Plato extends JFrame {
 		scrollPane.setBounds(10, 100, 464, 393);
 		contentPane.add(scrollPane);
 		
-		modelPersonas = new DefaultTableModel(null, this.nombreColumnas);
-		tblPlato = new JTable(modelPersonas);
+		modelPlato = new DefaultTableModel(null, this.nombreColumnas);
+		tblPlato = new JTable(modelPlato);
 		tblPlato.getColumnModel().getColumn(0).setPreferredWidth(103);
 		tblPlato.getColumnModel().getColumn(0).setResizable(false);
 		tblPlato.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -193,11 +193,11 @@ public class ABM_Plato extends JFrame {
 	}
 
 	public DefaultTableModel getModelPersonas() {
-		return modelPersonas;
+		return modelPlato;
 	}
 
 	public void setModelPersonas(DefaultTableModel modelPersonas) {
-		this.modelPersonas = modelPersonas;
+		this.modelPlato = modelPersonas;
 	}
 
 	public JTable getTabla() {

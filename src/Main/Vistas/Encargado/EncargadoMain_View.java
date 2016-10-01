@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import Utils.PA_PreView;
 import Utils.PB_PreView;
+import java.awt.Color;
 
 public class EncargadoMain_View extends JFrame {
 
@@ -39,8 +40,10 @@ public class EncargadoMain_View extends JFrame {
 	 * Create the frame.
 	 */
 	public EncargadoMain_View() {
+		setBackground(new Color(255, 255, 255));
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(EncargadoMain_View.class.getResource("/Imagenes/dishes-798316_1280.png")));
-		setTitle("Nombre a definir");
+		setTitle("Delicatessen S.A.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1218, 720);
 		
@@ -48,12 +51,14 @@ public class EncargadoMain_View extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Desplegable 01");
+		mnNewMenu.setEnabled(false);
 		menuBar.add(mnNewMenu);
 		
 		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
 		mnNewMenu.add(mntmNewMenuItem);
 		
 		JMenu mnNewMenu_1 = new JMenu("Desplegable 02");
+		mnNewMenu_1.setEnabled(false);
 		menuBar.add(mnNewMenu_1);
 		
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("New menu item");
@@ -70,19 +75,22 @@ public class EncargadoMain_View extends JFrame {
 		mainPanel.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Ver Conina");
-		btnNewButton.setBounds(0, 0, 130, 43);
+		JButton btnNewButton = new JButton("Ver Cocina");
+		btnNewButton.setEnabled(false);
+		btnNewButton.setBounds(420, 0, 130, 43);
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Pedido");
+		JButton btnNewButton_1 = new JButton("Ver Pedido");
 		btnNewButton_1.setBounds(140, 0, 130, 43);
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Reserva");
+		btnNewButton_2.setEnabled(false);
 		btnNewButton_2.setBounds(280, 0, 130, 43);
 		panel.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Ver Stock");
+		btnNewButton_3.setEnabled(false);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -90,22 +98,24 @@ public class EncargadoMain_View extends JFrame {
 		btnNewButton_3.setBounds(700, 0, 130, 43);
 		panel.add(btnNewButton_3);
 		
-		JButton btnPlatos = new JButton("Carta");
+		JButton btnPlatos = new JButton("Ver Carta");
 		btnPlatos.setBounds(560, 0, 130, 43);
 		panel.add(btnPlatos);
 		
-		JButton btnBebidas = new JButton("Control Mesa");
+		JButton btnBebidas = new JButton("Ver Mesas");
 		btnBebidas.setActionCommand("Control\r\n\r\nMesa");
 		btnBebidas.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnBebidas.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnBebidas.setBounds(420, 0, 130, 43);
+		btnBebidas.setBounds(0, 0, 130, 43);
 		panel.add(btnBebidas);
 		
 		JButton button_5 = new JButton("New button");
+		button_5.setEnabled(false);
 		button_5.setBounds(840, 0, 130, 43);
 		panel.add(button_5);
 		
 		JButton button_6 = new JButton("New button");
+		button_6.setEnabled(false);
 		button_6.setBounds(980, 0, 130, 43);
 		panel.add(button_6);
 		

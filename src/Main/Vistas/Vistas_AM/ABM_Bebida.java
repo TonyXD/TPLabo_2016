@@ -13,7 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Controllers.AM_Bebida_Controller;
+import Controllers.ABM_Bebida_Controller;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
 
@@ -26,7 +26,7 @@ public class ABM_Bebida extends JFrame {
 	private JComboBox<String> cbxTipoBebida;
 	
 	private JTable tblBebidas;
-	private DefaultTableModel modelPersonas;
+	private DefaultTableModel modelBebida;
 
 	private JButton btnCargar;
 	private JButton btnEditarBebida;
@@ -96,8 +96,8 @@ public class ABM_Bebida extends JFrame {
 		scrollPane.setBounds(10, 100, 464, 393);
 		contentPane.add(scrollPane);
 
-		modelPersonas = new DefaultTableModel(null, new String[] { "Nombre", "Precio" });
-		tblBebidas = new JTable(modelPersonas);
+		modelBebida = new DefaultTableModel(null, new String[] { "Nombre", "Precio" });
+		tblBebidas = new JTable(modelBebida);
 		tblBebidas.getColumnModel().getColumn(0).setPreferredWidth(103);
 		tblBebidas.getColumnModel().getColumn(0).setResizable(false);
 		tblBebidas.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -213,11 +213,11 @@ public class ABM_Bebida extends JFrame {
 	}
 
 	public DefaultTableModel getModelPersonas() {
-		return modelPersonas;
+		return modelBebida;
 	}
 
 	public void setModelPersonas(DefaultTableModel modelPersonas) {
-		this.modelPersonas = modelPersonas;
+		this.modelBebida = modelPersonas;
 	}
 
 	public JTextField getTxfNombreSe() {

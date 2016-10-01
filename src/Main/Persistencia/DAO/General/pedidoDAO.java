@@ -84,14 +84,14 @@ public class pedidoDAO {
 				mozoDTO mozo = null;
 				estadoDTO estado = null;
 
-				pedido.add(new pedidoDTO(resultSet.getInt("idPedido"),
-						(ArrayList<entradaDTO>) resultSet.getObject("entrada"),
-						(ArrayList<principalDTO>) resultSet.getObject("principal"),
-						(ArrayList<postreDTO>) resultSet.getObject("postre"),
-						(ArrayList<conAlcoholDTO>) resultSet.getObject("conAlcohol"),
-						(ArrayList<sinAlcoholDTO>) resultSet.getObject("sinAlcohol"),
-						(ArrayList<cafeDTO>) resultSet.getObject("cafe"), mozo,
-						(ArrayList<mesaDTO>) resultSet.getObject("mesa"), estado, resultSet.getDate("fecha")));
+//				pedido.add(new pedidoDTO(resultSet.getInt("idPedido"),
+//						(ArrayList<entradaDTO>) resultSet.getObject("entrada"),
+//						(ArrayList<principalDTO>) resultSet.getObject("principal"),
+//						(ArrayList<postreDTO>) resultSet.getObject("postre"),
+//						(ArrayList<conAlcoholDTO>) resultSet.getObject("conAlcohol"),
+//						(ArrayList<sinAlcoholDTO>) resultSet.getObject("sinAlcohol"),
+//						(ArrayList<cafeDTO>) resultSet.getObject("cafe"), mozo,
+//						(ArrayList<mesaDTO>) resultSet.getObject("mesa"), estado, resultSet.getDate("fecha")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

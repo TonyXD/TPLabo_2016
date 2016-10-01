@@ -20,14 +20,14 @@ public class pedidoDTO {
 	private ArrayList<conAlcoholDTO> conAlcohol;
 	private ArrayList<sinAlcoholDTO> sinAlcohol;
 	private ArrayList<cafeDTO> cafe;
-	private mozoDTO mozo;
+	private ArrayList<mozoDTO> mozo;
 	private ArrayList<mesaDTO> mesa;
 	private estadoDTO estado;
 	private Date fecha;
 
 	public pedidoDTO(int idPedido, ArrayList<entradaDTO> entrada, ArrayList<principalDTO> principal,
 			ArrayList<postreDTO> postre, ArrayList<conAlcoholDTO> conAlcohol, ArrayList<sinAlcoholDTO> sinAlcohol,
-			ArrayList<cafeDTO> cafe, mozoDTO mozo, ArrayList<mesaDTO> mesa, estadoDTO estado, Date fecha) {
+			ArrayList<cafeDTO> cafe, ArrayList<mozoDTO> mozo, ArrayList<mesaDTO> mesa, estadoDTO estado, Date fecha) {
 
 		this.setIdPedido(idPedido);
 		this.setEntrada(entrada);
@@ -82,11 +82,11 @@ public class pedidoDTO {
 		this.cafe = cafe;
 	}
 
-	public mozoDTO getMozo() {
+	public ArrayList<mozoDTO> getMozo() {
 		return mozo;
 	}
 
-	public void setMozo(mozoDTO mozo) {
+	public void setMozo(ArrayList<mozoDTO> mozo) {
 		this.mozo = mozo;
 	}
 
