@@ -13,8 +13,13 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Controllers.GestorDeCarta_Controller;
+import Vistas.Encargado.GestorDeCarta;
+
 import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ABM_Plato extends JFrame {
 
@@ -37,10 +42,20 @@ public class ABM_Plato extends JFrame {
 	private JTextField txfPrecioSe;
 
 	
-	public ABM_Plato() {
+	public ABM_Plato(GestorDeCarta_Controller padre) {
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				padre.getVistaCarta().setEnabled(true);
+				padre.inicializar();
+			}
+		});
+		setAlwaysOnTop(true);
+		setResizable(false);
 
 		setTitle("Gesti\u00F3n de Platos");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 770);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

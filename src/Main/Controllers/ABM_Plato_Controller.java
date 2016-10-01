@@ -31,8 +31,6 @@ public class ABM_Plato_Controller implements ActionListener {
 		this.vistaPlatos.getBtnCargar().addActionListener(this);
 		this.vistaPlatos.getBtnEditar().addActionListener(this);
 		this.vistaPlatos.getBtnBorrar().addActionListener(this);
-		
-		this.inicializar();
 	}
 
 	public void inicializar() {

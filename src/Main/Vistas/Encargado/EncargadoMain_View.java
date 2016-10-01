@@ -22,7 +22,15 @@ import java.awt.Color;
 public class EncargadoMain_View extends JFrame {
 
 	private static final long serialVersionUID = -6200816652032876979L;
-
+	
+	private JButton btnVerMesas;
+	private JButton btnVerReserva;
+	private JButton btnVerCarta;
+	private JButton btnVerStock;
+	private JButton btnVerPedido;
+	private JButton btnVerCocina;
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -40,12 +48,13 @@ public class EncargadoMain_View extends JFrame {
 	 * Create the frame.
 	 */
 	public EncargadoMain_View() {
+		
 		setBackground(new Color(255, 255, 255));
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(EncargadoMain_View.class.getResource("/Imagenes/dishes-798316_1280.png")));
 		setTitle("Delicatessen S.A.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1218, 720);
+		setBounds(100, 10, 1218, 720);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -75,46 +84,42 @@ public class EncargadoMain_View extends JFrame {
 		mainPanel.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Ver Cocina");
-		btnNewButton.setEnabled(false);
-		btnNewButton.setBounds(420, 0, 130, 43);
-		panel.add(btnNewButton);
+		btnVerCocina = new JButton("Ver Cocina");
+		btnVerCocina.setEnabled(false);
+		btnVerCocina.setBounds(420, 0, 130, 43);
+		panel.add(btnVerCocina);
 		
-		JButton btnNewButton_1 = new JButton("Ver Pedido");
-		btnNewButton_1.setBounds(140, 0, 130, 43);
-		panel.add(btnNewButton_1);
+		btnVerPedido = new JButton("Ver Pedido");
+		btnVerPedido.setBounds(140, 0, 130, 43);
+		panel.add(btnVerPedido);
 		
-		JButton btnNewButton_2 = new JButton("Reserva");
-		btnNewButton_2.setEnabled(false);
-		btnNewButton_2.setBounds(280, 0, 130, 43);
-		panel.add(btnNewButton_2);
+		btnVerReserva = new JButton("Reserva");
+		btnVerReserva.setEnabled(false);
+		btnVerReserva.setBounds(280, 0, 130, 43);
+		panel.add(btnVerReserva);
 		
-		JButton btnNewButton_3 = new JButton("Ver Stock");
-		btnNewButton_3.setEnabled(false);
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnNewButton_3.setBounds(700, 0, 130, 43);
-		panel.add(btnNewButton_3);
+		btnVerStock = new JButton("Ver Stock");
+		btnVerStock.setEnabled(false);
+		btnVerStock.setBounds(700, 0, 130, 43);
+		panel.add(btnVerStock);
 		
-		JButton btnPlatos = new JButton("Ver Carta");
-		btnPlatos.setBounds(560, 0, 130, 43);
-		panel.add(btnPlatos);
+		btnVerCarta = new JButton("Ver Carta");
+		btnVerCarta.setBounds(560, 0, 130, 43);
+		panel.add(btnVerCarta);
 		
-		JButton btnBebidas = new JButton("Ver Mesas");
-		btnBebidas.setActionCommand("Control\r\n\r\nMesa");
-		btnBebidas.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnBebidas.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnBebidas.setBounds(0, 0, 130, 43);
-		panel.add(btnBebidas);
+		btnVerMesas = new JButton("Ver Mesas");
+		btnVerMesas.setActionCommand("Control\r\n\r\nMesa");
+		btnVerMesas.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnVerMesas.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnVerMesas.setBounds(0, 0, 130, 43);
+		panel.add(btnVerMesas);
 		
-		JButton button_5 = new JButton("New button");
+		JButton button_5 = new JButton("");
 		button_5.setEnabled(false);
 		button_5.setBounds(840, 0, 130, 43);
 		panel.add(button_5);
 		
-		JButton button_6 = new JButton("New button");
+		JButton button_6 = new JButton("");
 		button_6.setEnabled(false);
 		button_6.setBounds(980, 0, 130, 43);
 		panel.add(button_6);
@@ -134,5 +139,53 @@ public class EncargadoMain_View extends JFrame {
 		panel_1.add(pnl_PB);
 		
 		
+	}
+
+	public JButton getBtnVerCocina() {
+		return btnVerCocina;
+	}
+
+	public void setBtnVerCocina(JButton btnVerCocina) {
+		this.btnVerCocina = btnVerCocina;
+	}
+
+	public JButton getBtnVerPedido() {
+		return btnVerPedido;
+	}
+
+	public void setBtnVerPedido(JButton btnVerPedido) {
+		this.btnVerPedido = btnVerPedido;
+	}
+
+	public JButton getBtnVerStock() {
+		return btnVerStock;
+	}
+
+	public void setBtnVerStock(JButton btnVerStock) {
+		this.btnVerStock = btnVerStock;
+	}
+
+	public JButton getBtnVerCarta() {
+		return btnVerCarta;
+	}
+
+	public void setBtnVerCarta(JButton btnVerCarta) {
+		this.btnVerCarta = btnVerCarta;
+	}
+
+	public JButton getBtnVerReserva() {
+		return btnVerReserva;
+	}
+
+	public void setBtnVerReserva(JButton btnVerReserva) {
+		this.btnVerReserva = btnVerReserva;
+	}
+
+	public JButton getBtnVerMesas() {
+		return btnVerMesas;
+	}
+
+	public void setBtnVerMesas(JButton btnVerMesas) {
+		this.btnVerMesas = btnVerMesas;
 	}
 }

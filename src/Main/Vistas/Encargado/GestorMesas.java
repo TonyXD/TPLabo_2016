@@ -40,9 +40,10 @@ public class GestorMesas extends JFrame {
 	 * Create the frame.
 	 */
 	public GestorMesas() {
+		setAlwaysOnTop(true);
 		setTitle("Gestor de Mesas");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(GestorMesas.class.getResource("/Imagenes/dishes-798316_1280.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 881, 516);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

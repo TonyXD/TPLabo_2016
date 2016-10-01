@@ -11,9 +11,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import Controllers.GestorDeCarta_Controller;
+import Vistas.Encargado.GestorDeCarta;
+
 import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class ABM_Menu extends JFrame {
 
@@ -34,30 +40,22 @@ public class ABM_Menu extends JFrame {
 	private JButton btnQuitarDelMenu;
 	
 	private  String[] nombreColumnas = {"Nombre", "Precio"};
+	
+	public ABM_Menu(GestorDeCarta_Controller padre) {
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ABM_Menu frame = new ABM_Menu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				padre.getVistaCarta().setEnabled(true);
+				padre.inicializar();
 			}
 		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public ABM_Menu() {
+		
+		setResizable(false);
+		setAlwaysOnTop(true);
 		setForeground(Color.WHITE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ABM_Menu.class.getResource("/Imagenes/dishes-798316_1280.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1218, 800);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

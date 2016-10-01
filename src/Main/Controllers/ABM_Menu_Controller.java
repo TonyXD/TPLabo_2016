@@ -39,8 +39,6 @@ public class ABM_Menu_Controller implements ActionListener {
 
 		this.vistaMenus.getBtnAgregarAlMenu().addActionListener(this);
 		this.vistaMenus.getBtnQuitarDelMenu().addActionListener(this);
-
-		this.inicializar();
 	}
 
 	public void inicializar() {

@@ -1,8 +1,5 @@
 package Vistas.Encargado;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,115 +11,293 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.UIManager;
 import java.awt.Color;
 import javax.swing.JTabbedPane;
+import java.awt.Dialog.ModalExclusionType;
 
 public class GestorDeCarta extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
-	private JTable table_1;
-	private JTable table_2;
-	private JTable table2;
-	private JTable table3;
-	private JTable table4;
-	private JTable table5;
+	
+	private JTable tblEntrada;
+	private JTable tblPrincipal;
+	private JTable tblPostre;
+	private JTable tblConAlcohol;
+	private JTable tblSinAlcohol;
+	private JTable tblCafe;
+	private JTable tblMenu;
+	
+	private DefaultTableModel modelEntrada;
+	private DefaultTableModel modelPrincipal;
+	private DefaultTableModel modelPostre;
+	private DefaultTableModel modelConAlcohol;
+	private DefaultTableModel modelSinAlcohol;
+	private DefaultTableModel modelCafe;
+	private DefaultTableModel modelMenu;
+	
+	private JButton btnGestionarPlatos;
+	private JButton btnGestionarBebida;
+	private JButton btnGestionarMenu;
+	
+	private  String[] nombreColumnas = {"Nombre", "Precio"};
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GestorDeCarta frame = new GestorDeCarta();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public GestorDeCarta() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 980, 623);
+		setResizable(false);
+		setAlwaysOnTop(true);
+		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+		setTitle("Carta");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(150, 10, 980, 623);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JButton btnNewButton = new JButton("Gestionar Plato");
-		btnNewButton.setBounds(76, 11, 130, 43);
-		contentPane.add(btnNewButton);
-		
-		JButton btnGestionarBebida = new JButton("Gestionar Bebida");
-		btnGestionarBebida.setBounds(390, 11, 130, 43);
+
+		btnGestionarPlatos = new JButton("Gestionar Plato");
+		btnGestionarPlatos.setBounds(10, 11, 285, 43);
+		contentPane.add(btnGestionarPlatos);
+
+		btnGestionarBebida = new JButton("Gestionar Bebida");
+		btnGestionarBebida.setBounds(320, 11, 285, 43);
 		contentPane.add(btnGestionarBebida);
-		
-		JButton btnGestionarMenu = new JButton("Gestionar Menu");
-		btnGestionarMenu.setBounds(734, 11, 130, 43);
+
+		btnGestionarMenu = new JButton("Gestionar Menu");
+		btnGestionarMenu.setBounds(641, 11, 313, 43);
 		contentPane.add(btnGestionarMenu);
+
+		JTabbedPane tbdPlatos = new JTabbedPane(JTabbedPane.TOP);
+		tbdPlatos.setBounds(10, 66, 285, 509);
+		contentPane.add(tbdPlatos);
+
+		JScrollPane scrEntrada = new JScrollPane();
+		tbdPlatos.addTab("Entradas", null, scrEntrada, null);
+
+		modelEntrada = new DefaultTableModel(null, this.nombreColumnas);
+		tblEntrada =new JTable(modelEntrada);
+		tblEntrada.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblEntrada.getColumnModel().getColumn(0).setResizable(false);
+		tblEntrada.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblEntrada.getColumnModel().getColumn(1).setResizable(false);
+		scrEntrada.setViewportView(tblEntrada);
+
+		JScrollPane scrPrincipal = new JScrollPane();
+		tbdPlatos.addTab("Principales", null, scrPrincipal, null);
+
+		modelPrincipal = new DefaultTableModel(null, this.nombreColumnas);
+		tblPrincipal = new JTable(modelPrincipal);
+		tblPrincipal.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblPrincipal.getColumnModel().getColumn(0).setResizable(false);
+		tblPrincipal.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblPrincipal.getColumnModel().getColumn(1).setResizable(false);
+		scrPrincipal.setViewportView(tblPrincipal);
+
+		JScrollPane scrPostre = new JScrollPane();
+		tbdPlatos.addTab("Postres", null, scrPostre, null);
+
+		modelPostre = new DefaultTableModel(null, this.nombreColumnas);
+		tblPostre = new JTable(modelPostre);
+		tblPostre.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblPostre.getColumnModel().getColumn(0).setResizable(false);
+		tblPostre.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblPostre.getColumnModel().getColumn(1).setResizable(false);
+		scrPostre.setViewportView(tblPostre);
+
+		JTabbedPane tbdBebidas = new JTabbedPane(JTabbedPane.TOP);
+		tbdBebidas.setBounds(320, 65, 298, 509);
+		contentPane.add(tbdBebidas);
+
+		JScrollPane scrConAlcohol = new JScrollPane();
+		tbdBebidas.addTab("ConAlcohol", null, scrConAlcohol, null);
+
+		modelConAlcohol = new DefaultTableModel(null, this.nombreColumnas);
+		tblConAlcohol = new JTable(modelConAlcohol);
+		tblConAlcohol.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblConAlcohol.getColumnModel().getColumn(0).setResizable(false);
+		tblConAlcohol.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblConAlcohol.getColumnModel().getColumn(1).setResizable(false);
+		scrConAlcohol.setViewportView(tblConAlcohol);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 66, 285, 509);
-		contentPane.add(tabbedPane);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		tabbedPane.addTab("New tab", null, scrollPane, null);
-		
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		
-		JScrollPane scrollPane2 = new JScrollPane();
-		tabbedPane.addTab("New tab", null, scrollPane2, null);
-		
-		table2 = new JTable();
-		scrollPane2.setViewportView(table2);
-		
-		JScrollPane scrollPane3 = new JScrollPane();
-		tabbedPane.addTab("New tab", null, scrollPane3, null);
-		
-		table2 = new JTable();
-		scrollPane3.setViewportView(table2);
-		
-		
-		
-		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane_1.setBounds(320, 65, 297, 509);
-		contentPane.add(tabbedPane_1);
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		tabbedPane_1.addTab("New tab", null, scrollPane_1, null);
-		
-		table_1 = new JTable();
-		scrollPane_1.setViewportView(table_1);
-		
-		JScrollPane scrollPane4 = new JScrollPane();
-		tabbedPane_1.addTab("New tab", null, scrollPane4, null);
-		
-		table4 = new JTable();
-		scrollPane4.setViewportView(table4);
-		
-		JScrollPane scrollPane5 = new JScrollPane();
-		tabbedPane_1.addTab("New tab", null, scrollPane5, null);
-		
-		table5 = new JTable();
-		scrollPane5.setViewportView(table5);
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Men\u00FAs", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(641, 50, 319, 532);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(6, 16, 307, 509);
-		panel.add(scrollPane_2);
-		
-		table_2 = new JTable();
-		scrollPane_2.setViewportView(table_2);
+		JScrollPane scrSinAlcohol = new JScrollPane();
+		tbdBebidas.addTab("SinAlcohol", null, scrSinAlcohol, null);
+
+		modelSinAlcohol = new DefaultTableModel(null, this.nombreColumnas);
+		tblSinAlcohol = new JTable(modelSinAlcohol);
+		tblSinAlcohol.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblSinAlcohol.getColumnModel().getColumn(0).setResizable(false);
+		tblSinAlcohol.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblSinAlcohol.getColumnModel().getColumn(1).setResizable(false);
+		scrSinAlcohol.setViewportView(tblSinAlcohol);
+
+		JScrollPane scrCafe = new JScrollPane();
+		tbdBebidas.addTab("Cafeteria", null, scrCafe, null);
+
+		modelCafe = new DefaultTableModel(null, this.nombreColumnas);
+		tblCafe = new JTable(modelCafe);
+		tblCafe.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblCafe.getColumnModel().getColumn(0).setResizable(false);
+		tblCafe.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblCafe.getColumnModel().getColumn(1).setResizable(false);
+		scrCafe.setViewportView(tblCafe);
+
+		JPanel pnlMenu = new JPanel();
+		pnlMenu.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Men\u00FAs", TitledBorder.CENTER,
+				TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pnlMenu.setBounds(641, 65, 319, 508);
+		contentPane.add(pnlMenu);
+		pnlMenu.setLayout(null);
+
+		JScrollPane scrMenu = new JScrollPane();
+		scrMenu.setBounds(6, 26, 307, 471);
+		pnlMenu.add(scrMenu);
+
+		modelMenu = new DefaultTableModel(null, this.nombreColumnas);
+		tblMenu = new JTable(modelMenu);
+		tblMenu.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblMenu.getColumnModel().getColumn(0).setResizable(false);
+		tblMenu.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblMenu.getColumnModel().getColumn(1).setResizable(false);
+		scrMenu.setViewportView(tblMenu);
 	}
 
+	public JButton getBtnGestionarMenu() {
+		return btnGestionarMenu;
+	}
+
+	public void setBtnGestionarMenu(JButton btnGestionarMenu) {
+		this.btnGestionarMenu = btnGestionarMenu;
+	}
+
+	public JButton getBtnGestionarPlatos() {
+		return btnGestionarPlatos;
+	}
+
+	public void setBtnGestionarPlatos(JButton btnGestionarPlatos) {
+		this.btnGestionarPlatos = btnGestionarPlatos;
+	}
+
+	public JButton getBtnGestionarBebida() {
+		return btnGestionarBebida;
+	}
+
+	public void setBtnGestionarBebida(JButton btnGestionarBebida) {
+		this.btnGestionarBebida = btnGestionarBebida;
+	}
+
+	public JTable getTblEntrada() {
+		return tblEntrada;
+	}
+
+	public void setTblEntrada(JTable tblEntrada) {
+		this.tblEntrada = tblEntrada;
+	}
+
+	public JTable getTblPrincipal() {
+		return tblPrincipal;
+	}
+
+	public void setTblPrincipal(JTable tblPrincipal) {
+		this.tblPrincipal = tblPrincipal;
+	}
+
+	public JTable getTblPostre() {
+		return tblPostre;
+	}
+
+	public void setTblPostre(JTable tblPostre) {
+		this.tblPostre = tblPostre;
+	}
+
+	public JTable getTblConALcohol() {
+		return tblConAlcohol;
+	}
+
+	public void setTblConALcohol(JTable tblConALcohol) {
+		this.tblConAlcohol = tblConALcohol;
+	}
+
+	public JTable getTblSinAlcohol() {
+		return tblSinAlcohol;
+	}
+
+	public void setTblSinAlcohol(JTable tblSinAlcohol) {
+		this.tblSinAlcohol = tblSinAlcohol;
+	}
+
+	public JTable getTblCafe() {
+		return tblCafe;
+	}
+
+	public void setTblCafe(JTable tblCafe) {
+		this.tblCafe = tblCafe;
+	}
+
+	public JTable getTblMenu() {
+		return tblMenu;
+	}
+
+	public void setTblMenu(JTable tblMenu) {
+		this.tblMenu = tblMenu;
+	}
+
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	public void setNombreColumnas(String[] nombreColumnas) {
+		this.nombreColumnas = nombreColumnas;
+	}
+
+	public DefaultTableModel getModelEntrada() {
+		return modelEntrada;
+	}
+
+	public void setModelEntrada(DefaultTableModel modelEntrada) {
+		this.modelEntrada = modelEntrada;
+	}
+
+	public DefaultTableModel getModelPrincipal() {
+		return modelPrincipal;
+	}
+
+	public void setModelPrincipal(DefaultTableModel modelPrincipal) {
+		this.modelPrincipal = modelPrincipal;
+	}
+
+	public DefaultTableModel getModelPostre() {
+		return modelPostre;
+	}
+
+	public void setModelPostre(DefaultTableModel modelPostre) {
+		this.modelPostre = modelPostre;
+	}
+
+	public DefaultTableModel getModelMenu() {
+		return modelMenu;
+	}
+
+	public void setModelMenu(DefaultTableModel modelMenu) {
+		this.modelMenu = modelMenu;
+	}
+
+	public DefaultTableModel getModelConAlcohol() {
+		return modelConAlcohol;
+	}
+
+	public void setModelConAlcohol(DefaultTableModel modelConAlcohol) {
+		this.modelConAlcohol = modelConAlcohol;
+	}
+
+	public DefaultTableModel getModelSinAlcohol() {
+		return modelSinAlcohol;
+	}
+
+	public void setModelSinAlcohol(DefaultTableModel modelSinAlcohol) {
+		this.modelSinAlcohol = modelSinAlcohol;
+	}
+
+	public DefaultTableModel getModelCafe() {
+		return modelCafe;
+	}
+
+	public void setModelCafe(DefaultTableModel modelCafe) {
+		this.modelCafe = modelCafe;
+	}
 }

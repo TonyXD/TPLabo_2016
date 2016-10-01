@@ -7,6 +7,9 @@ import javax.swing.JSeparator;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -14,6 +17,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Controllers.ABM_Bebida_Controller;
+import Controllers.GestorDeCarta_Controller;
+import Vistas.Encargado.GestorDeCarta;
+
 import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
 
@@ -41,10 +47,21 @@ public class ABM_Bebida extends JFrame {
 	private JTextField txfPrecioSe;
 	private JLabel label_2;
 
-	public ABM_Bebida() {
+	public ABM_Bebida(GestorDeCarta_Controller padre) {
 
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent e) {
+				padre.getVistaCarta().setEnabled(true);
+				padre.inicializar();
+			}
+		});
+		
+		setAlwaysOnTop(true);
+		setResizable(false);
+		
 		setTitle("Gestion de Bebidas");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 770);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

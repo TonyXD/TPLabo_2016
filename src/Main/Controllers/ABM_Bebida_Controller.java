@@ -31,8 +31,6 @@ public class ABM_Bebida_Controller implements ActionListener {
 		this.vistaBebida.getBtnCargar().addActionListener(this);
 		this.vistaBebida.getBtnBorrarBebida().addActionListener(this);
 		this.vistaBebida.getBtnEditarBebida().addActionListener(this);
-
-		this.inicializar();
 	}
 
 	public void inicializar() {
