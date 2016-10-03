@@ -6,22 +6,27 @@ import Modelo.DTO.Bebidas.cafeDTO;
 import Modelo.DTO.Bebidas.conAlcoholDTO;
 import Modelo.DTO.Bebidas.sinAlcoholDTO;
 import Modelo.DTO.Comidas.entradaDTO;
+import Modelo.DTO.Comidas.menuDTO;
 import Modelo.DTO.Comidas.postreDTO;
 import Modelo.DTO.Comidas.principalDTO;
 import Persistencia.DAO.Bebida.cafeDAO;
 import Persistencia.DAO.Bebida.conAlcoholDAO;
 import Persistencia.DAO.Bebida.sinAlcoholDAO;
 import Persistencia.DAO.Comida.entradaDAO;
+import Persistencia.DAO.Comida.menuDAO;
 import Persistencia.DAO.Comida.postreDAO;
 import Persistencia.DAO.Comida.principalDAO;
 
 public class Carta {
+	
 	private entradaDAO entrada;
 	private principalDAO principal;
 	private postreDAO postre;
 	private conAlcoholDAO conAlcohol;
 	private sinAlcoholDAO sinAlcohol;
 	private cafeDAO cafe;
+	
+	private menuDAO menu;
 
 	public Carta() {
 
@@ -31,6 +36,7 @@ public class Carta {
 		this.conAlcohol = new conAlcoholDAO();
 		this.sinAlcohol = new sinAlcoholDAO();
 		this.cafe = new cafeDAO();
+		this.menu = new menuDAO();
 	}
 
 	public void agregarEntrada(entradaDTO x) {
@@ -127,5 +133,29 @@ public class Carta {
 	
 	public void editarCafe(cafeDTO x) {
 		this.cafe.update(x);
+	}
+
+	public menuDAO getMenu() {
+		return menu;
+	}
+
+	public void setMenu(menuDAO menu) {
+		this.menu = menu;
+	}
+	
+	public void agregarMenu(menuDTO x) {
+		this.menu.insert(x);
+	}
+	
+	public void borrarMenu(menuDTO x) {
+		this.menu.delete(x);
+	}
+	
+	public List<menuDTO> obtenermenus() {
+		return this.menu.readAll();
+	}
+	
+	public void editarMenu(menuDTO x) {
+		this.menu.update(x);
 	}
 }

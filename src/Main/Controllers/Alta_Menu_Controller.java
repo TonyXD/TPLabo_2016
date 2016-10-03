@@ -2,16 +2,20 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+
+import com.sun.javafx.font.Disposer;
 
 import Modelo.DTO.Bebidas.Bebida;
 import Modelo.DTO.Bebidas.cafeDTO;
 import Modelo.DTO.Bebidas.conAlcoholDTO;
 import Modelo.DTO.Bebidas.sinAlcoholDTO;
 import Modelo.DTO.Comidas.entradaDTO;
+import Modelo.DTO.Comidas.menuDTO;
 import Modelo.DTO.Comidas.postreDTO;
 import Modelo.DTO.Comidas.principalDTO;
 import Modelo.Negocio.Carta;
@@ -27,7 +31,15 @@ public class Alta_Menu_Controller implements ActionListener {
 	private List<conAlcoholDTO> conAlcohol;
 	private List<sinAlcoholDTO> sinAlcohol;
 	private List<cafeDTO> cafe;
-	private List<Bebida> bebidas;
+	
+	private ArrayList<entradaDTO> entradaSe;
+	private ArrayList<principalDTO> principalSe;
+	private ArrayList<postreDTO> postreSe;
+	private ArrayList<conAlcoholDTO> conAlcoholSe;
+	private ArrayList<sinAlcoholDTO> sinAlcoholSe;
+	private ArrayList<cafeDTO> cafeSe;
+	
+	private ArrayList<Bebida> bebidas;
 
 	private Integer cantidadSeleccionada;
 
@@ -52,7 +64,16 @@ public class Alta_Menu_Controller implements ActionListener {
 		this.setConAlcohol(carta.obtenerConAlcoholes());
 		this.setSinAlcohol(carta.obtenerSinAlcoholes());
 		this.setCafe(carta.obtenerCafes());
+		
+		this.entradaSe = new ArrayList<entradaDTO>();
+		this.principalSe = new ArrayList<principalDTO>();
+		this.postreSe = new ArrayList<postreDTO>();
+		this.setConAlcoholSe(new ArrayList<conAlcoholDTO>());
+		this.setSinAlcoholSe(new ArrayList<sinAlcoholDTO>());
+		this.setCafeSe(new ArrayList<cafeDTO>());
+		
 		this.bebidas = new ArrayList<Bebida>();
+		
 		this.cargarTablas();
 	}
 
@@ -85,6 +106,8 @@ public class Alta_Menu_Controller implements ActionListener {
 						Object[] fila = { this.entrada.get(filaSelect).getNombre(),
 								this.entrada.get(filaSelect).getPrecio().toString() };
 						this.vistaMenus.getModelMenu().insertRow(indice, fila);
+						
+						this.entradaSe.add(this.entrada.get(filaSelect));
 
 						cantidadSeleccionada = cantidadSeleccionada + 1;
 					}
@@ -106,7 +129,9 @@ public class Alta_Menu_Controller implements ActionListener {
 						Object[] fila = { this.principal.get(filaSelect).getNombre(),
 								this.entrada.get(filaSelect).getPrecio().toString() };
 						this.vistaMenus.getModelMenu().insertRow(indice, fila);
-
+						
+						this.principalSe.add(this.principal.get(filaSelect));
+						
 						cantidadSeleccionada = cantidadSeleccionada + 1;
 
 					}
@@ -128,7 +153,9 @@ public class Alta_Menu_Controller implements ActionListener {
 						Object[] fila = { this.postre.get(filaSelect).getNombre(),
 								this.entrada.get(filaSelect).getPrecio().toString() };
 						this.vistaMenus.getModelMenu().insertRow(indice, fila);
-
+						
+						this.postreSe.add(this.postre.get(filaSelect));
+						
 						cantidadSeleccionada = cantidadSeleccionada + 1;
 					}
 
@@ -144,6 +171,8 @@ public class Alta_Menu_Controller implements ActionListener {
 					Object[] fila = { this.bebidas.get(filaSelect).getNombre(),
 							this.bebidas.get(filaSelect).getPrecio().toString() };
 					this.vistaMenus.getModelMenu().addRow(fila);
+					
+//					this.bebidas.add(this.)
 
 					cantidadSeleccionada = cantidadSeleccionada + 1;
 				}
@@ -159,6 +188,7 @@ public class Alta_Menu_Controller implements ActionListener {
 				if (filaNombre != "Entradas:" & filaNombre != "Principales:" & filaNombre != "Postres:"
 						& filaNombre != "Bebidas:") {
 					this.vistaMenus.getModelMenu().removeRow(filaSelect);
+					cantidadSeleccionada = cantidadSeleccionada -1;
 				}else{
 					JOptionPane.showMessageDialog(vistaMenus, "No puede borrar los encabezados de menu.");
 				}
@@ -168,6 +198,20 @@ public class Alta_Menu_Controller implements ActionListener {
 				JOptionPane.showMessageDialog(vistaMenus, "No selecciono ninguna fila del menu.");
 			}
 
+		}else if (e.getSource() == this.vistaMenus.getBtnCrearMenu()) {
+			
+			String nombreMenu = this.vistaMenus.getTxfNombre().getText();
+			BigDecimal precio = new BigDecimal(this.vistaMenus.getTxfPrecio().getText().replaceAll(",", ""));
+			
+			menuDTO menu = new menuDTO(0,nombreMenu, precio, entradaSe, principalSe, postreSe, bebidas);
+			
+			this.carta.agregarMenu(menu);
+			
+			this.vistaMenus.dispose();
+			
+		}else if (e.getSource() == this.vistaMenus.getBtnCancelarMenu()) {
+			
+			
 		}
 
 	}
@@ -268,5 +312,52 @@ public class Alta_Menu_Controller implements ActionListener {
 	public void setCafe(List<cafeDTO> cafe) {
 		this.cafe = cafe;
 	}
+	
+	public ArrayList<entradaDTO> getEntradaSe() {
+		return entradaSe;
+	}
 
+	public void setEntradaSe(ArrayList<entradaDTO> entradaSe) {
+		this.entradaSe = entradaSe;
+	}
+	
+	public ArrayList<principalDTO> getPrincipalSe() {
+		return principalSe;
+	}
+
+	public void setPrincipalSe(ArrayList<principalDTO> principalSe) {
+		this.principalSe = principalSe;
+	}
+	
+	public ArrayList<postreDTO> getPostreSe() {
+		return postreSe;
+	}
+
+	public void setPostreSe(ArrayList<postreDTO> postreSe) {
+		this.postreSe = postreSe;
+	}
+	
+	public ArrayList<conAlcoholDTO> getConAlcoholSe() {
+		return conAlcoholSe;
+	}
+
+	public void setConAlcoholSe(ArrayList<conAlcoholDTO> conAlcoholSe) {
+		this.conAlcoholSe = conAlcoholSe;
+	}
+
+	public ArrayList<sinAlcoholDTO> getSinAlcoholSe() {
+		return sinAlcoholSe;
+	}
+
+	public void setSinAlcoholSe(ArrayList<sinAlcoholDTO> sinAlcoholSe) {
+		this.sinAlcoholSe = sinAlcoholSe;
+	}
+
+	public ArrayList<cafeDTO> getCafeSe() {
+		return cafeSe;
+	}
+
+	public void setCafeSe(ArrayList<cafeDTO> cafeSe) {
+		this.cafeSe = cafeSe;
+	}
 }

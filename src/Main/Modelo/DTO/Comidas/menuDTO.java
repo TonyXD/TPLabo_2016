@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import Modelo.DTO.Bebidas.Bebida;
 
 public class menuDTO {
-
+	
+	
+	private int idMenu;
 	private String nombre;
 	private BigDecimal precio;
 
@@ -15,9 +17,10 @@ public class menuDTO {
 	private ArrayList<postreDTO> postre;
 	private ArrayList<Bebida> bebidas;
 
-	public menuDTO(String nombre, BigDecimal precio, ArrayList<entradaDTO> entrada, ArrayList<principalDTO> principal,
+	public menuDTO(int idMenu, String nombre, BigDecimal precio, ArrayList<entradaDTO> entrada, ArrayList<principalDTO> principal,
 			ArrayList<postreDTO> postre, ArrayList<Bebida> bebidas) {
 		
+		this.idMenu = idMenu;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.entrada = entrada;
@@ -73,5 +76,13 @@ public class menuDTO {
 
 	public void setBebidas(ArrayList<Bebida> bebidas) {
 		this.bebidas = bebidas;
+	}
+
+	public int getIdMenu() {
+		return idMenu;
+	}
+
+	public void setIdMenu(int idMenu) {
+		this.idMenu = idMenu;
 	}
 }
