@@ -1,4 +1,4 @@
-package Ticket;
+package ControlDeMesa;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -17,14 +17,13 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class Ticket {
-
+public class ControlDeMesa {
 	private JasperReport reporte;
 	private JasperViewer reporteViewer;
 	private JasperPrint	reporteLleno;
 	
 	//Recibe la lista de personas para armar el reporte
-    public Ticket(List<pedidoDTO> pedido)
+    public ControlDeMesa(List<pedidoDTO> pedido)
     {
     	Collections.sort(pedido, new Comparator<pedidoDTO>() {
 
@@ -39,7 +38,7 @@ public class Ticket {
 		parametersMap.put("Fecha", new SimpleDateFormat("dd/MM/yyyy").format(new Date()));		
     	try		{
 
-			this.reporte = (JasperReport) JRLoader.loadObjectFromFile( "ticket\\Ticket.jasper" );
+			this.reporte = (JasperReport) JRLoader.loadObjectFromFile( "control de mesa\\ControlDeMesa.jasper" );
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, parametersMap, new JRBeanCollectionDataSource(pedido));
 			
 		}
@@ -54,4 +53,5 @@ public class Ticket {
 		this.reporteViewer = new JasperViewer(this.reporteLleno,false);
 		this.reporteViewer.setVisible(true);
 	}
+
 }
