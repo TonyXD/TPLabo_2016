@@ -73,6 +73,20 @@ public class ABM_Mesa extends JFrame {
 		tblMenus.getColumnModel().getColumn(1).setPreferredWidth(100);
 		tblMenus.getColumnModel().getColumn(1).setResizable(false);
 		scrollPane.setViewportView(tblMenus);
+		
+		tblMenus.addMouseListener(new java.awt.event.MouseAdapter() {
+		    @Override
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		        int row = tblMenus.rowAtPoint(evt.getPoint());
+		        int col = tblMenus.columnAtPoint(evt.getPoint());
+		        if (row >= 0 && col >= 0) {
+		        	txfNumeroEd.setText((String) tblMenus.getValueAt(row, 0).toString());
+		        	txfSectorEd.setText((String) tblMenus.getValueAt(row, 3).toString());
+		        	spnCapacidadEd.setValue(tblMenus.getValueAt(row, 1));
+		        	spnPisoEd.setValue(tblMenus.getValueAt(row, 2));
+		        }
+		    }
+		});
 
 		JLabel lblAgregar = new JLabel("Mesa Seleccionada");
 		lblAgregar.setHorizontalAlignment(SwingConstants.CENTER);

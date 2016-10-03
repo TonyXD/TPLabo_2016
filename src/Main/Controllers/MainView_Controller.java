@@ -8,7 +8,7 @@ import Modelo.Negocio.Pedido;
 import Modelo.Negocio.Restorant;
 import Vistas.Encargado.EncargadoMain_View;
 import Vistas.Encargado.GestorDeCarta;
-import Vistas.Encargado.GestorMesas;
+import Vistas.Encargado.GestorPedidos;
 import Vistas.Vistas_AM.ABM_Mesa;
 
 public class MainView_Controller implements ActionListener{
@@ -46,8 +46,8 @@ public class MainView_Controller implements ActionListener{
 			
 		}else if(e.getSource() == this.vistaEncargado.getBtnVerPedido()){
 			
-			GestorMesas vistaPedido = new GestorMesas();
-			GestorMesas_Controller controlPedido = new GestorMesas_Controller(vistaPedido, pedido);
+			GestorPedidos vistaPedido = new GestorPedidos();
+			GestorPedidos_Controller controlPedido = new GestorPedidos_Controller(vistaPedido, pedido, resto);
 			vistaPedido.setVisible(true);
 			
 		}else if(e.getSource() == this.vistaEncargado.getBtnVerCarta()){

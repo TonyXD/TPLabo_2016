@@ -22,7 +22,7 @@ public class ControlDeMesa {
 	private JasperViewer reporteViewer;
 	private JasperPrint	reporteLleno;
 	
-	//Recibe la lista de personas para armar el reporte
+	//Recibe el pedido para armar el reporte
     public ControlDeMesa(List<pedidoDTO> pedido)
     {
     	Collections.sort(pedido, new Comparator<pedidoDTO>() {

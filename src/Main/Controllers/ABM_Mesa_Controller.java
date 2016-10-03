@@ -60,7 +60,7 @@ public class ABM_Mesa_Controller implements ActionListener {
 		int capacidad = (int) this.vistaMesas.getSpnCapacidad().getValue();
 		int piso = (int) this.vistaMesas.getSpnPiso().getValue();
 		String sector = this.vistaMesas.getTxfSector().getText();
-		estadoDTO estado = new estadoDTO(0, "Libre");
+		estadoDTO estado = new estadoDTO(1, "Libre", true,false,false);
 		mesaDTO mesa = new mesaDTO(0, numero, capacidad, piso, sector, estado);
 
 		resto.agregarMesa(mesa);
@@ -101,8 +101,9 @@ public class ABM_Mesa_Controller implements ActionListener {
 		int capacidad = (int) this.vistaMesas.getSpnCapacidadEd().getValue();
 		int piso = (int) this.vistaMesas.getSpnPisoEd().getValue();
 		String sector = this.vistaMesas.getTxfSectorEd().getText();
-		estadoDTO estado = new estadoDTO(0, "Libre");
-		mesaDTO mesa = new mesaDTO(0, numero, capacidad, piso, sector, estado);
+		estadoDTO estado = new estadoDTO(0, "Libre", true,false,false);
+		
+		mesaDTO mesa = new mesaDTO(1, numero, capacidad, piso, sector, estado);
 
 		resto.editarMesa(mesa);
 		this.mesas = resto.obtenerMesas();

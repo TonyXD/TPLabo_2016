@@ -69,8 +69,7 @@ public class mesaDAO {
 
 			while (resultSet.next()) {
 				
-//				estadoDTO estado = dameEstado(resultSet.getInt("estado"));
-				estadoDTO estado = null;
+				estadoDTO estado = dameEstado(resultSet.getInt("estado"));
 				
 				mesas.add(new mesaDTO(resultSet.getInt("idMesa"),
 						resultSet.getInt("numero"),
@@ -126,12 +125,16 @@ public class mesaDAO {
 		estadoDTO estado;
 		
 		try {
-			statement0 = conexion.getSQLConexion().prepareStatement("Select * from estados WHERE idEstado=?");
+			statement0 = conexion.getSQLConexion().prepareStatement("Select * from estados WHERE idEstados=?");
 			statement0.setInt(1, idEstado);
 			resultSet = statement0.executeQuery();
 
 			while (resultSet.next()) {
-				return estado = new estadoDTO(resultSet.getInt("idEstado"), resultSet.getString("tipoEstado"));
+				return estado = new estadoDTO(resultSet.getInt("idEstados"), 
+						resultSet.getString("Descripcion"),
+						resultSet.getBoolean("esMesa"),
+						resultSet.getBoolean("esMozo"),
+						resultSet.getBoolean("esPedido"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

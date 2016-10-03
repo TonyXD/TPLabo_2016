@@ -13,6 +13,7 @@ CREATE TABLE `tplabo_2016`.`estados` (
     PRIMARY KEY (`idEstados`)
 );
 
+
 /*CONTACTO */ 
 
 CREATE TABLE `tplabo_2016`.`contacto` (
@@ -172,7 +173,7 @@ CREATE TABLE pedidos(
 	FOREIGN KEY (idMenu) REFERENCES menu (idMenu)
 );
 
-CREATE TABLE platos (
+CREATE TABLE `tplabo_2016`.`platos` (
 	idPlato INT NOT NULL AUTO_INCREMENT,
 	nombrePlato VARCHAR(45)NOT NULL,
 	precioPlato DECIMAL NOT NULL,
@@ -181,7 +182,7 @@ CREATE TABLE platos (
 	
 );
 
-CREATE TABLE bebidas (
+CREATE TABLE `tplabo_2016`.`bebidas` (
 	idBebida INT NOT NULL AUTO_INCREMENT,
 	nombreBebida VARCHAR (45) NOT NULL,
 	precioBebida DECIMAL NOT NULL,
@@ -190,7 +191,7 @@ CREATE TABLE bebidas (
 );
 
 
-CREATE TABLE menu (
+CREATE TABLE `tplabo_2016`.`menu` (
 	idMenu INT NOT NULL AUTO_INCREMENT,
 	idPlato INT (10),
 	idBebida INT(10),
