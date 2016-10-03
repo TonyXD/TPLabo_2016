@@ -10,6 +10,7 @@ import Modelo.DTO.Bebidas.cafeDTO;
 import Modelo.DTO.Bebidas.conAlcoholDTO;
 import Modelo.DTO.Bebidas.sinAlcoholDTO;
 import Modelo.DTO.Comidas.entradaDTO;
+import Modelo.DTO.Comidas.platoDTO;
 import Modelo.DTO.Comidas.postreDTO;
 import Modelo.DTO.Comidas.principalDTO;
 import Modelo.DTO.General.estadoDTO;
@@ -20,7 +21,7 @@ import Persistencia.Conexion.Conexion;
 
 public class pedidoDAO {
 
-	private static final String insert = "INSERT INTO pedido(idPedido, ) VALUES(?,?,?,?,?,?,?)";
+	private static final String insert = "INSERT INTO pedido(idPedido, estado, fecha ) VALUES(?,?,?)";
 	private static final String delete = "DELETE FROM pedido WHERE idPedido = ?";
 	private static final String readall = "SELECT * FROM pedido";
 	private static final Conexion conexion = Conexion.getConexion();
@@ -30,11 +31,9 @@ public class pedidoDAO {
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
 			statement.setInt(1, pedido.getIdPedido());
-			statement.setObject(8, pedido.getMozo());
-			statement.setObject(9, pedido.getMesa());
-			statement.setInt(10, pedido.getEstado().getIdEstado());
-			statement.setDate(11, pedido.getFecha());
-			
+			statement.setObject(2, pedido.getEstado());
+			statement.setDate(3, pedido.getFecha());
+
 			if (statement.executeUpdate() > 0) // Si se ejecuta devuelvo true
 				return true;
 		} catch (SQLException e) {
@@ -74,21 +73,10 @@ public class pedidoDAO {
 			resultSet = statement.executeQuery();
 
 			while (resultSet.next()) {
-				
-				estadoDTO estado = cargarEstado(resultSet.getInt("idEstado"));;
 
-				pedido.add(new pedidoDTO(
-						resultSet.getInt("idPedido"),
-						(ArrayList<entradaDTO>) resultSet.getObject("entrada"),
-						(ArrayList<principalDTO>) resultSet.getObject("principal"),
-						(ArrayList<postreDTO>) resultSet.getObject("postre"),
-						(ArrayList<conAlcoholDTO>) resultSet.getObject("conAlcohol"),
-						(ArrayList<sinAlcoholDTO>) resultSet.getObject("sinAlcohol"),
-						(ArrayList<cafeDTO>) resultSet.getObject("cafe"), 
-						(ArrayList<mozoDTO>) resultSet.getObject("mozo"),
-						(ArrayList<mesaDTO>) resultSet.getObject("mesa"), 
-						estado, 
-						resultSet.getDate("fecha")));
+				estadoDTO estado = dameEstado(resultSet.getInt("idEstados"));
+
+				pedido.add(new pedidoDTO(resultSet.getInt("idPedido"), estado, resultSet.getDate("fecha")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -98,19 +86,28 @@ public class pedidoDAO {
 		}
 		return pedido;
 	}
-	
-	public estadoDTO cargarEstado(int idEstado){
-		PreparedStatement statement;
+
+	public boolean update() {
+		return false;
+	}
+
+	private estadoDTO dameEstado(int idEstado) {
+
+		PreparedStatement statement0;
+
 		ResultSet resultSet;
+
 		estadoDTO estado;
 
 		try {
-			statement = conexion.getSQLConexion()
-					.prepareStatement("SELECT * FROM estado where estado.idestado =" + Integer.toString(idEstado));
-			resultSet = statement.executeQuery();
+			statement0 = conexion.getSQLConexion().prepareStatement("Select * from estados WHERE idEstados=?");
+			statement0.setInt(1, idEstado);
+			resultSet = statement0.executeQuery();
 
 			while (resultSet.next()) {
-				return estado = new estadoDTO(resultSet.getInt("idEstado"), resultSet.getString("tipoEstado"));
+				return estado = new estadoDTO(resultSet.getInt("idEstados"), resultSet.getString("Descripcion"),
+						resultSet.getBoolean("esMesa"), resultSet.getBoolean("esMozo"),
+						resultSet.getBoolean("esPedido"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -120,8 +117,32 @@ public class pedidoDAO {
 		}
 		return null;
 	}
+	
+	private ArrayList<platoDTO> damePlatos(int idPedido){
+		
+		PreparedStatement statement0;
 
-	public boolean update() {
-		return false;
+		ResultSet resultSet;
+
+		estadoDTO estado;
+
+		try {
+			statement0 = conexion.getSQLConexion().prepareStatement("Select * from estados WHERE idEstados=?");
+			statement0.setInt(1, idPedido);
+			resultSet = statement0.executeQuery();
+
+			while (resultSet.next()) {
+				return estado = new estadoDTO(resultSet.getInt("idEstados"), resultSet.getString("Descripcion"),
+						resultSet.getBoolean("esMesa"), resultSet.getBoolean("esMozo"),
+						resultSet.getBoolean("esPedido"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally // Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
+		return null;
+		
 	}
 }

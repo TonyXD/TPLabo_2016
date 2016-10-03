@@ -46,7 +46,7 @@ public class GestorPedidos_Controller implements ActionListener {
 	public void inicializar() {
 
 		this.mesas = resto.obtenerMesas();
-		// this.pedidos = pedido.obtenerPedidos();
+		this.pedidos = pedido.obtenerPedidos();
 		this.cargarTabla();
 	}
 
@@ -54,7 +54,9 @@ public class GestorPedidos_Controller implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == this.vistaMesas.getBtnAsignarMesa()) {
-
+			
+			
+			
 		} else if (e.getSource() == this.vistaMesas.getBtnPedido()) {
 
 			TomaDePedido altaPedido = new TomaDePedido();
@@ -113,12 +115,24 @@ public class GestorPedidos_Controller implements ActionListener {
 
 		for (int i = 0; i < mesas.size(); i++) {
 
-			Object[] fila = { this.mesas.get(i).getNumero(), this.mesas.get(i).getCapacidad(),
-					this.mesas.get(i).getPiso(), this.mesas.get(i).getSector(),
-					this.mesas.get(i).getEstado().getDescripcion() };
-			this.vistaMesas.getModelPedido().addRow(fila);
+			for (int j = 0; i < pedidos.size(); j++) {
+				
+				for(int x =0;x<pedidos.get(j).getMesa().size();x++){
+					
+					if (mesas.get(i).getIdMesa() == pedidos.get(j).getMesa().get(x).getIdMesa()){
+						
+						Object[] fila = { this.mesas.get(i).getNumero(), this.mesas.get(i).getCapacidad(),
+								this.mesas.get(i).getPiso(), this.mesas.get(i).getSector(),
+								this.mesas.get(i).getEstado().getDescripcion(), this.pedidos.get(j).getFecha().toString()};
+						this.vistaMesas.getModelPedido().addRow(fila);
+						
+					}
+					
+				}
+				
+				
+			}
 		}
-
 	}
 
 	public GestorPedidos getVistaMesas() {
