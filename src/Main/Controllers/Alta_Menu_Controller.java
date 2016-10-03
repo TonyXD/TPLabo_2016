@@ -2,7 +2,6 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +15,11 @@ import Modelo.DTO.Comidas.entradaDTO;
 import Modelo.DTO.Comidas.postreDTO;
 import Modelo.DTO.Comidas.principalDTO;
 import Modelo.Negocio.Carta;
-import Vistas.Vistas_AM.ABM_Menu;
-import Vistas.Vistas_AM.ABM_Plato;
+import Vistas.Vistas_AM.Alta_Menu;
 
-public class ABM_Menu_Controller implements ActionListener {
+public class Alta_Menu_Controller implements ActionListener {
 
-	private ABM_Menu vistaMenus;
+	private Alta_Menu vistaMenus;
 
 	private List<entradaDTO> entrada;
 	private List<principalDTO> principal;
@@ -31,14 +29,19 @@ public class ABM_Menu_Controller implements ActionListener {
 	private List<cafeDTO> cafe;
 	private List<Bebida> bebidas;
 
+	private Integer cantidadSeleccionada;
+
 	private Carta carta;
 
-	public ABM_Menu_Controller(ABM_Menu vistaMenus, Carta carta) {
+	public Alta_Menu_Controller(Alta_Menu vistaMenus, Carta carta) {
 		this.vistaMenus = vistaMenus;
 		this.carta = carta;
+		this.cantidadSeleccionada = 4;
 
 		this.vistaMenus.getBtnAgregarAlMenu().addActionListener(this);
 		this.vistaMenus.getBtnQuitarDelMenu().addActionListener(this);
+		this.vistaMenus.getBtnCrearMenu().addActionListener(this);
+		this.vistaMenus.getBtnCancelarMenu().addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -58,23 +61,130 @@ public class ABM_Menu_Controller implements ActionListener {
 
 		if (e.getSource() == this.vistaMenus.getBtnAgregarAlMenu()) {
 
-			// this.agregarPlato();
+			int tabComidas = this.vistaMenus.getTbdPaneComidas().getSelectedIndex();
+			int tabBebida = this.vistaMenus.getTbdPaneComidas().getSelectedIndex();
+			int indice = 0;
+
+			if (tabComidas >= 0) {
+
+				if (tabComidas == 0) {
+
+					int filaSelect = this.vistaMenus.getTblEntrada().getSelectedRow();
+
+					if (filaSelect >= 0) {
+
+						for (int i = 0; i < this.cantidadSeleccionada; i++) {
+							String filaNombre = (String) this.vistaMenus.getTblMenu().getValueAt(i, 0);
+							if (filaNombre.equals("Principales:")) {
+								indice = i;
+								// this.sumarTotal(this.entrada.get(filaSelect).getPrecio(),
+								// cantidad);
+							}
+						}
+
+						Object[] fila = { this.entrada.get(filaSelect).getNombre(),
+								this.entrada.get(filaSelect).getPrecio().toString() };
+						this.vistaMenus.getModelMenu().insertRow(indice, fila);
+
+						cantidadSeleccionada = cantidadSeleccionada + 1;
+					}
+
+				} else if (tabComidas == 1) {
+
+					int filaSelect = this.vistaMenus.getTblPrincipal().getSelectedRow();
+
+					if (filaSelect >= 0) {
+
+						for (int i = 0; i < this.cantidadSeleccionada; i++) {
+							if (this.vistaMenus.getTblMenu().getValueAt(i, 0).equals("Postres:")) {
+								indice = i;
+								// this.sumarTotal(this.principal.get(filaSelect).getPrecio(),
+								// cantidad);
+							}
+						}
+
+						Object[] fila = { this.principal.get(filaSelect).getNombre(),
+								this.entrada.get(filaSelect).getPrecio().toString() };
+						this.vistaMenus.getModelMenu().insertRow(indice, fila);
+
+						cantidadSeleccionada = cantidadSeleccionada + 1;
+
+					}
+
+				} else if (tabComidas == 2) {
+
+					int filaSelect = this.vistaMenus.getTblPostre().getSelectedRow();
+
+					if (filaSelect >= 0) {
+
+						for (int i = 0; i < this.cantidadSeleccionada; i++) {
+							if (this.vistaMenus.getTblMenu().getValueAt(i, 0).equals("Bebidas:")) {
+								indice = i;
+								// this.sumarTotal(this.postre.get(filaSelect).getPrecio(),
+								// cantidad);
+							}
+						}
+
+						Object[] fila = { this.postre.get(filaSelect).getNombre(),
+								this.entrada.get(filaSelect).getPrecio().toString() };
+						this.vistaMenus.getModelMenu().insertRow(indice, fila);
+
+						cantidadSeleccionada = cantidadSeleccionada + 1;
+					}
+
+				}
+			}
+
+			if (tabBebida >= 0) {
+
+				int filaSelect = this.vistaMenus.getTblBebida().getSelectedRow();
+
+				if (filaSelect >= 0) {
+
+					Object[] fila = { this.bebidas.get(filaSelect).getNombre(),
+							this.bebidas.get(filaSelect).getPrecio().toString() };
+					this.vistaMenus.getModelMenu().addRow(fila);
+
+					cantidadSeleccionada = cantidadSeleccionada + 1;
+				}
+			}
+		} else if (e.getSource() == this.vistaMenus.getBtnQuitarDelMenu()) {
+
+			int filaSelect = this.vistaMenus.getTblMenu().getSelectedRow();
+
+			if (filaSelect >= 0) {
+
+				String filaNombre = (String) this.vistaMenus.getTblMenu().getValueAt(filaSelect, 0);
+				
+				if (filaNombre != "Entradas:" & filaNombre != "Principales:" & filaNombre != "Postres:"
+						& filaNombre != "Bebidas:") {
+					this.vistaMenus.getModelMenu().removeRow(filaSelect);
+				}else{
+					JOptionPane.showMessageDialog(vistaMenus, "No puede borrar los encabezados de menu.");
+				}
+
+			} else {
+
+				JOptionPane.showMessageDialog(vistaMenus, "No selecciono ninguna fila del menu.");
+			}
 
 		}
+
 	}
 
 	public void cargarTablas() {
 
 		Object[] filaE = { "Entradas:" };
 		this.vistaMenus.getModelMenu().addRow(filaE);
+		
 		Object[] filaP = { "Principales:" };
 		this.vistaMenus.getModelMenu().addRow(filaP);
+		
 		Object[] filaPo = { "Postres:" };
 		this.vistaMenus.getModelMenu().addRow(filaPo);
+		
 		Object[] filaB = { "Bebidas:" };
 		this.vistaMenus.getModelMenu().addRow(filaB);
-		Object[] filaM = { "Menus:" };
-		this.vistaMenus.getModelMenu().addRow(filaM);
 
 		for (int i = 0; i < this.entrada.size(); i++) {
 			Object[] fila = { this.entrada.get(i).getNombre(), this.entrada.get(i).getPrecio().toString() };
@@ -98,7 +208,7 @@ public class ABM_Menu_Controller implements ActionListener {
 			this.vistaMenus.getModelBebida().addRow(fila);
 		}
 	}
-	
+
 	public void cargarBebida() {
 		for (int i = 0; i < this.conAlcohol.size(); i++) {
 			this.bebidas.add(this.conAlcohol.get(i));
@@ -110,7 +220,7 @@ public class ABM_Menu_Controller implements ActionListener {
 			this.bebidas.add(this.cafe.get(i));
 		}
 	}
-	
+
 	public List<entradaDTO> getEntrada() {
 		return entrada;
 	}

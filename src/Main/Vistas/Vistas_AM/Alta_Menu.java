@@ -1,7 +1,5 @@
 package Vistas.Vistas_AM;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -13,17 +11,20 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Controllers.GestorDeCarta_Controller;
-import Vistas.Encargado.GestorDeCarta;
-
 import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class ABM_Menu extends JFrame {
+public class Alta_Menu extends JFrame {
 
 	private JPanel contentPane;
+	
 	private JTable tblEntrada;
 	private JTable tblBebida;
 	private JTable tblMenu;
@@ -36,12 +37,20 @@ public class ABM_Menu extends JFrame {
 	private DefaultTableModel modelBebida;
 	private DefaultTableModel modelMenu;
 	
+	private JTabbedPane tbdPaneComidas;
+	private JTabbedPane tbdPaneBebidas;
+	
 	private JButton btnAgregarAlMenu;
 	private JButton btnQuitarDelMenu;
+	private JButton btnCancelarMenu;
+	private JButton btnCrearMenu;
 	
 	private  String[] nombreColumnas = {"Nombre", "Precio"};
+	private JTextField txfNombre;
+	private JTextField txfPrecio;
 	
-	public ABM_Menu(GestorDeCarta_Controller padre) {
+	public Alta_Menu(GestorDeCarta_Controller padre) {
+		setTitle("Alta de Menu");
 
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -54,7 +63,7 @@ public class ABM_Menu extends JFrame {
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setForeground(Color.WHITE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ABM_Menu.class.getResource("/Imagenes/dishes-798316_1280.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Alta_Menu.class.getResource("/Imagenes/dishes-798316_1280.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1218, 800);
 		contentPane = new JPanel();
@@ -67,12 +76,20 @@ public class ABM_Menu extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(10, 11, 703, 349);
-		panel.add(tabbedPane);
+		tbdPaneComidas = new JTabbedPane(JTabbedPane.TOP);
+		tbdPaneComidas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+//				tbdPaneBebidas.setSelectedIndex(-1);
+				
+			}
+		});
+		tbdPaneComidas.setBounds(10, 11, 703, 349);
+		panel.add(tbdPaneComidas);
 		
 		JScrollPane scpEntrada = new JScrollPane();
-		tabbedPane.addTab("Entrada", null, scpEntrada, null);
+		tbdPaneComidas.addTab("Entrada", null, scpEntrada, null);
 		
 		modelEntrada = new DefaultTableModel(null, this.nombreColumnas);
 		tblEntrada =new JTable(modelEntrada);
@@ -83,7 +100,7 @@ public class ABM_Menu extends JFrame {
 		scpEntrada.setViewportView(tblEntrada);
 		
 		JScrollPane scrPrincipal = new JScrollPane();
-		tabbedPane.addTab("Principal", null, scrPrincipal, null);
+		tbdPaneComidas.addTab("Principal", null, scrPrincipal, null);
 		
 		modelPrincipal = new DefaultTableModel(null, this.nombreColumnas);
 		tblPrincipal = new JTable(modelPrincipal);
@@ -94,7 +111,7 @@ public class ABM_Menu extends JFrame {
 		scrPrincipal.setViewportView(tblPrincipal);
 		
 		JScrollPane scrPostre = new JScrollPane();
-		tabbedPane.addTab("Postre", null, scrPostre, null);
+		tbdPaneComidas.addTab("Postre", null, scrPostre, null);
 		
 		modelPostre = new DefaultTableModel(null, this.nombreColumnas);
 		tblPostre = new JTable(modelPostre);
@@ -105,12 +122,19 @@ public class ABM_Menu extends JFrame {
 		scrPostre.setViewportView(tblPostre);
 		
 		
-		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane_1.setBounds(10, 370, 703, 344);
-		panel.add(tabbedPane_1);
+		tbdPaneBebidas = new JTabbedPane(JTabbedPane.TOP);
+		tbdPaneBebidas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+//				tbdPaneComidas.setSelectedIndex(-1);
+			}
+		});
+		tbdPaneBebidas.setBounds(10, 370, 703, 344);
+		panel.add(tbdPaneBebidas);
 		
 		JScrollPane scrBebida = new JScrollPane();
-		tabbedPane_1.addTab("Bebidas", null, scrBebida, null);
+		tbdPaneBebidas.addTab("Bebidas", null, scrBebida, null);
 		
 		modelBebida = new DefaultTableModel(null, this.nombreColumnas);
 		tblBebida = new JTable(modelBebida);
@@ -145,6 +169,32 @@ public class ABM_Menu extends JFrame {
 		tblMenu.getColumnModel().getColumn(1).setPreferredWidth(100);
 		tblMenu.getColumnModel().getColumn(1).setResizable(false);
 		scrMenu.setViewportView(tblMenu);
+		
+		btnCrearMenu = new JButton("Crear");
+		btnCrearMenu.setBounds(1109, 717, 89, 23);
+		contentPane.add(btnCrearMenu);
+		
+		btnCancelarMenu = new JButton("Cancelar");
+		btnCancelarMenu.setBounds(1010, 717, 89, 23);
+		contentPane.add(btnCancelarMenu);
+		
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(844, 554, 79, 14);
+		contentPane.add(lblNombre);
+		
+		txfNombre = new JTextField();
+		txfNombre.setBounds(961, 551, 86, 20);
+		contentPane.add(txfNombre);
+		txfNombre.setColumns(10);
+		
+		JLabel lblPrecio = new JLabel("Precio");
+		lblPrecio.setBounds(844, 610, 79, 14);
+		contentPane.add(lblPrecio);
+		
+		txfPrecio = new JTextField();
+		txfPrecio.setColumns(10);
+		txfPrecio.setBounds(961, 607, 86, 20);
+		contentPane.add(txfPrecio);
 	}
 
 	public DefaultTableModel getModelEntrada() {
@@ -201,5 +251,93 @@ public class ABM_Menu extends JFrame {
 
 	public void setBtnQuitarDelMenu(JButton btnQuitarDelMenu) {
 		this.btnQuitarDelMenu = btnQuitarDelMenu;
+	}
+
+	public JTextField getTxfNombre() {
+		return txfNombre;
+	}
+
+	public void setTxfNombre(JTextField txfNombre) {
+		this.txfNombre = txfNombre;
+	}
+
+	public JTextField getTxfPrecio() {
+		return txfPrecio;
+	}
+
+	public void setTxfPrecio(JTextField txfPrecio) {
+		this.txfPrecio = txfPrecio;
+	}
+
+	public JButton getBtnCrearMenu() {
+		return btnCrearMenu;
+	}
+
+	public void setBtnCrearMenu(JButton btnCrearMenu) {
+		this.btnCrearMenu = btnCrearMenu;
+	}
+
+	public JButton getBtnCancelarMenu() {
+		return btnCancelarMenu;
+	}
+
+	public void setBtnCancelarMenu(JButton btnCancelarMenu) {
+		this.btnCancelarMenu = btnCancelarMenu;
+	}
+
+	public JTabbedPane getTbdPaneBebidas() {
+		return tbdPaneBebidas;
+	}
+
+	public void setTbdPaneBebidas(JTabbedPane tbdPaneBebidas) {
+		this.tbdPaneBebidas = tbdPaneBebidas;
+	}
+
+	public JTabbedPane getTbdPaneComidas() {
+		return tbdPaneComidas;
+	}
+
+	public void setTbdPaneComidas(JTabbedPane tbdPaneComidas) {
+		this.tbdPaneComidas = tbdPaneComidas;
+	}
+
+	public JTable getTblEntrada() {
+		return tblEntrada;
+	}
+
+	public void setTblEntrada(JTable tblEntrada) {
+		this.tblEntrada = tblEntrada;
+	}
+
+	public JTable getTblMenu() {
+		return tblMenu;
+	}
+
+	public void setTblMenu(JTable tblMenu) {
+		this.tblMenu = tblMenu;
+	}
+
+	public JTable getTblBebida() {
+		return tblBebida;
+	}
+
+	public void setTblBebida(JTable tblBebida) {
+		this.tblBebida = tblBebida;
+	}
+
+	public JTable getTblPrincipal() {
+		return tblPrincipal;
+	}
+
+	public void setTblPrincipal(JTable tblPrincipal) {
+		this.tblPrincipal = tblPrincipal;
+	}
+
+	public JTable getTblPostre() {
+		return tblPostre;
+	}
+
+	public void setTblPostre(JTable tblPostre) {
+		this.tblPostre = tblPostre;
 	}
 }

@@ -33,7 +33,7 @@ public class TomaDePedido extends JFrame {
 	private JTabbedPane tabbedPane;
 	
 	private JTable tblPedidoSelect;
-
+	
 	private JTable tblMenu;
 	private JTable tblEntrada;
 	private JTable tblPrincipal;
