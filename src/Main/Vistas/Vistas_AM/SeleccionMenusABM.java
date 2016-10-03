@@ -1,6 +1,5 @@
-package Main.Vistas.Vistas_AM;
+package Vistas.Vistas_AM;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -12,7 +11,6 @@ import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Toolkit;
 
