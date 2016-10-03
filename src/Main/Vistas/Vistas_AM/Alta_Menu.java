@@ -10,6 +10,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import Controllers.ABM_Menu_Controller;
 import Controllers.GestorDeCarta_Controller;
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -53,13 +54,13 @@ public class Alta_Menu extends JFrame {
 	private JTextField txfNombre;
 	private JTextField txfPrecio;
 	
-	public Alta_Menu(GestorDeCarta_Controller padre) {
+	public Alta_Menu(ABM_Menu_Controller padre) {
 		setTitle("Alta de Menu");
 
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
-				padre.getVistaCarta().setEnabled(true);
+				padre.getVistaMenus().setEnabled(true);
 				padre.inicializar();
 			}
 		});

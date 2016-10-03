@@ -9,6 +9,7 @@ import Modelo.DTO.Comidas.platoDTO;
 import Modelo.Negocio.Carta;
 import Vistas.Encargado.GestorDeCarta;
 import Vistas.Vistas_AM.ABM_Bebida;
+import Vistas.Vistas_AM.ABM_Menus;
 import Vistas.Vistas_AM.ABM_Plato;
 import Vistas.Vistas_AM.Alta_Menu;
 
@@ -61,12 +62,13 @@ public class GestorDeCarta_Controller implements ActionListener {
 			this.vistaCarta.setEnabled(false);
 
 		} else if (e.getSource() == this.vistaCarta.getBtnGestionarMenu()) {
-
-			Alta_Menu vistaMenu = new Alta_Menu(this);
-			Alta_Menu_Controller controlMenu = new Alta_Menu_Controller(vistaMenu, carta);
-			controlMenu.inicializar();
-			vistaMenu.setVisible(true);
+			
+			ABM_Menus adminMenu = new ABM_Menus(this);
+			ABM_Menu_Controller controlAbmMenu = new ABM_Menu_Controller(adminMenu, carta);
+			controlAbmMenu.inicializar();
+			adminMenu.setVisible(true);
 			this.vistaCarta.setEnabled(false);
+			
 		}
 
 	}

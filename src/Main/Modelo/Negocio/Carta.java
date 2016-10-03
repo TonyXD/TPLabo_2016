@@ -24,116 +24,11 @@ public class Carta {
 	private menuDAO menu;
 
 	public Carta() {
-
-//		this.entrada = new entradaDAO();
-//		this.principal = new principalDAO();
-//		this.postre = new postreDAO();
-//		this.conAlcohol = new conAlcoholDAO();
-//		this.sinAlcohol = new sinAlcoholDAO();
-//		this.cafe = new cafeDAO();
 		
 		this.plato = new platoDAO();
 		this.bebida = new bebidaDAO();
 		this.menu = new menuDAO();
-	}
-
-//	public void agregarEntrada(entradaDTO x) {
-//		this.entrada.insert(x);
-//	}
-//
-//	public void agregarPrincipal(principalDTO x) {
-//		this.principal.insert(x);
-//	}
-//
-//	public void agregarPostre(postreDTO x) {
-//		this.postre.insert(x);
-//	}
-//
-//	public void agregarConAlcohol(conAlcoholDTO x) {
-//		this.conAlcohol.insert(x);
-//	}
-//
-//	public void agregarSinAlcohol(sinAlcoholDTO x) {
-//		this.sinAlcohol.insert(x);
-//	}
-//
-//	public void agregarCafe(cafeDTO x) {
-//		this.cafe.insert(x);
-//	}
-//
-//	public void borrarEntrada(entradaDTO x) {
-//		this.entrada.delete(x);
-//	}
-//
-//	public void borrarPrincipal(principalDTO x) {
-//		this.principal.delete(x);
-//	}
-//
-//	public void borrarPostre(postreDTO x) {
-//		this.postre.delete(x);
-//	}
-//
-//	public void borrarConAlcohol(conAlcoholDTO x) {
-//		this.conAlcohol.delete(x);
-//	}
-//
-//	public void borrarSinAlcohol(sinAlcoholDTO x) {
-//		this.sinAlcohol.delete(x);
-//	}
-//
-//	public void borrarCafe(cafeDTO x) {
-//		this.cafe.delete(x);
-//	}
-//
-//	public List<entradaDTO> obtenerEntradas() {
-//		return this.entrada.readAll();
-//	}
-//
-//	public List<principalDTO> obtenerPrincipales() {
-//		return this.principal.readAll();
-//	}
-//
-//	public List<postreDTO> obtenerPostres() {
-//		return this.postre.readAll();
-//	}
-//
-//	public List<conAlcoholDTO> obtenerConAlcoholes() {
-//		return this.conAlcohol.readAll();
-//	}
-//
-//	public List<sinAlcoholDTO> obtenerSinAlcoholes() {
-//		return this.sinAlcohol.readAll();
-//	}
-//
-//	public List<cafeDTO> obtenerCafes() {
-//		return this.cafe.readAll();
-//	}
-//	
-//	public void editarEntrada(entradaDTO x) {
-//		this.entrada.update(x);
-//	}
-//	
-//	public void editarPrincipal(principalDTO x) {
-//		this.principal.update(x);
-//	}
-//	
-//	public void editarPostre(postreDTO x) {
-//		this.postre.update(x);
-//	}
-//	
-//	public void editarConAlcohol(conAlcoholDTO x) {
-//		this.conAlcohol.update(x);
-//	}
-//	
-//	public void editarSinAlcohol(sinAlcoholDTO x) {
-//		this.sinAlcohol.update(x);
-//	}
-//	
-//	public void editarCafe(cafeDTO x) {
-//		this.cafe.update(x);
-//	}
-	
-	
+	}	
 	
 	public menuDAO getMenu() {
 		return menu;

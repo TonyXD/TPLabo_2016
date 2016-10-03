@@ -13,9 +13,10 @@ import Persistencia.Conexion.Conexion;
 
 public class mesaDAO {
 
-	private static final String insert = "INSERT INTO mesa(idMesa, capacidad, mozo, estado) VALUES(?,?,?,?)";
+	private static final String insert = "INSERT INTO mesa(idMesa, numero, capacidad, piso, sector, estado) VALUES(?,?,?,?,?,?)";
 	private static final String delete = "DELETE FROM mesa WHERE idMesa = ?";
 	private static final String readall = "SELECT * FROM mesa";
+	private static final String update = "UPDATE mesa SET numero=?, capacidad=?, piso=?, sector=?, estado=? WHERE idMesa=?";
 	private static final Conexion conexion = Conexion.getConexion();
 
 	public boolean insert(mesaDTO mesa) {
@@ -23,9 +24,11 @@ public class mesaDAO {
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
 			statement.setInt(1, mesa.getIdMesa());
-			statement.setInt(2, mesa.getCapacidad());
-//			statement.setInt(3, mesa.getMozo().getIdMozo());
-			statement.setInt(3, mesa.getEstado().getIdEstado());
+			statement.setInt(2, mesa.getNumero());
+			statement.setInt(3, mesa.getCapacidad());
+			statement.setInt(4, mesa.getPiso());
+			statement.setString(5, mesa.getSector());
+			statement.setInt(6, mesa.getEstado().getIdEstado());
 
 			if (statement.executeUpdate() > 0) // Si se ejecuta devuelvo true
 				return true;
@@ -65,9 +68,15 @@ public class mesaDAO {
 			resultSet = statement.executeQuery();
 
 			while (resultSet.next()) {
-				mozoDTO mozo = dameMozo(resultSet.getInt("mozo"));
+				
 				estadoDTO estado = dameEstado(resultSet.getInt("estado"));
-//				mesas.add(new mesaDTO(resultSet.getInt("idMesa"), resultSet.getInt("capacidad"), mozo, estado));
+				
+				mesas.add(new mesaDTO(resultSet.getInt("idMesa"),
+						resultSet.getInt("numero"),
+						resultSet.getInt("capacidad"),
+						resultSet.getInt("piso"),
+						resultSet.getString("sector"), 
+						estado));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,15 +87,57 @@ public class mesaDAO {
 		return mesas;
 	}
 
-	public boolean update() {
+	public boolean update(mesaDTO mesa) {
+		
+		PreparedStatement statement;
+		int chequeoUpdate=0;
+		try 
+		{
+			statement = conexion.getSQLConexion().prepareStatement(update);
+			statement.setInt(1, mesa.getNumero());
+			statement.setInt(2, mesa.getCapacidad());
+			statement.setInt(3, mesa.getPiso());
+			statement.setString(4, mesa.getSector());
+			statement.setInt(5, mesa.getEstado().getIdEstado());
+			statement.setInt(6, mesa.getIdMesa());
+			
+			chequeoUpdate = statement.executeUpdate();
+			if(chequeoUpdate > 0) //Si se ejecut� devuelvo true
+				return true;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally //Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
 		return false;
 	}
 	
-	private mozoDTO dameMozo(int idMozo){
-		return null;
-	}
-	
 	private estadoDTO dameEstado(int idEstado){
+		
+		PreparedStatement statement0;
+		
+		ResultSet resultSet;
+		
+		estadoDTO estado;
+		
+		try {
+			statement0 = conexion.getSQLConexion().prepareStatement("Select * from estados WHERE idEstado=?");
+			statement0.setInt(1, idEstado);
+			resultSet = statement0.executeQuery();
+
+			while (resultSet.next()) {
+				return estado = new estadoDTO(resultSet.getInt("idEstado"), resultSet.getString("tipoEstado"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally // Se ejecuta siempre
+		{
+			conexion.cerrarConexion();
+		}
 		return null;
 	}
 }
