@@ -132,6 +132,28 @@ CREATE TABLE `tplabo_2016`.`cafe` (
 
 /*menu (platos y bebidas) y pedido(platos bebidas y menus)*/
 
+/*tabla intermedia menu*/
+
+CREATE TABLE menus_platos(
+	idMenu INT NOT NULL,
+	idBebida INT NOT NULL,
+	FOREIGN KEY (idMenu) REFERENCES menu (idMenu),
+	FOREIGN KEY (idBebida) REFERENCES bebidas (idBebida)
+);
+
+/*tabla intermedia pedido*/
+
+CREATE TABLE pedido_plato_bebida_menu(
+	idPedido INT NOT NULL,
+	idPlato INT NOT NULL,
+	idBebida INT NOT NULL,
+	idMenu INT NOT NULL,
+	FOREIGN KEY (idPedido) REFERENCES pedidos (idPedido),
+	FOREIGN KEY (idPlato) REFERENCES platos (idPlato),
+	FOREIGN KEY (idBebida) REFERENCES bebidas (idBebida),
+	FOREIGN KEY (idMenu) REFERENCES menus (idMenu)
+);
+
 CREATE TABLE pedidos(
 	idPedido INT NOT NULL AUTO_INCREMENT,
 	idPlato INT(10),
