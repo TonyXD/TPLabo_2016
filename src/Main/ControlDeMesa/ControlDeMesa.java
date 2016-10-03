@@ -31,6 +31,7 @@ public class ControlDeMesa {
 			public int compare(pedidoDTO o1, pedidoDTO o2) {
 				// TODO Auto-generated method stub
 				return 0;
+				
 			}
 		});
     	//Hardcodeado
