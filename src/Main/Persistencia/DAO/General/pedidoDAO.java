@@ -6,12 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Modelo.DTO.Bebidas.cafeDTO;
-import Modelo.DTO.Bebidas.conAlcoholDTO;
-import Modelo.DTO.Bebidas.sinAlcoholDTO;
-import Modelo.DTO.Comidas.entradaDTO;
-import Modelo.DTO.Comidas.postreDTO;
-import Modelo.DTO.Comidas.principalDTO;
+import Modelo.DTO.Bebidas.bebidaDTO;
+import Modelo.DTO.Comidas.menuDTO;
+import Modelo.DTO.Comidas.platoDTO;
 import Modelo.DTO.General.estadoDTO;
 import Modelo.DTO.General.mesaDTO;
 import Modelo.DTO.General.pedidoDTO;
@@ -79,15 +76,12 @@ public class pedidoDAO {
 
 				pedido.add(new pedidoDTO(
 						resultSet.getInt("idPedido"),
-						(ArrayList<entradaDTO>) resultSet.getObject("entrada"),
-						(ArrayList<principalDTO>) resultSet.getObject("principal"),
-						(ArrayList<postreDTO>) resultSet.getObject("postre"),
-						(ArrayList<conAlcoholDTO>) resultSet.getObject("conAlcohol"),
-						(ArrayList<sinAlcoholDTO>) resultSet.getObject("sinAlcohol"),
-						(ArrayList<cafeDTO>) resultSet.getObject("cafe"), 
-						(ArrayList<mozoDTO>) resultSet.getObject("mozo"),
-						(ArrayList<mesaDTO>) resultSet.getObject("mesa"), 
-						estado, 
+						(ArrayList<platoDTO>)resultSet.getObject("idPlato"),
+						(ArrayList<bebidaDTO>)resultSet.getObject("idBebida"),
+						(ArrayList<menuDTO>)resultSet.getObject("idMenu"),
+						(ArrayList<mozoDTO>)resultSet.getObject("idMozo"),
+						(ArrayList<mesaDTO>)resultSet.getObject("idMesa"),
+						estado,
 						resultSet.getDate("fecha")));
 			}
 		} catch (SQLException e) {

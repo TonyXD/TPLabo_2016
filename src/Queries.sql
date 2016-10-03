@@ -134,11 +134,13 @@ CREATE TABLE `tplabo_2016`.`cafe` (
 
 /*tabla intermedia menu*/
 
-CREATE TABLE menus_platos(
+CREATE TABLE menus_platos_bebida(
 	idMenu INT NOT NULL,
+	idPlato INT NOT NULL,
 	idBebida INT NOT NULL,
 	FOREIGN KEY (idMenu) REFERENCES menu (idMenu),
-	FOREIGN KEY (idBebida) REFERENCES bebidas (idBebida)
+	FOREIGN KEY (idBebida) REFERENCES bebidas (idBebida),
+	FOREIGN KEY (idPlato) REFERENCES platos (idPlato)
 );
 
 /*tabla intermedia pedido*/
@@ -191,13 +193,9 @@ CREATE TABLE bebidas (
 
 CREATE TABLE menu (
 	idMenu INT NOT NULL AUTO_INCREMENT,
-	idPlato INT (10),
-	idBebida INT(10),
 	nombreMenu VARCHAR(45) NOT NULL,
 	precioMenu DECIMAL NOT NULL,
-	PRIMARY KEY (idMenu),
-	FOREIGN KEY (idPlato) REFERENCES platos (idPlato),
-	FOREIGN KEY (idBebida) REFERENCES bebidas (idBebida)
+	PRIMARY KEY (idMenu)
 );
 
 

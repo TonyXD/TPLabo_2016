@@ -5,12 +5,13 @@ import java.util.ArrayList;
 
 import Modelo.DTO.Bebidas.bebidaDTO;
 import Modelo.DTO.Comidas.menuDTO;
+import Modelo.DTO.Comidas.platoDTO;
 import Modelo.DTO.RecursosHumanos.mozoDTO;
 
 public class pedidoDTO {
 
 	private int idPedido;
-	private ArrayList<bebidaDTO> platos;
+	private ArrayList<platoDTO> platos;
 	private ArrayList<bebidaDTO> bebidas;
 	private ArrayList<menuDTO> menus;
 	private ArrayList<mozoDTO> mozo;
@@ -18,7 +19,7 @@ public class pedidoDTO {
 	private estadoDTO estado;
 	private Date fecha;
 
-	public pedidoDTO(int idPedido, ArrayList<bebidaDTO> platos, ArrayList<bebidaDTO> bebidas, ArrayList<menuDTO> menus,
+	public pedidoDTO(int idPedido, ArrayList<platoDTO> platos, ArrayList<bebidaDTO> bebidas, ArrayList<menuDTO> menus,
 			ArrayList<mozoDTO> mozo, ArrayList<mesaDTO> mesa, estadoDTO estado, Date fecha) {
 
 		this.setIdPedido(idPedido);
@@ -71,11 +72,11 @@ public class pedidoDTO {
 		this.idPedido = idPedido;
 	}
 
-	public ArrayList<bebidaDTO> getPlatos() {
+	public ArrayList<platoDTO> getPlatos() {
 		return platos;
 	}
 
-	public void setPlatos(ArrayList<bebidaDTO> platos) {
+	public void setPlatos(ArrayList<platoDTO> platos) {
 		this.platos = platos;
 	}
 
