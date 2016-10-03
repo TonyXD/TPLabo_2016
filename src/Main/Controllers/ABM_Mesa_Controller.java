@@ -20,6 +20,10 @@ public class ABM_Mesa_Controller implements ActionListener {
 	public ABM_Mesa_Controller(ABM_Mesa vistaMesas, Restorant resto) {
 		this.vistaMesas = vistaMesas;
 		this.resto = resto;
+		
+		this.vistaMesas.getBtnAgregar().addActionListener(this);
+		this.vistaMesas.getBtnEditar().addActionListener(this);
+		this.vistaMesas.getBtnEliminar().addActionListener(this);
 
 		inicializar();
 
@@ -39,33 +43,44 @@ public class ABM_Mesa_Controller implements ActionListener {
 			this.agregarMesa();
 
 		} else if (e.getSource() == this.vistaMesas.getBtnEditar()) {
-			
+
 			this.editarMesa();
-			
+
 		} else if (e.getSource() == this.vistaMesas.getBtnEliminar()) {
-			
+
 			this.borrarMesa();
-			
+
 		}
 
 	}
 
-	public void agregarMesa(){
-		
-		int numero =  Integer.parseInt(this.vistaMesas.getTxtNumero().getText());
+	public void agregarMesa() {
+
+		int numero = Integer.parseInt(this.vistaMesas.getTxtNumero().getText());
 		int capacidad = (int) this.vistaMesas.getSpnCapacidad().getValue();
 		int piso = (int) this.vistaMesas.getSpnPiso().getValue();
 		String sector = this.vistaMesas.getTxfSector().getText();
 		estadoDTO estado = new estadoDTO(0, "Libre");
-		mesaDTO mesa = new mesaDTO(0, numero, capacidad, piso ,sector, estado);
-		
+		mesaDTO mesa = new mesaDTO(0, numero, capacidad, piso, sector, estado);
+
 		resto.agregarMesa(mesa);
 		this.mesas.add(mesa);
 		this.cargarTabla();
 	}
 
-	public void cargarTabla(){
-		
+	public void cargarTabla() {
+
+		this.vistaMesas.getModelMenus().setRowCount(0);
+		this.vistaMesas.getModelMenus().setColumnCount(0);
+		this.vistaMesas.getModelMenus().setColumnIdentifiers(this.vistaMesas.getNombreColumnas());
+
+		for (int i = 0; i < this.mesas.size(); i++) {
+
+			Object[] fila = { this.mesas.get(i).getNumero(), this.mesas.get(i).getCapacidad(),
+					this.mesas.get(i).getPiso(), this.mesas.get(i).getSector()};
+			this.vistaMesas.getModelMenus().addRow(fila);
+		}
+
 	}
 
 	public void borrarMesa() {
@@ -79,20 +94,20 @@ public class ABM_Mesa_Controller implements ActionListener {
 			this.cargarTabla();
 		}
 	}
-	
-	public void editarMesa(){
-		
-		int numero =  Integer.parseInt(this.vistaMesas.getTxfNumeroEd().getText());
+
+	public void editarMesa() {
+
+		int numero = Integer.parseInt(this.vistaMesas.getTxfNumeroEd().getText());
 		int capacidad = (int) this.vistaMesas.getSpnCapacidadEd().getValue();
 		int piso = (int) this.vistaMesas.getSpnPisoEd().getValue();
 		String sector = this.vistaMesas.getTxfSectorEd().getText();
 		estadoDTO estado = new estadoDTO(0, "Libre");
-		mesaDTO mesa = new mesaDTO(0, numero, capacidad, piso ,sector, estado);
-		
+		mesaDTO mesa = new mesaDTO(0, numero, capacidad, piso, sector, estado);
+
 		resto.editarMesa(mesa);
 		this.mesas = resto.obtenerMesas();
 		this.cargarTabla();
-		
+
 	}
 
 }

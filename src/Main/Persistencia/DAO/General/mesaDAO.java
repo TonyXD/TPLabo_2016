@@ -69,7 +69,8 @@ public class mesaDAO {
 
 			while (resultSet.next()) {
 				
-				estadoDTO estado = dameEstado(resultSet.getInt("estado"));
+//				estadoDTO estado = dameEstado(resultSet.getInt("estado"));
+				estadoDTO estado = null;
 				
 				mesas.add(new mesaDTO(resultSet.getInt("idMesa"),
 						resultSet.getInt("numero"),

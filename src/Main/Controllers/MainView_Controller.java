@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import Modelo.Negocio.Carta;
 import Modelo.Negocio.Pedido;
+import Modelo.Negocio.Restorant;
 import Vistas.Encargado.EncargadoMain_View;
 import Vistas.Encargado.GestorDeCarta;
 import Vistas.Encargado.GestorMesas;
@@ -16,8 +17,9 @@ public class MainView_Controller implements ActionListener{
 	
 	private Carta carta;
 	private Pedido pedido;
+	private Restorant resto;
 	
-	public MainView_Controller(EncargadoMain_View vistaEncargado, Carta carta, Pedido pedido){
+	public MainView_Controller(EncargadoMain_View vistaEncargado, Carta carta, Pedido pedido, Restorant resto){
 		
 		this.vistaEncargado = vistaEncargado;
 		
@@ -30,7 +32,7 @@ public class MainView_Controller implements ActionListener{
 		
 		this.carta = carta;
 		this.pedido = pedido;
-		
+		this.resto = resto;
 	}
 	
 	@Override
@@ -38,13 +40,15 @@ public class MainView_Controller implements ActionListener{
 		
 		if (e.getSource() == this.vistaEncargado.getBtnVerMesas()) {
 			
-			GestorMesas vistaMesas = new GestorMesas();
-			GestorMesas_Controller controlMesas = new GestorMesas_Controller(vistaMesas, pedido);
+			ABM_Mesa vistaMesas = new ABM_Mesa();
+			ABM_Mesa_Controller controlMesas = new ABM_Mesa_Controller(vistaMesas, resto);
 			vistaMesas.setVisible(true);
 			
 		}else if(e.getSource() == this.vistaEncargado.getBtnVerPedido()){
 			
-			
+			GestorMesas vistaPedido = new GestorMesas();
+			GestorMesas_Controller controlPedido = new GestorMesas_Controller(vistaPedido, pedido);
+			vistaPedido.setVisible(true);
 			
 		}else if(e.getSource() == this.vistaEncargado.getBtnVerCarta()){
 			

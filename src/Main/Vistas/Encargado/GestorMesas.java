@@ -68,17 +68,17 @@ public class GestorMesas extends JFrame {
 		btnVerDetalle.setBounds(429, 11, 130, 40);
 		panel.add(btnVerDetalle);
 		
-		JButton btnGenerarControl = new JButton("Generar Control");
-		btnGenerarControl.setBounds(569, 11, 130, 40);
-		panel.add(btnGenerarControl);
+		JButton btnGenCtrl = new JButton("Generar Control");
+		btnGenCtrl.setBounds(569, 11, 130, 40);
+		panel.add(btnGenCtrl);
 		
 		JButton btnTicket = new JButton("Ticket");
 		btnTicket.setBounds(709, 11, 130, 40);
 		panel.add(btnTicket);
 		
-		JButton btnNewButton = new JButton("Asignar Mesa");
-		btnNewButton.setBounds(10, 11, 130, 40);
-		panel.add(btnNewButton);
+		JButton btnAsignarMesa = new JButton("Asignar Mesa");
+		btnAsignarMesa.setBounds(10, 11, 130, 40);
+		panel.add(btnAsignarMesa);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 89, 845, 377);

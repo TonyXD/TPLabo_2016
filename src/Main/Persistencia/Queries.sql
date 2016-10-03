@@ -207,11 +207,11 @@ CREATE TABLE menu (
 
 CREATE TABLE `tplabo_2016`.`mesa` (
     `idMesa` INT NOT NULL AUTO_INCREMENT,
-    `capasidad` INT NOT NULL,
-    `posicionX` FLOAT NULL,
-    `posicionY` FLOAT NULL,
-    `idMozo` INT NULL,
-    `idEstado` INT NULL,
+    `numero` INT NOT NULL,
+    `capacidad` INT NOT NULL,
+    `piso` INT NOT NULL,
+    `sector` VARCHAR (45) NOT NULL,
+    `estado` INT NULL,
     PRIMARY KEY (`idMesa`)
 );
     ALTER TABLE `tplabo_2016`.`mesa` 

@@ -23,7 +23,7 @@ public class EncargadoMain_View extends JFrame {
 
 	private static final long serialVersionUID = -6200816652032876979L;
 	
-	private JButton btnVerMesas;
+	private JButton btnAdmMesas;
 	private JButton btnVerReserva;
 	private JButton btnVerCarta;
 	private JButton btnVerStock;
@@ -89,7 +89,7 @@ public class EncargadoMain_View extends JFrame {
 		btnVerCocina.setBounds(420, 0, 130, 43);
 		panel.add(btnVerCocina);
 		
-		btnVerPedido = new JButton("Ver Pedido");
+		btnVerPedido = new JButton("Adm. Pedido");
 		btnVerPedido.setBounds(140, 0, 130, 43);
 		panel.add(btnVerPedido);
 		
@@ -103,16 +103,16 @@ public class EncargadoMain_View extends JFrame {
 		btnVerStock.setBounds(700, 0, 130, 43);
 		panel.add(btnVerStock);
 		
-		btnVerCarta = new JButton("Ver Carta");
+		btnVerCarta = new JButton("Adm. Carta");
 		btnVerCarta.setBounds(560, 0, 130, 43);
 		panel.add(btnVerCarta);
 		
-		btnVerMesas = new JButton("Ver Mesas");
-		btnVerMesas.setActionCommand("Control\r\n\r\nMesa");
-		btnVerMesas.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnVerMesas.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnVerMesas.setBounds(0, 0, 130, 43);
-		panel.add(btnVerMesas);
+		btnAdmMesas = new JButton("Adm. Mesas");
+		btnAdmMesas.setActionCommand("Control\r\n\r\nMesa");
+		btnAdmMesas.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnAdmMesas.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnAdmMesas.setBounds(0, 0, 130, 43);
+		panel.add(btnAdmMesas);
 		
 		JButton button_5 = new JButton("");
 		button_5.setEnabled(false);
@@ -182,10 +182,10 @@ public class EncargadoMain_View extends JFrame {
 	}
 
 	public JButton getBtnVerMesas() {
-		return btnVerMesas;
+		return btnAdmMesas;
 	}
 
 	public void setBtnVerMesas(JButton btnVerMesas) {
-		this.btnVerMesas = btnVerMesas;
+		this.btnAdmMesas = btnVerMesas;
 	}
 }
