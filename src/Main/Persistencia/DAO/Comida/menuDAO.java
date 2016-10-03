@@ -21,27 +21,29 @@ public class menuDAO {
 	private static final String readallPlatosBebidas = "SELECT * FROM menu, menus_platos_bebidas, platos, bebidas WHERE idMenu=menus_platos_bebidas.idMenu";
 
 	private static final Conexion conexion = Conexion.getConexion();
-
+	
 	public boolean insert(menuDTO menu) {
 		PreparedStatement statement;
 		PreparedStatement statementPlatosBebidas;
-
+		
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
 			statementPlatosBebidas = conexion.getSQLConexion().prepareStatement(insertPlatosBebidas);
-
+			
 			statement.setInt(1, menu.getIdMenu());
-
-			for (int i = 0; i < menu.getPlatos().size(); i++) {
-				statementPlatosBebidas.setInt(i + 1, menu.getIdMenu());
-				statementPlatosBebidas.setInt(i + 1, menu.getPlatos().get(i).getIdPlato());
+			
+			for (int i = 0; i < menu.getPlatos().size(); i++)
+			{
+				statementPlatosBebidas.setInt(i+1, menu.getIdMenu());
+				statementPlatosBebidas.setInt(i+1, menu.getPlatos().get(i).getIdPlato());
 			}
-
-			for (int i = 0; i < menu.getBebidas().size(); i++) {
-				statementPlatosBebidas.setInt(i + 1, menu.getIdMenu());
-				statementPlatosBebidas.setInt(i + 1, menu.getBebidas().get(i).getIdBebida());
+			
+			for (int i = 0; i < menu.getBebidas().size(); i++)
+			{
+				statementPlatosBebidas.setInt(i+1, menu.getIdMenu());
+				statementPlatosBebidas.setInt(i+1, menu.getBebidas().get(i).getIdBebida());
 			}
-
+			
 			statement.setString(2, menu.getNombre());
 			statement.setDouble(3, menu.getPrecio());
 
@@ -79,7 +81,7 @@ public class menuDAO {
 		PreparedStatement statementPlatosBebidas;
 		ResultSet resultSet; // Guarda el resultado de la query
 		ResultSet resultSetPlatosBebidas;
-
+		
 		ArrayList<menuDTO> menus = new ArrayList<menuDTO>();
 		ArrayList<platoDTO> platos = new ArrayList<platoDTO>();
 		ArrayList<bebidaDTO> bebidas = new ArrayList<bebidaDTO>();
@@ -87,30 +89,37 @@ public class menuDAO {
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(readall);
 			statementPlatosBebidas = conexion.getSQLConexion().prepareStatement(readallPlatosBebidas);
-
+			
 			resultSet = statement.executeQuery();
 			resultSetPlatosBebidas = statementPlatosBebidas.executeQuery();
-
-			while (resultSetPlatosBebidas.next()) {
-				for (int i = 0; i < menus.size(); i++) {
+			
+			while(resultSetPlatosBebidas.next())
+			{
+				for (int i = 0; i < menus.size(); i++) 
+				{
 					platos.add(new platoDTO(resultSetPlatosBebidas.getInt("idPlato"),
-							resultSetPlatosBebidas.getString("nombrePlato"),
-							resultSetPlatosBebidas.getDouble("precioPlato"),
-							resultSetPlatosBebidas.getString("tipoPlato")));
-
+											resultSetPlatosBebidas.getString("nombrePlato"),
+											resultSetPlatosBebidas.getDouble("precioPlato"),
+											resultSetPlatosBebidas.getString("tipoPlato")));
+					
 					bebidas.add(new bebidaDTO(resultSetPlatosBebidas.getInt("idBebida"),
-							resultSetPlatosBebidas.getString("nombreBebida"),
-							resultSetPlatosBebidas.getDouble("precioBebida"),
-							resultSetPlatosBebidas.getString("tipoBebida")));
+											  resultSetPlatosBebidas.getString("nombreBebida"),
+											  resultSetPlatosBebidas.getDouble("precioBebida"),
+											  resultSetPlatosBebidas.getString("tipoBebida")));
 				}
 			}
+			
+			while(resultSet.next())
+			{
 
-			while (resultSet.next()) {
-
-				menus.add(new menuDTO(resultSet.getInt("idMenu"), resultSet.getString("nombreMenu"),
-						resultSet.getDouble("precioMenu"), platos, bebidas));
+				menus.add(new menuDTO(resultSet.getInt("idMenu"),
+						resultSet.getString("nombreMenu"),
+						resultSet.getDouble("precioMenu"),
+						platos,
+						bebidas
+						));
 			}
-
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally // Se ejecuta siempre
