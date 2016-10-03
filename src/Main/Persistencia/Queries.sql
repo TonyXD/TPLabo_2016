@@ -130,6 +130,57 @@ CREATE TABLE `tplabo_2016`.`cafe` (
 	PRIMARY KEY(`idCafe`)
 );
 
+/*menu (platos y bebidas) y pedido(platos bebidas y menus)*/
+
+CREATE TABLE pedidos(
+	idPedido INT NOT NULL AUTO_INCREMENT,
+	idPlato INT(10),
+	idBebida INT(10),
+	idEmpleado INT(10),
+	idMesa INT (10),
+	idEstado INT (10),
+	idMenu INT(10),
+	fecha DATE,
+	PRIMARY KEY (idPedido),
+	FOREIGN KEY (idPlato) REFERENCES platos (idPlato),
+	FOREIGN KEY (idBebida) REFERENCES bebidas (idBebida),
+	FOREIGN KEY (idEmpleado) REFERENCES empleado (idEmpleado),
+	FOREIGN KEY (idMesa) REFERENCES mesas (idMesa),
+	FOREIGN KEY (idEstado) REFERENCES estados (idEstados),
+	FOREIGN KEY (idMenu) REFERENCES menu (idMenu)
+);
+
+CREATE TABLE platos (
+	idPlato INT NOT NULL AUTO_INCREMENT,
+	nombrePlato VARCHAR(45)NOT NULL,
+	precioPlato DECIMAL NOT NULL,
+	tipoPlato VARCHAR(45) NOT NULL,
+	PRIMARY KEY (idPlato)
+	
+);
+
+CREATE TABLE bebidas (
+	idBebida INT NOT NULL AUTO_INCREMENT,
+	nombreBebida VARCHAR (45) NOT NULL,
+	precioBebida DECIMAL NOT NULL,
+	tipoBebida VARCHAR(45) NOT NULL,
+	PRIMARY KEY (idBebida)
+);
+
+
+CREATE TABLE menu (
+	idMenu INT NOT NULL AUTO_INCREMENT,
+	idPlato INT (10),
+	idBebida INT(10),
+	nombreMenu VARCHAR(45) NOT NULL,
+	precioMenu DECIMAL NOT NULL,
+	PRIMARY KEY (idMenu),
+	FOREIGN KEY (idPlato) REFERENCES platos (idPlato),
+	FOREIGN KEY (idBebida) REFERENCES bebidas (idBebida)
+);
+
+
+
 /*MESA */ 
 
 CREATE TABLE `tplabo_2016`.`mesa` (
