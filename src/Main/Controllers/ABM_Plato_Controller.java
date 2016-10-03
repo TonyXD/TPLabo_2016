@@ -7,9 +7,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import Modelo.DTO.Comidas.entradaDTO;
-import Modelo.DTO.Comidas.postreDTO;
-import Modelo.DTO.Comidas.principalDTO;
+import Modelo.DTO.Comidas.platoDTO;
 import Modelo.Negocio.Carta;
 import Vistas.Vistas_AM.ABM_Plato;
 
@@ -17,9 +15,7 @@ public class ABM_Plato_Controller implements ActionListener {
 
 	private ABM_Plato vistaPlatos;
 
-	private List<entradaDTO> entrada;
-	private List<principalDTO> principal;
-	private List<postreDTO> postre;
+	private List<platoDTO> platos;
 
 	private Carta carta;
 
@@ -34,9 +30,8 @@ public class ABM_Plato_Controller implements ActionListener {
 	}
 
 	public void inicializar() {
-		this.setEntrada(carta.obtenerEntradas());
-		this.setPrincipal(carta.obtenerPrincipales());
-		this.setPostre(carta.obtenerPostres());
+
+		this.platos = carta.obtenerPlatos();
 	}
 
 	@Override
@@ -48,7 +43,7 @@ public class ABM_Plato_Controller implements ActionListener {
 
 		} else if (e.getSource() == this.vistaPlatos.getBtnCargar()) {
 
-			this.cargarTabla(this.vistaPlatos.getCbxTipoPlato().getSelectedIndex());
+			this.cargarTablas(this.vistaPlatos.getCbxTipoPlato().getSelectedIndex());
 
 		} else if (e.getSource() == this.vistaPlatos.getBtnEditar()) {
 
@@ -63,155 +58,201 @@ public class ABM_Plato_Controller implements ActionListener {
 	public void agregarPlato(int indice) {
 
 		String nombre = this.vistaPlatos.getNombre().getText();
-		BigDecimal precio = new BigDecimal(this.vistaPlatos.getPrecio().getText().replaceAll(",", ""));
+		Double precio = Double.valueOf(this.vistaPlatos.getPrecio().getText());
+		String tipo = "";
 
 		if (indice == 0) {
-			entradaDTO ent = new entradaDTO(0, nombre, precio);
-			this.carta.agregarEntrada(ent);
-			this.entrada.add(ent);
-			this.cargarTabla(0);
-
+			tipo = "Entrada";
 		} else if (indice == 1) {
-			principalDTO prin = new principalDTO(0, nombre, precio);
-			this.carta.agregarPrincipal(prin);
-			this.principal.add(prin);
-			this.cargarTabla(1);
-
+			tipo = "Principal";
 		} else {
-			postreDTO pos = new postreDTO(0, nombre, precio);
-			this.carta.agregarPostre(pos);
-			this.postre.add(pos);
-			this.cargarTabla(2);
+			tipo = "Postre";
 		}
+
+		platoDTO ent = new platoDTO(0, nombre, precio, tipo);
+		this.carta.agregarPlato(ent);
+		this.platos.add(ent);
+
+		this.cargarTablas(indice);
+
 	}
 
-	public void cargarTabla(int indice) {
+	public void cargarTablas(int indice) {
 
 		this.vistaPlatos.getModelPersonas().setRowCount(0);
 		this.vistaPlatos.getModelPersonas().setColumnCount(0);
 		this.vistaPlatos.getModelPersonas().setColumnIdentifiers(this.vistaPlatos.getNombreColumnas());
 
 		if (indice == 0) {
-			for (int i = 0; i < this.entrada.size(); i++) {
-				Object[] fila = { this.entrada.get(i).getNombre(), this.entrada.get(i).getPrecio().toString() };
-				this.vistaPlatos.getModelPersonas().addRow(fila);
-				this.vistaPlatos.getTxfNombreSe().setText("");
-				this.vistaPlatos.getTxfPrecioSe().setText("");
+
+			for (int i = 0; i < this.platos.size(); i++) {
+
+				if (this.platos.get(i).getTipo().equals("Entrada")) {
+
+					Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
+					this.vistaPlatos.getModelPersonas().addRow(fila);
+				}
 			}
 		} else if (indice == 1) {
-			for (int i = 0; i < this.principal.size(); i++) {
-				Object[] fila = { this.principal.get(i).getNombre(), this.principal.get(i).getPrecio().toString() };
-				this.vistaPlatos.getModelPersonas().addRow(fila);
-				this.vistaPlatos.getTxfNombreSe().setText("");
-				this.vistaPlatos.getTxfPrecioSe().setText("");
+
+			for (int i = 0; i < this.platos.size(); i++) {
+
+				if (this.platos.get(i).getTipo().equals("Principal")) {
+
+					Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
+					this.vistaPlatos.getModelPersonas().addRow(fila);
+				}
 			}
 		} else {
-			for (int i = 0; i < this.postre.size(); i++) {
-				Object[] fila = { this.postre.get(i).getNombre(), this.postre.get(i).getPrecio().toString() };
-				this.vistaPlatos.getModelPersonas().addRow(fila);
-				this.vistaPlatos.getTxfNombreSe().setText("");
-				this.vistaPlatos.getTxfPrecioSe().setText("");
+
+			for (int i = 0; i < this.platos.size(); i++) {
+
+				if (this.platos.get(i).getTipo().equals("Postre")) {
+
+					Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
+					this.vistaPlatos.getModelPersonas().addRow(fila);
+				}
 			}
 		}
+		
+		this.vistaPlatos.getTxfNombreSe().setText("");
+		this.vistaPlatos.getTxfPrecioSe().setText("");
 	}
 
 	public void borrarPlato(int indice) {
 
-		int seleccion = this.vistaPlatos.getTabla().getSelectedRow();
+		int filaSeleccion = this.vistaPlatos.getTabla().getSelectedRow();
+		int posicion = 0;
 
-		if (seleccion >= 0) {
+		if (filaSeleccion >= 0) {
+
 			if (indice == 0) {
 
-				this.carta.borrarEntrada(this.entrada.get(seleccion));
-				this.entrada.remove(seleccion);
-				this.cargarTabla(0);
-				this.vistaPlatos.getTxfNombreSe().setText("");
-				this.vistaPlatos.getTxfPrecioSe().setText("");
+				for (int i = 0; i < this.platos.size(); i++) {
+
+					if (this.platos.get(i).getTipo().equals("Entrada")) {
+
+						if (posicion == filaSeleccion) {
+
+							this.carta.borrarPlato(this.platos.get(i));
+							this.platos.remove(this.platos.get(i));
+							this.cargarTablas(0);
+						}
+						posicion = posicion + 1;
+					}
+				}
 
 			} else if (indice == 1) {
 
-				this.carta.borrarPrincipal(this.principal.get(seleccion));
-				this.principal.remove(seleccion);
-				this.cargarTabla(1);
-				this.vistaPlatos.getTxfNombreSe().setText("");
-				this.vistaPlatos.getTxfPrecioSe().setText("");
+				for (int i = 0; i < this.platos.size(); i++) {
 
-			} else {
+					if (this.platos.get(i).getTipo().equals("Principal")) {
 
-				this.carta.borrarPostre(this.postre.get(seleccion));
-				this.postre.remove(seleccion);
-				this.cargarTabla(2);
-				this.vistaPlatos.getTxfNombreSe().setText("");
-				this.vistaPlatos.getTxfPrecioSe().setText("");
+						if (posicion == filaSeleccion) {
+
+							this.carta.borrarPlato(this.platos.get(i));
+							this.platos.remove(this.platos.get(i));
+							this.cargarTablas(1);
+						}
+						posicion = posicion + 1;
+					}
+				}
+			} else if (indice == 2) {
+
+				for (int i = 0; i < this.platos.size(); i++) {
+
+					if (this.platos.get(i).getTipo().equals("Postre")) {
+
+						if (posicion == filaSeleccion) {
+
+							this.carta.borrarPlato(this.platos.get(i));
+							this.platos.remove(this.platos.get(i));
+							this.cargarTablas(0);
+						}
+						posicion = posicion + 1;
+					}
+				}
 			}
+
 		} else {
+
 			JOptionPane.showMessageDialog(vistaPlatos, "Seleccione una fila");
+
+			this.vistaPlatos.getTxfNombreSe().setText("");
+			this.vistaPlatos.getTxfPrecioSe().setText("");
 		}
 	}
 
 	public void editarPlato(int indice) {
-		
-		int seleccion = this.vistaPlatos.getTabla().getSelectedRow();
-		
-		if(seleccion>=0){
-			
-			String nombre = this.vistaPlatos.getTxfNombreSe().getText();
-			BigDecimal precio = new BigDecimal(this.vistaPlatos.getTxfPrecioSe().getText().replaceAll(",", ""));
-			
-			if (indice == 0) {
-				
-				entradaDTO edit = new entradaDTO(this.entrada.get(seleccion).getIdEntrada(), nombre, precio);
-				this.carta.editarEntrada(edit);
-				this.entrada = carta.obtenerEntradas();
-				this.cargarTabla(0);
-				this.vistaPlatos.getTxfNombreSe().setText("");
-				this.vistaPlatos.getTxfPrecioSe().setText("");
 
+		int filaSeleccion = this.vistaPlatos.getTabla().getSelectedRow();
+
+		if (filaSeleccion >= 0) {
+
+			String nombre = this.vistaPlatos.getTxfNombreSe().getText();
+			Double precio = Double.valueOf(this.vistaPlatos.getTxfPrecioSe().getText());
+			int posicion = 0;
+
+			if (indice == 0) {
+
+				String tipo = "Entrada";
+
+				for (int i = 0; i < this.platos.size(); i++) {
+
+					if (this.platos.get(i).getTipo().equals("Entrada")) {
+
+						if (posicion == filaSeleccion) {
+
+							platoDTO edit = new platoDTO(this.platos.get(i).getIdPlato(), nombre, precio, tipo);
+							this.carta.editarPlato(edit);
+							this.platos = carta.obtenerPlatos();
+							this.cargarTablas(0);
+						}
+						posicion = posicion + 1;
+					}
+				}
 			} else if (indice == 1) {
-				
-				principalDTO edit = new principalDTO(this.principal.get(seleccion).getIdPrincipal(), nombre, precio);
-				this.carta.editarPrincipal(edit);
-				this.principal = carta.obtenerPrincipales();
-				this.cargarTabla(1);
-				this.vistaPlatos.getTxfNombreSe().setText("");
-				this.vistaPlatos.getTxfPrecioSe().setText("");
-				
+
+				String tipo = "Principal";
+
+				for (int i = 0; i < this.platos.size(); i++) {
+
+					if (this.platos.get(i).getTipo().equals("Principal")) {
+
+						if (posicion == filaSeleccion) {
+
+							platoDTO edit = new platoDTO(this.platos.get(i).getIdPlato(), nombre, precio, tipo);
+							this.carta.editarPlato(edit);
+							this.platos = carta.obtenerPlatos();
+							this.cargarTablas(1);							
+						}
+						posicion = posicion + 1;
+					}
+				}
+
 			} else {
-				
-				postreDTO edit = new postreDTO(this.postre.get(seleccion).getIdPostre(), nombre, precio);
-				this.carta.editarPostre(edit);
-				this.postre = carta.obtenerPostres();
-				this.cargarTabla(2);
-				this.vistaPlatos.getTxfNombreSe().setText("");
-				this.vistaPlatos.getTxfPrecioSe().setText("");
-				
+
+				String tipo = "Postre";
+				for (int i = 0; i < this.platos.size(); i++) {
+
+					if (this.platos.get(i).getTipo().equals("Principal")) {
+
+						if (posicion == filaSeleccion) {
+
+							platoDTO edit = new platoDTO(this.platos.get(i).getIdPlato(), nombre, precio, tipo);
+							this.carta.editarPlato(edit);
+							this.platos = carta.obtenerPlatos();
+							this.cargarTablas(2);
+						}
+						posicion = posicion + 1;
+					}
+				}
 			}
-		}else {
+		} else {
 			JOptionPane.showMessageDialog(vistaPlatos, "Seleccione una fila");
 		}
-	}
 
-	public List<entradaDTO> getEntrada() {
-		return entrada;
-	}
-
-	public void setEntrada(List<entradaDTO> entrada) {
-		this.entrada = entrada;
-	}
-
-	public List<principalDTO> getPrincipal() {
-		return principal;
-	}
-
-	public void setPrincipal(List<principalDTO> principal) {
-		this.principal = principal;
-	}
-
-	public List<postreDTO> getPostre() {
-		return postre;
-	}
-
-	public void setPostre(List<postreDTO> postre) {
-		this.postre = postre;
+		this.vistaPlatos.getTxfNombreSe().setText("");
+		this.vistaPlatos.getTxfPrecioSe().setText("");
 	}
 }

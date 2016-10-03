@@ -4,12 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import Modelo.DTO.Bebidas.cafeDTO;
-import Modelo.DTO.Bebidas.conAlcoholDTO;
-import Modelo.DTO.Bebidas.sinAlcoholDTO;
-import Modelo.DTO.Comidas.entradaDTO;
-import Modelo.DTO.Comidas.postreDTO;
-import Modelo.DTO.Comidas.principalDTO;
+import Modelo.DTO.Bebidas.bebidaDTO;
+import Modelo.DTO.Comidas.platoDTO;
 import Modelo.Negocio.Carta;
 import Vistas.Encargado.GestorDeCarta;
 import Vistas.Vistas_AM.ABM_Bebida;
@@ -17,14 +13,10 @@ import Vistas.Vistas_AM.ABM_Plato;
 import Vistas.Vistas_AM.Alta_Menu;
 
 public class GestorDeCarta_Controller implements ActionListener {
-
-	private List<entradaDTO> entrada;
-	private List<principalDTO> principal;
-	private List<postreDTO> postre;
-	private List<conAlcoholDTO> conAlcohol;
-	private List<sinAlcoholDTO> sinAlcohol;
-	private List<cafeDTO> cafe;
-
+	
+	private List<platoDTO> platos;
+	private List<bebidaDTO> bebidas;
+ 
 	private GestorDeCarta vistaCarta;
 	private Carta carta;
 
@@ -42,13 +34,10 @@ public class GestorDeCarta_Controller implements ActionListener {
 
 	public void inicializar() {
 
-		this.setEntrada(carta.obtenerEntradas());
-		this.setPrincipal(carta.obtenerPrincipales());
-		this.setPostre(carta.obtenerPostres());
-		this.setConAlcohol(carta.obtenerConAlcoholes());
-		this.setSinAlcohol(carta.obtenerSinAlcoholes());
-		this.setCafe(carta.obtenerCafes());
-
+		
+		this.platos = carta.obtenerPlatos();
+		this.bebidas = carta.obtenerBebidas();
+		
 		this.cargarTablas();
 	}
 
@@ -86,40 +75,43 @@ public class GestorDeCarta_Controller implements ActionListener {
 
 		this.reiniciarTablas();
 
-		for (int i = 0; i < this.entrada.size(); i++) {
-
-			Object[] fila = { this.entrada.get(i).getNombre(), this.entrada.get(i).getPrecio().toString() };
-			this.vistaCarta.getModelEntrada().addRow(fila);
+		for (int i = 0; i < this.platos.size(); i++) {
+			
+			if(this.platos.get(i).getTipo().equals("Entrada")){
+				
+				Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
+				this.vistaCarta.getModelEntrada().addRow(fila);
+			}else if(this.platos.get(i).getTipo().equals("Principal")){
+				
+				Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
+				this.vistaCarta.getModelPrincipal().addRow(fila);
+				
+			}else{
+				
+				Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
+				this.vistaCarta.getModelPostre().addRow(fila);
+				
+			}
+			
 		}
 
-		for (int i = 0; i < this.principal.size(); i++) {
+		for (int i = 0; i < this.bebidas.size(); i++) {
 
-			Object[] fila = { this.principal.get(i).getNombre(), this.principal.get(i).getPrecio().toString() };
-			this.vistaCarta.getModelPrincipal().addRow(fila);
-		}
-
-		for (int i = 0; i < this.postre.size(); i++) {
-
-			Object[] fila = { this.postre.get(i).getNombre(), this.postre.get(i).getPrecio().toString() };
-			this.vistaCarta.getModelPostre().addRow(fila);
-		}
-
-		for (int i = 0; i < this.conAlcohol.size(); i++) {
-
-			Object[] fila = { this.conAlcohol.get(i).getNombre(), this.conAlcohol.get(i).getPrecio() };
-			this.vistaCarta.getModelConAlcohol().addRow(fila);
-		}
-
-		for (int i = 0; i < this.sinAlcohol.size(); i++) {
-
-			Object[] fila = { this.sinAlcohol.get(i).getNombre(), this.sinAlcohol.get(i).getPrecio() };
-			this.vistaCarta.getModelSinAlcohol().addRow(fila);
-
-		}
-		for (int i = 0; i < this.cafe.size(); i++) {
-
-			Object[] fila = { this.cafe.get(i).getNombre(), this.cafe.get(i).getPrecio() };
-			this.vistaCarta.getModelCafe().addRow(fila);
+			if(this.bebidas.get(i).getTipo().equals("Con Alcohol")){
+				
+				Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio() };
+				this.vistaCarta.getModelConAlcohol().addRow(fila);
+				
+			}if(this.bebidas.get(i).getTipo().equals("Con Alcohol")){
+				
+				Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio() };
+				this.vistaCarta.getModelSinAlcohol().addRow(fila);
+				
+			}else{
+				
+				Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio() };
+				this.vistaCarta.getModelCafe().addRow(fila);
+			}
 		}
 	}
 
@@ -148,60 +140,28 @@ public class GestorDeCarta_Controller implements ActionListener {
 		this.vistaCarta.getModelMenu().setColumnIdentifiers(this.vistaCarta.getNombreColumnas());
 	}
 
-	public List<conAlcoholDTO> getConAlcohol() {
-		return conAlcohol;
-	}
-
-	public void setConAlcohol(List<conAlcoholDTO> conAlcohol) {
-		this.conAlcohol = conAlcohol;
-	}
-
-	public List<sinAlcoholDTO> getSinAlcohol() {
-		return sinAlcohol;
-	}
-
-	public void setSinAlcohol(List<sinAlcoholDTO> sinAlcohol) {
-		this.sinAlcohol = sinAlcohol;
-	}
-
-	public List<cafeDTO> getCafe() {
-		return cafe;
-	}
-
-	public void setCafe(List<cafeDTO> cafe) {
-		this.cafe = cafe;
-	}
-
-	public List<postreDTO> getPostre() {
-		return postre;
-	}
-
-	public void setPostre(List<postreDTO> postre) {
-		this.postre = postre;
-	}
-
-	public List<principalDTO> getPrincipal() {
-		return principal;
-	}
-
-	public void setPrincipal(List<principalDTO> principal) {
-		this.principal = principal;
-	}
-
-	public List<entradaDTO> getEntrada() {
-		return entrada;
-	}
-
-	public void setEntrada(List<entradaDTO> entrada) {
-		this.entrada = entrada;
-	}
-
 	public GestorDeCarta getVistaCarta() {
 		return vistaCarta;
 	}
 
 	public void setVistaCarta(GestorDeCarta vistaCarta) {
 		this.vistaCarta = vistaCarta;
+	}
+
+	public List<platoDTO> getPlatos() {
+		return platos;
+	}
+
+	public void setPlatos(List<platoDTO> platos) {
+		this.platos = platos;
+	}
+
+	public List<bebidaDTO> getBebidas() {
+		return bebidas;
+	}
+
+	public void setBebidas(List<bebidaDTO> bebidas) {
+		this.bebidas = bebidas;
 	}
 
 }

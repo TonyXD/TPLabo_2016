@@ -121,7 +121,19 @@ public class ABM_Bebida extends JFrame {
 		tblBebidas.getColumnModel().getColumn(1).setResizable(false);
 		
 		scrollPane.setViewportView(tblBebidas);
-
+		
+		tblBebidas.addMouseListener(new java.awt.event.MouseAdapter() {
+		    @Override
+		    public void mouseClicked(java.awt.event.MouseEvent evt) {
+		        int row = tblBebidas.rowAtPoint(evt.getPoint());
+		        int col = tblBebidas.columnAtPoint(evt.getPoint());
+		        if (row >= 0 && col >= 0) {
+		        	txfNombreSe.setText((String) tblBebidas.getValueAt(row, 0));
+		        	txfPrecioSe.setText((String) tblBebidas.getValueAt(row, 1));
+		        }
+		    }
+		});
+		
 		btnAgregarBebida = new JButton("Agregar Bebida");
 		btnAgregarBebida.setBounds(324, 697, 150, 23);
 		contentPane.add(btnAgregarBebida);

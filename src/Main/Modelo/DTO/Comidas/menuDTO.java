@@ -1,31 +1,26 @@
 package Modelo.DTO.Comidas;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
-import Modelo.DTO.Bebidas.Bebida;
+import Modelo.DTO.Bebidas.bebidaDTO;
 
 public class menuDTO {
 	
 	
 	private int idMenu;
 	private String nombre;
-	private BigDecimal precio;
+	private Double precio;
 
-	private ArrayList<entradaDTO> entrada;
-	private ArrayList<principalDTO> principal;
-	private ArrayList<postreDTO> postre;
-	private ArrayList<Bebida> bebidas;
+	private List<platoDTO> platos;
+	private List<bebidaDTO> bebidas;
 
-	public menuDTO(int idMenu, String nombre, BigDecimal precio, ArrayList<entradaDTO> entrada, ArrayList<principalDTO> principal,
-			ArrayList<postreDTO> postre, ArrayList<Bebida> bebidas) {
+	public menuDTO(int idMenu, String nombre, Double precio, List<platoDTO> platos, List<bebidaDTO> bebidas) {
 		
 		this.idMenu = idMenu;
 		this.nombre = nombre;
 		this.precio = precio;
-		this.entrada = entrada;
-		this.principal = principal;
-		this.postre = postre;
+		this.platos = platos;
 		this.bebidas = bebidas;
 
 	}
@@ -38,43 +33,19 @@ public class menuDTO {
 		this.nombre = nombre;
 	}
 
-	public BigDecimal getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 
-	public void setPrecio(BigDecimal precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 
-	public ArrayList<entradaDTO> getEntrada() {
-		return entrada;
-	}
-
-	public void setEntrada(ArrayList<entradaDTO> entrada) {
-		this.entrada = entrada;
-	}
-
-	public ArrayList<principalDTO> getPrincipal() {
-		return principal;
-	}
-
-	public void setPrincipal(ArrayList<principalDTO> principal) {
-		this.principal = principal;
-	}
-
-	public ArrayList<postreDTO> getPostre() {
-		return postre;
-	}
-
-	public void setPostre(ArrayList<postreDTO> postre) {
-		this.postre = postre;
-	}
-
-	public ArrayList<Bebida> getBebidas() {
+	public List<bebidaDTO> getBebidas() {
 		return bebidas;
 	}
 
-	public void setBebidas(ArrayList<Bebida> bebidas) {
+	public void setBebidas(List<bebidaDTO> bebidas) {
 		this.bebidas = bebidas;
 	}
 
@@ -84,5 +55,13 @@ public class menuDTO {
 
 	public void setIdMenu(int idMenu) {
 		this.idMenu = idMenu;
+	}
+
+	public List<platoDTO> getPlatos() {
+		return platos;
+	}
+
+	public void setPlatos(List<platoDTO> platos) {
+		this.platos = platos;
 	}
 }

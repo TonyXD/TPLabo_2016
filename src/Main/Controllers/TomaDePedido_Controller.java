@@ -2,19 +2,11 @@ package Controllers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JTextPane;
-
-import Modelo.DTO.Bebidas.Bebida;
-import Modelo.DTO.Bebidas.cafeDTO;
-import Modelo.DTO.Bebidas.conAlcoholDTO;
-import Modelo.DTO.Bebidas.sinAlcoholDTO;
-import Modelo.DTO.Comidas.entradaDTO;
-import Modelo.DTO.Comidas.postreDTO;
-import Modelo.DTO.Comidas.principalDTO;
+import Modelo.DTO.Bebidas.bebidaDTO;
+import Modelo.DTO.Comidas.menuDTO;
+import Modelo.DTO.Comidas.platoDTO;
 import Modelo.Negocio.Carta;
 import Modelo.Negocio.Pedido;
 import Vistas.Encargado.TomaDePedido;
@@ -23,34 +15,25 @@ public class TomaDePedido_Controller implements ActionListener {
 
 	private TomaDePedido vistaPedido;
 
-	private List<entradaDTO> entrada;
-	private List<principalDTO> principal;
-	private List<postreDTO> postre;
-	private List<conAlcoholDTO> conAlcohol;
-	private List<sinAlcoholDTO> sinAlcohol;
-	private List<cafeDTO> cafe;
-
-	private List<entradaDTO> entradaSe;
-	private List<principalDTO> principalSe;
-	private List<postreDTO> postreSe;
-	private List<conAlcoholDTO> conAlcoholSe;
-	private List<sinAlcoholDTO> sinAlcoholSe;
-	private List<cafeDTO> cafeSe;
-
-	private List<Bebida> bebidas;
+	private List<bebidaDTO> bebidas;
+	private List<platoDTO> platos;
+	private List<menuDTO> menus;
+	private List<menuDTO> menusSe;
+	private List<platoDTO> platosSe;
+	private List<bebidaDTO> bebidasSe;
 
 	private Pedido pedido;
 	private Carta carta;
 
 	private int cantidadSeleccionada;
-	private BigDecimal total;
+	private Double total;
 
 	public TomaDePedido_Controller(TomaDePedido vistaPedido, Pedido pedido, Carta carta) {
 		this.setVistaPedido(vistaPedido);
 		this.setPedido(pedido);
 		this.carta = carta;
 		this.cantidadSeleccionada = 5;
-		this.total = new BigDecimal(0);
+		this.total = 0.0;
 		this.vistaPedido.getBtnAgregar().addActionListener(this);
 		this.vistaPedido.getBtnQuitarDelPedido().addActionListener(this);
 		this.vistaPedido.getBtnCrearPedido().addActionListener(this);
@@ -61,13 +44,8 @@ public class TomaDePedido_Controller implements ActionListener {
 
 	public void inicializar() {
 
-		this.setEntrada(carta.obtenerEntradas());
-		this.setPrincipal(carta.obtenerPrincipales());
-		this.setPostre(carta.obtenerPostres());
-		this.setConAlcohol(carta.obtenerConAlcoholes());
-		this.setSinAlcohol(carta.obtenerSinAlcoholes());
-		this.setCafe(carta.obtenerCafes());
-		this.bebidas = new ArrayList<Bebida>();
+		this.platos = carta.obtenerPlatos();
+		this.bebidas = carta.obtenerBebidas();
 		this.cargarTablas();
 
 	}
@@ -81,6 +59,7 @@ public class TomaDePedido_Controller implements ActionListener {
 			int indice = 0;
 			String observaciones = this.vistaPedido.getTxtObservaciones().getText();
 			Integer cantidad = (Integer) this.vistaPedido.getSpnCantidad().getValue();
+			int posicion = 0;
 
 			if (tabSelect >= 0) {
 
@@ -90,18 +69,22 @@ public class TomaDePedido_Controller implements ActionListener {
 
 					if (filaSelect >= 0) {
 
-						for (int i = 0; i < this.cantidadSeleccionada; i++) {
-							String filin = (String) this.vistaPedido.getTblPedidoSelect().getValueAt(i, 0);
-							if (filin.equals("Principales:")) {
-								indice = i;
-								this.sumarTotal(this.entrada.get(filaSelect).getPrecio(), cantidad);
+						indice = this.buscarIndice("Principales:");
+
+						for (int i = 0; i < this.platos.size(); i++) {
+
+							if (this.platos.get(i).getTipo().equals("Entrada")) {
+
+								if (posicion == filaSelect) {
+
+									Object[] fila = { this.platos.get(i).getNombre(), observaciones, cantidad };
+									this.vistaPedido.getModelSelect().insertRow(indice, fila);
+									this.platosSe.add(this.platos.get(i));
+									cantidadSeleccionada = cantidadSeleccionada + 1;
+								}
+								posicion = posicion + 1;
 							}
 						}
-
-						Object[] fila = { this.entrada.get(filaSelect).getNombre(), observaciones, cantidad };
-						this.vistaPedido.getModelSelect().insertRow(indice, fila);
-
-						cantidadSeleccionada = cantidadSeleccionada + 1;
 					}
 
 				} else if (tabSelect == 1) {
@@ -110,18 +93,22 @@ public class TomaDePedido_Controller implements ActionListener {
 
 					if (filaSelect >= 0) {
 
-						for (int i = 0; i < this.cantidadSeleccionada; i++) {
-							if (this.vistaPedido.getTblPedidoSelect().getValueAt(i, 0).equals("Postres:")) {
-								indice = i;
-								this.sumarTotal(this.principal.get(filaSelect).getPrecio(), cantidad);
+						indice = this.buscarIndice("Postres:");
+
+						for (int i = 0; i < this.platos.size(); i++) {
+
+							if (this.platos.get(i).getTipo().equals("Principal")) {
+
+								if (posicion == filaSelect) {
+
+									Object[] fila = { this.platos.get(i).getNombre(), observaciones, cantidad };
+									this.vistaPedido.getModelSelect().insertRow(indice, fila);
+									this.platosSe.add(this.platos.get(i));
+									cantidadSeleccionada = cantidadSeleccionada + 1;
+								}
+								posicion = posicion + 1;
 							}
 						}
-
-						Object[] fila = { this.principal.get(filaSelect).getNombre(), observaciones, cantidad };
-						this.vistaPedido.getModelSelect().insertRow(indice, fila);
-
-						cantidadSeleccionada = cantidadSeleccionada + 1;
-
 					}
 
 				} else if (tabSelect == 2) {
@@ -130,17 +117,22 @@ public class TomaDePedido_Controller implements ActionListener {
 
 					if (filaSelect >= 0) {
 
-						for (int i = 0; i < this.cantidadSeleccionada; i++) {
-							if (this.vistaPedido.getTblPedidoSelect().getValueAt(i, 0).equals("Bebidas:")) {
-								indice = i;
-								this.sumarTotal(this.postre.get(filaSelect).getPrecio(), cantidad);
+						indice = this.buscarIndice("Con Alcohol:");
+
+						for (int i = 0; i < this.platos.size(); i++) {
+
+							if (this.platos.get(i).getTipo().equals("Postre")) {
+
+								if (posicion == filaSelect) {
+
+									Object[] fila = { this.platos.get(i).getNombre(), observaciones, cantidad };
+									this.vistaPedido.getModelSelect().insertRow(indice, fila);
+									this.platosSe.add(this.platos.get(i));
+									cantidadSeleccionada = cantidadSeleccionada + 1;
+								}
+								posicion = posicion + 1;
 							}
 						}
-
-						Object[] fila = { this.postre.get(filaSelect).getNombre(), observaciones, cantidad };
-						this.vistaPedido.getModelSelect().insertRow(indice, fila);
-
-						cantidadSeleccionada = cantidadSeleccionada + 1;
 					}
 
 				} else if (tabSelect == 3) {
@@ -149,33 +141,81 @@ public class TomaDePedido_Controller implements ActionListener {
 
 					if (filaSelect >= 0) {
 
-						for (int i = 0; i < this.cantidadSeleccionada; i++) {
-							if (this.vistaPedido.getTblPedidoSelect().getValueAt(i, 0).equals("Menus:")) {
-								indice = i;
-								this.sumarTotal(this.bebidas.get(filaSelect).getPrecio(), cantidad);
+						indice = this.buscarIndice("Sin Alcohol:");
+
+						for (int i = 0; i < this.bebidas.size(); i++) {
+
+							if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
+
+								if (posicion == filaSelect) {
+
+									Object[] fila = { this.platos.get(i).getNombre(), observaciones, cantidad };
+									this.vistaPedido.getModelSelect().insertRow(indice, fila);
+									this.bebidasSe.add(this.bebidas.get(i));
+									cantidadSeleccionada = cantidadSeleccionada + 1;
+								}
+								posicion = posicion + 1;
 							}
 						}
-
-						Object[] fila = { this.bebidas.get(filaSelect).getNombre(), observaciones, cantidad };
-						this.vistaPedido.getModelSelect().insertRow(indice, fila);
-
-						cantidadSeleccionada = cantidadSeleccionada + 1;
 					}
 
+				} else if (tabSelect == 4) {
+
+					int filaSelect = this.vistaPedido.getTblSinAlcohol().getSelectedRow();
+
+					if (filaSelect >= 0) {
+
+						indice = this.buscarIndice("Cafeteria:");
+
+						for (int i = 0; i < this.bebidas.size(); i++) {
+
+							if (this.bebidas.get(i).getTipo().equals("Sin Alcohol")) {
+
+								if (posicion == filaSelect) {
+
+									Object[] fila = { this.platos.get(i).getNombre(), observaciones, cantidad };
+									this.vistaPedido.getModelSelect().insertRow(indice, fila);
+									this.bebidasSe.add(this.bebidas.get(i));
+									cantidadSeleccionada = cantidadSeleccionada + 1;
+								}
+								posicion = posicion + 1;
+							}
+						}
+					}
+				} else if (tabSelect == 5) {
+
+					int filaSelect = this.vistaPedido.getTblCafe().getSelectedRow();
+
+					if (filaSelect >= 0) {
+
+						indice = this.buscarIndice("Menus:");
+
+						for (int i = 0; i < this.bebidas.size(); i++) {
+
+							if (this.bebidas.get(i).getTipo().equals("Cafeteria")) {
+
+								if (posicion == filaSelect) {
+
+									Object[] fila = { this.platos.get(i).getNombre(), observaciones, cantidad };
+									this.vistaPedido.getModelSelect().insertRow(indice, fila);
+									this.bebidasSe.add(this.bebidas.get(i));
+									cantidadSeleccionada = cantidadSeleccionada + 1;
+								}
+								posicion = posicion + 1;
+							}
+						}
+					}
 				} else {
 
-//					int filaSelect = this.vistaPedido.getTblMenu().getSelectedRow();
-//
-//					if (filaSelect >= 0) {
-//						
-//						this.sumarTotal(this.menu.get(filaSelect).getPrecio());
-//						
-//						Object[] fila = { this.entrada.get(filaSelect).getNombre(), observaciones, cantidad };
-//						this.vistaPedido.getModelSelect().addRow(fila);
-//
-//						cantidadSeleccionada = cantidadSeleccionada + 1;
-//					}
+					int filaSelect = this.vistaPedido.getTblMenu().getSelectedRow();
 
+					if (filaSelect >= 0) {
+
+						Object[] fila = { this.menus.get(filaSelect).getNombre(), observaciones, cantidad };
+						this.vistaPedido.getModelSelect().insertRow(indice, fila);
+						this.menusSe.add(this.menus.get(filaSelect));
+						cantidadSeleccionada = cantidadSeleccionada + 1;
+					}
 				}
 			}
 		}
@@ -185,108 +225,76 @@ public class TomaDePedido_Controller implements ActionListener {
 
 		Object[] filaE = { "Entradas:" };
 		this.vistaPedido.getModelSelect().addRow(filaE);
-		
+
 		Object[] filaP = { "Principales:" };
 		this.vistaPedido.getModelSelect().addRow(filaP);
-		
+
 		Object[] filaPo = { "Postres:" };
 		this.vistaPedido.getModelSelect().addRow(filaPo);
-		
+
 		Object[] filaB = { "Bebidas:" };
 		this.vistaPedido.getModelSelect().addRow(filaB);
-		
+
 		Object[] filaM = { "Menus:" };
 		this.vistaPedido.getModelSelect().addRow(filaM);
 
-		for (int i = 0; i < this.entrada.size(); i++) {
-			Object[] fila = { this.entrada.get(i).getNombre(), this.entrada.get(i).getPrecio().toString() };
-			this.vistaPedido.getModelEntrada().addRow(fila);
-		}
+		for (int i = 0; i < this.platos.size(); i++) {
 
-		for (int i = 0; i < this.principal.size(); i++) {
-			Object[] fila = { this.principal.get(i).getNombre(), this.principal.get(i).getPrecio().toString() };
-			this.vistaPedido.getModelPrincipal().addRow(fila);
-		}
+			if (this.platos.get(i).getTipo().equals("Entrada")) {
 
-		for (int i = 0; i < this.postre.size(); i++) {
-			Object[] fila = { this.postre.get(i).getNombre(), this.postre.get(i).getPrecio().toString() };
-			this.vistaPedido.getModelPostre().addRow(fila);
-		}
+				Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
+				this.vistaPedido.getModelEntrada().addRow(fila);
 
-		this.cargarBebida();
+			} else if (this.platos.get(i).getTipo().equals("Principal")) {
+
+				Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
+				this.vistaPedido.getModelPrincipal().addRow(fila);
+
+			} else {
+
+				Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
+				this.vistaPedido.getModelPostre().addRow(fila);
+
+			}
+
+		}
 
 		for (int i = 0; i < this.bebidas.size(); i++) {
-			Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio().toString() };
-			this.vistaPedido.getModelBebidas().addRow(fila);
+
+			if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
+
+				Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio() };
+				this.vistaPedido.getModelBebidas().addRow(fila);
+
+			}
+			if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
+
+				Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio() };
+				this.vistaPedido.getModelSinAlcohol().addRow(fila);
+
+			} else {
+
+				Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio() };
+				this.vistaPedido.getModelCafe().addRow(fila);
+			}
 		}
 	}
 
-	public void cargarBebida() {
-		for (int i = 0; i < this.conAlcohol.size(); i++) {
-			this.bebidas.add(this.conAlcohol.get(i));
-		}
-		for (int i = 0; i < this.sinAlcohol.size(); i++) {
-			this.bebidas.add(this.sinAlcohol.get(i));
-		}
-		for (int i = 0; i < this.cafe.size(); i++) {
-			this.bebidas.add(this.cafe.get(i));
-		}
-	}
-	
-	public void sumarTotal(BigDecimal precio, Integer cantidad){
-	
-		for(int i=0;i<cantidad;i++){
-			this.total= total.add(precio);
-		}
+	public void sumarTotal(Double precio, Integer cantidad) {
+
+		this.total = this.total + (precio * cantidad);
 		this.vistaPedido.getTxfTotal().setText(total.toString());
 	}
 
-	public List<entradaDTO> getEntrada() {
-		return entrada;
-	}
+	public int buscarIndice(String encabezado) {
 
-	public void setEntrada(List<entradaDTO> entrada) {
-		this.entrada = entrada;
-	}
+		for (int i = 0; i < this.cantidadSeleccionada; i++) {
+			if (this.vistaPedido.getTblPedidoSelect().getValueAt(i, 0).equals(encabezado)) {
+				return i;
+			}
+		}
 
-	public List<principalDTO> getPrincipal() {
-		return principal;
-	}
-
-	public void setPrincipal(List<principalDTO> principal) {
-		this.principal = principal;
-	}
-
-	public List<postreDTO> getPostre() {
-		return postre;
-	}
-
-	public void setPostre(List<postreDTO> postre) {
-		this.postre = postre;
-	}
-
-	public List<conAlcoholDTO> getConAlcohol() {
-		return conAlcohol;
-	}
-
-	public void setConAlcohol(List<conAlcoholDTO> conAlcohol) {
-		this.conAlcohol = conAlcohol;
-	}
-
-	public List<sinAlcoholDTO> getSinAlcohol() {
-		return sinAlcohol;
-	}
-
-	public void setSinAlcohol(List<sinAlcoholDTO> sinAlcohol) {
-		this.sinAlcohol = sinAlcohol;
-	}
-
-	public List<cafeDTO> getCafe() {
-		return cafe;
-	}
-
-	public void setCafe(List<cafeDTO> cafe) {
-		this.cafe = cafe;
+		return -1;
 	}
 
 	public Pedido getPedido() {
@@ -305,59 +313,51 @@ public class TomaDePedido_Controller implements ActionListener {
 		this.vistaPedido = vistaPedido;
 	}
 
-	public List<entradaDTO> getEntradaSe() {
-		return entradaSe;
-	}
-
-	public void setEntradaSe(List<entradaDTO> entradaSe) {
-		this.entradaSe = entradaSe;
-	}
-
-	public List<principalDTO> getPrincipalSe() {
-		return principalSe;
-	}
-
-	public void setPrincipalSe(List<principalDTO> principalSe) {
-		this.principalSe = principalSe;
-	}
-
-	public List<postreDTO> getPostreSe() {
-		return postreSe;
-	}
-
-	public void setPostreSe(List<postreDTO> postreSe) {
-		this.postreSe = postreSe;
-	}
-
-	public List<conAlcoholDTO> getConAlcoholSe() {
-		return conAlcoholSe;
-	}
-
-	public void setConAlcoholSe(List<conAlcoholDTO> conAlcoholSe) {
-		this.conAlcoholSe = conAlcoholSe;
-	}
-
-	public List<sinAlcoholDTO> getSinAlcoholSe() {
-		return sinAlcoholSe;
-	}
-
-	public void setSinAlcoholSe(List<sinAlcoholDTO> sinAlcoholSe) {
-		this.sinAlcoholSe = sinAlcoholSe;
-	}
-
-	public List<cafeDTO> getCafeSe() {
-		return cafeSe;
-	}
-
-	public void setCafeSe(List<cafeDTO> cafeSe) {
-		this.cafeSe = cafeSe;
-	}
-
-	public List<Bebida> getBebidas() {
+	public List<bebidaDTO> getBebidas() {
 		return bebidas;
 	}
 
-	public void setBebidas(List<Bebida> bebidas) {
+	public void setBebidas(List<bebidaDTO> bebidas) {
 		this.bebidas = bebidas;
+	}
+
+	public List<platoDTO> getPlatos() {
+		return platos;
+	}
+
+	public void setPlatos(List<platoDTO> platos) {
+		this.platos = platos;
+	}
+
+	public List<bebidaDTO> getBebidasSe() {
+		return bebidasSe;
+	}
+
+	public void setBebidasSe(List<bebidaDTO> bebidasSe) {
+		this.bebidasSe = bebidasSe;
+	}
+
+	public List<platoDTO> getPlatosSe() {
+		return platosSe;
+	}
+
+	public void setPlatosSe(List<platoDTO> platosSe) {
+		this.platosSe = platosSe;
+	}
+
+	public List<menuDTO> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<menuDTO> menus) {
+		this.menus = menus;
+	}
+
+	public List<menuDTO> getMenusSe() {
+		return menusSe;
+	}
+
+	public void setMenusSe(List<menuDTO> menusSe) {
+		this.menusSe = menusSe;
 	}
 }

@@ -7,36 +7,33 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import Modelo.DTO.Bebidas.cafeDTO;
-import Modelo.DTO.Bebidas.conAlcoholDTO;
-import Modelo.DTO.Bebidas.sinAlcoholDTO;
+import Modelo.DTO.Bebidas.bebidaDTO;
+import Modelo.DTO.Comidas.platoDTO;
 import Modelo.Negocio.Carta;
 import Vistas.Vistas_AM.ABM_Bebida;
+import Vistas.Vistas_AM.ABM_Plato;
 
 public class ABM_Bebida_Controller implements ActionListener {
 
 	private ABM_Bebida vistaBebida;
 
-	private List<conAlcoholDTO> conAlcohol;
-	private List<sinAlcoholDTO> sinAlcohol;
-	private List<cafeDTO> cafe;
+	private List<bebidaDTO> bebidas;
 
 	private Carta carta;
 
-	public ABM_Bebida_Controller(ABM_Bebida vistaBebidas, Carta carta) {
-		this.vistaBebida = vistaBebidas;
+	public ABM_Bebida_Controller(ABM_Bebida vistaBebida, Carta carta) {
+		this.vistaBebida = vistaBebida;
 		this.carta = carta;
 
 		this.vistaBebida.getBtnAgregarBebida().addActionListener(this);
 		this.vistaBebida.getBtnCargar().addActionListener(this);
-		this.vistaBebida.getBtnBorrarBebida().addActionListener(this);
 		this.vistaBebida.getBtnEditarBebida().addActionListener(this);
+		this.vistaBebida.getBtnBorrarBebida().addActionListener(this);
 	}
 
 	public void inicializar() {
-		this.conAlcohol = carta.obtenerConAlcoholes();
-		this.sinAlcohol = carta.obtenerSinAlcoholes();
-		this.cafe = carta.obtenerCafes();
+
+		this.bebidas = carta.obtenerBebidas();
 	}
 
 	@Override
@@ -48,7 +45,7 @@ public class ABM_Bebida_Controller implements ActionListener {
 
 		} else if (e.getSource() == this.vistaBebida.getBtnCargar()) {
 
-			this.cargarTabla(this.vistaBebida.getCbxTipoBebidas().getSelectedIndex());
+			this.cargarTablas(this.vistaBebida.getCbxTipoBebidas().getSelectedIndex());
 
 		} else if (e.getSource() == this.vistaBebida.getBtnEditarBebida()) {
 
@@ -57,163 +54,207 @@ public class ABM_Bebida_Controller implements ActionListener {
 		} else if (e.getSource() == this.vistaBebida.getBtnBorrarBebida()) {
 
 			this.borrarBebida(this.vistaBebida.getCbxTipoBebidas().getSelectedIndex());
-
 		}
 	}
 
 	public void agregarBebida(int indice) {
 
 		String nombre = this.vistaBebida.getNombre().getText();
-		BigDecimal precio = new BigDecimal(this.vistaBebida.getPrecio().getText().replaceAll(",", ""));
+		Double precio = Double.valueOf(this.vistaBebida.getPrecio().getText());
+		String tipo = "";
 
 		if (indice == 0) {
-
-			conAlcoholDTO con = new conAlcoholDTO(0, nombre, precio);
-			this.carta.agregarConAlcohol(con);
-			this.conAlcohol.add(con);
-			this.cargarTabla(0);
-
+			tipo = "Con Alcohol";
 		} else if (indice == 1) {
-
-			sinAlcoholDTO sin = new sinAlcoholDTO(0, nombre, precio);
-			this.carta.agregarSinAlcohol(sin);
-			this.sinAlcohol.add(sin);
-			this.cargarTabla(1);
-
+			tipo = "Sin Alcohol";
 		} else {
-
-			cafeDTO cafe = new cafeDTO(0, nombre, precio);
-			this.carta.agregarCafe(cafe);
-			this.cafe.add(cafe);
-			this.cargarTabla(2);
+			tipo = "Cafeteria";
 		}
+
+		bebidaDTO ent = new bebidaDTO(0, nombre, precio, tipo);
+		this.carta.agregarBebida(ent);
+		this.bebidas.add(ent);
+
+		this.cargarTablas(indice);
+
 	}
 
-	public void cargarTabla(int indice) {
+	public void cargarTablas(int indice) {
 
 		this.vistaBebida.getModelPersonas().setRowCount(0);
 		this.vistaBebida.getModelPersonas().setColumnCount(0);
 		this.vistaBebida.getModelPersonas().setColumnIdentifiers(this.vistaBebida.getNombreColumnas());
 
 		if (indice == 0) {
-			for (int i = 0; i < this.conAlcohol.size(); i++) {
-				Object[] fila = { this.conAlcohol.get(i).getNombre(), this.conAlcohol.get(i).getPrecio() };
-				this.vistaBebida.getModelPersonas().addRow(fila);
-				this.vistaBebida.getTxfNombreSe().setText("");
-				this.vistaBebida.getTxfPrecioSe().setText("");
+
+			for (int i = 0; i < this.bebidas.size(); i++) {
+
+				if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
+
+					Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio().toString() };
+					this.vistaBebida.getModelPersonas().addRow(fila);
+				}
 			}
 		} else if (indice == 1) {
-			for (int i = 0; i < this.sinAlcohol.size(); i++) {
-				Object[] fila = { this.sinAlcohol.get(i).getNombre(), this.sinAlcohol.get(i).getPrecio() };
-				this.vistaBebida.getModelPersonas().addRow(fila);
-				this.vistaBebida.getTxfNombreSe().setText("");
-				this.vistaBebida.getTxfPrecioSe().setText("");
+
+			for (int i = 0; i < this.bebidas.size(); i++) {
+
+				if (this.bebidas.get(i).getTipo().equals("Sin Alcohol")) {
+
+					Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio().toString() };
+					this.vistaBebida.getModelPersonas().addRow(fila);
+				}
 			}
 		} else {
-			for (int i = 0; i < this.cafe.size(); i++) {
-				Object[] fila = { this.cafe.get(i).getNombre(), this.cafe.get(i).getPrecio() };
-				this.vistaBebida.getModelPersonas().addRow(fila);
-				this.vistaBebida.getTxfNombreSe().setText("");
-				this.vistaBebida.getTxfPrecioSe().setText("");
+
+			for (int i = 0; i < this.bebidas.size(); i++) {
+
+				if (this.bebidas.get(i).getTipo().equals("Cafeteria")) {
+
+					Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio().toString() };
+					this.vistaBebida.getModelPersonas().addRow(fila);
+				}
 			}
 		}
+		
+		this.vistaBebida.getTxfNombreSe().setText("");
+		this.vistaBebida.getTxfPrecioSe().setText("");
 	}
 
 	public void borrarBebida(int indice) {
 
-		Integer seleccion = this.vistaBebida.getTablaBebida().getSelectedRow();
+		int filaSeleccion = this.vistaBebida.getTablaBebida().getSelectedRow();
+		int posicion = 0;
 
-		if (seleccion >= 0) {
+		if (filaSeleccion >= 0) {
+
 			if (indice == 0) {
 
-				this.carta.borrarConAlcohol(this.conAlcohol.get(seleccion));
-				this.conAlcohol.remove(seleccion);
-				this.cargarTabla(0);
-				this.vistaBebida.getTxfNombreSe().setText("");
-				this.vistaBebida.getTxfPrecioSe().setText("");
+				for (int i = 0; i < this.bebidas.size(); i++) {
+
+					if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
+
+						if (posicion == filaSeleccion) {
+
+							this.carta.borrarBebida(this.bebidas.get(i));
+							this.bebidas.remove(this.bebidas.get(i));
+							this.cargarTablas(0);
+						}
+						posicion = posicion + 1;
+					}
+				}
 
 			} else if (indice == 1) {
 
-				this.carta.borrarSinAlcohol(this.sinAlcohol.get(seleccion));
-				this.sinAlcohol.remove(seleccion);
-				this.cargarTabla(1);
-				this.vistaBebida.getTxfNombreSe().setText("");
-				this.vistaBebida.getTxfPrecioSe().setText("");
+				for (int i = 0; i < this.bebidas.size(); i++) {
 
-			} else {
+					if (this.bebidas.get(i).getTipo().equals("Sin Alcohol")) {
 
-				this.carta.borrarCafe(this.cafe.get(seleccion));
-				this.cafe.remove(seleccion);
-				this.cargarTabla(2);
-				this.vistaBebida.getTxfNombreSe().setText("");
-				this.vistaBebida.getTxfPrecioSe().setText("");
+						if (posicion == filaSeleccion) {
+
+							this.carta.borrarBebida(this.bebidas.get(i));
+							this.bebidas.remove(this.bebidas.get(i));
+							this.cargarTablas(1);
+						}
+						posicion = posicion + 1;
+					}
+				}
+			} else if (indice == 2) {
+
+				for (int i = 0; i < this.bebidas.size(); i++) {
+
+					if (this.bebidas.get(i).getTipo().equals("Cafeteria")) {
+
+						if (posicion == filaSeleccion) {
+
+							this.carta.borrarBebida(this.bebidas.get(i));
+							this.bebidas.remove(this.bebidas.get(i));
+							this.cargarTablas(0);
+						}
+						posicion = posicion + 1;
+					}
+				}
 			}
+
 		} else {
+
 			JOptionPane.showMessageDialog(vistaBebida, "Seleccione una fila");
+
+			this.vistaBebida.getTxfNombreSe().setText("");
+			this.vistaBebida.getTxfPrecioSe().setText("");
 		}
 	}
 
 	public void editarBebida(int indice) {
-		
-		int seleccion = this.vistaBebida.getTablaBebida().getSelectedRow();
-		
-		if(seleccion>=0){
-			
+
+		int filaSeleccion = this.vistaBebida.getTablaBebida().getSelectedRow();
+
+		if (filaSeleccion >= 0) {
+
 			String nombre = this.vistaBebida.getTxfNombreSe().getText();
-			BigDecimal precio = new BigDecimal(this.vistaBebida.getTxfPrecioSe().getText().replaceAll(",", ""));
+			Double precio = Double.valueOf(this.vistaBebida.getTxfPrecioSe().getText());
+			int posicion = 0;
 
 			if (indice == 0) {
 
-				conAlcoholDTO edit = new conAlcoholDTO(this.conAlcohol.get(seleccion).getIdConAlcohol(), nombre, precio);
-				this.carta.editarConAlcohol(edit);
-				this.conAlcohol = carta.obtenerConAlcoholes();
-				this.cargarTabla(0);
-				this.vistaBebida.getTxfNombreSe().setText("");
-				this.vistaBebida.getTxfPrecioSe().setText("");
+				String tipo = "Con Alcohol";
 
+				for (int i = 0; i < this.bebidas.size(); i++) {
+
+					if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
+
+						if (posicion == filaSeleccion) {
+
+							bebidaDTO edit = new bebidaDTO(this.bebidas.get(i).getIdBebida(), nombre, precio, tipo);
+							this.carta.editarBebida(edit);
+							this.bebidas = carta.obtenerBebidas();
+							this.cargarTablas(0);
+						}
+						posicion = posicion + 1;
+					}
+				}
 			} else if (indice == 1) {
 
-				sinAlcoholDTO edit = new sinAlcoholDTO(this.sinAlcohol.get(seleccion).getIdSinAlcohol(), nombre, precio);
-				this.carta.editarSinAlcohol(edit);
-				this.sinAlcohol = carta.obtenerSinAlcoholes();
-				this.cargarTabla(1);
-				this.vistaBebida.getTxfNombreSe().setText("");
-				this.vistaBebida.getTxfPrecioSe().setText("");
+				String tipo = "Sin Alcohol";
+
+				for (int i = 0; i < this.bebidas.size(); i++) {
+
+					if (this.bebidas.get(i).getTipo().equals("Sin Alcohol")) {
+
+						if (posicion == filaSeleccion) {
+
+							bebidaDTO edit = new bebidaDTO(this.bebidas.get(i).getIdBebida(), nombre, precio, tipo);
+							this.carta.editarBebida(edit);
+							this.bebidas = carta.obtenerBebidas();
+							this.cargarTablas(1);							
+						}
+						posicion = posicion + 1;
+					}
+				}
 
 			} else {
 
-				cafeDTO edit = new cafeDTO(this.cafe.get(seleccion).getIdCafe(), nombre, precio);
-				this.carta.editarCafe(edit);
-				this.cafe = carta.obtenerCafes();
-				this.cargarTabla(2);
-				this.vistaBebida.getTxfNombreSe().setText("");
-				this.vistaBebida.getTxfPrecioSe().setText("");
+				String tipo = "Cafeteria";
+				for (int i = 0; i < this.bebidas.size(); i++) {
 
+					if (this.bebidas.get(i).getTipo().equals("Cafeteria")) {
+
+						if (posicion == filaSeleccion) {
+
+							bebidaDTO edit = new bebidaDTO(this.bebidas.get(i).getIdBebida(), nombre, precio, tipo);
+							this.carta.editarBebida(edit);
+							this.bebidas = carta.obtenerBebidas();
+							this.cargarTablas(2);
+						}
+						posicion = posicion + 1;
+					}
+				}
 			}
+		} else {
+			JOptionPane.showMessageDialog(vistaBebida, "Seleccione una fila");
 		}
-	}
 
-	public List<conAlcoholDTO> getConAlcohol() {
-		return conAlcohol;
-	}
-
-	public void setConAlcohol(List<conAlcoholDTO> conAlcohol) {
-		this.conAlcohol = conAlcohol;
-	}
-
-	public List<sinAlcoholDTO> getSinAlcohol() {
-		return sinAlcohol;
-	}
-
-	public void setSinAlcohol(List<sinAlcoholDTO> sinAlcohol) {
-		this.sinAlcohol = sinAlcohol;
-	}
-
-	public List<cafeDTO> getCafe() {
-		return cafe;
-	}
-
-	public void setCafe(List<cafeDTO> cafe) {
-		this.cafe = cafe;
+		this.vistaBebida.getTxfNombreSe().setText("");
+		this.vistaBebida.getTxfPrecioSe().setText("");
 	}
 }

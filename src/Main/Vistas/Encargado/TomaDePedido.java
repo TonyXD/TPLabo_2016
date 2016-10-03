@@ -30,7 +30,7 @@ public class TomaDePedido extends JFrame {
 	
 	private JTextPane txtObservaciones;
 	
-	private JTabbedPane tabbedPane;
+	private JTabbedPane tbdPane;
 	
 	private JTable tblPedidoSelect;
 	
@@ -38,14 +38,18 @@ public class TomaDePedido extends JFrame {
 	private JTable tblEntrada;
 	private JTable tblPrincipal;
 	private JTable tblPostres;
-	private JTable tblBebidas;
+	private JTable tblConAlcohol;
+	private JTable tblSinAlcohol;
+	private JTable tblCafe;
 
 	private DefaultTableModel modelSelect;
 
 	private DefaultTableModel modelEntrada;
 	private DefaultTableModel modelPrincipal;
 	private DefaultTableModel modelPostre;
-	private DefaultTableModel modelBebidas;
+	private DefaultTableModel modelConAlcohol;
+	private DefaultTableModel modelSinAlcohol;
+	private DefaultTableModel modelCafe;
 	private DefaultTableModel modelMenus;
 
 	private String[] nombreColumnas = { "Nombre", "Precio" };
@@ -91,12 +95,12 @@ public class TomaDePedido extends JFrame {
 		contentPane.add(pnl_Seleccion);
 		pnl_Seleccion.setLayout(null);
 
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 490, 580);
-		pnl_Seleccion.add(tabbedPane);
+		tbdPane = new JTabbedPane(JTabbedPane.TOP);
+		tbdPane.setBounds(0, 0, 490, 580);
+		pnl_Seleccion.add(tbdPane);
 
 		JScrollPane scPnl_Entrada = new JScrollPane();
-		tabbedPane.addTab("Entrada", null, scPnl_Entrada, null);
+		tbdPane.addTab("Entrada", null, scPnl_Entrada, null);
 
 		modelEntrada = new DefaultTableModel(null, this.nombreColumnas);
 		setTblEntrada(new JTable(modelEntrada));
@@ -119,7 +123,7 @@ public class TomaDePedido extends JFrame {
 		// });
 		
 		JScrollPane scPnl_Principal = new JScrollPane();
-		tabbedPane.addTab("Principal", null, scPnl_Principal, null);
+		tbdPane.addTab("Principal", null, scPnl_Principal, null);
 
 		modelPrincipal = new DefaultTableModel(null, this.nombreColumnas);
 		setTblPrincipal(new JTable(modelPrincipal));
@@ -130,7 +134,7 @@ public class TomaDePedido extends JFrame {
 		scPnl_Principal.setViewportView(tblPrincipal);
 
 		JScrollPane scPnl_Postres = new JScrollPane();
-		tabbedPane.addTab("Postres", null, scPnl_Postres, null);
+		tbdPane.addTab("Postres", null, scPnl_Postres, null);
 
 		modelPostre = new DefaultTableModel(null, this.nombreColumnas);
 		setTblPostres(new JTable(modelPostre));
@@ -141,18 +145,40 @@ public class TomaDePedido extends JFrame {
 		scPnl_Postres.setViewportView(tblPostres);
 
 		JScrollPane scPnl_Bebidas = new JScrollPane();
-		tabbedPane.addTab("Bebidas", null, scPnl_Bebidas, null);
+		tbdPane.addTab("Bebidas", null, scPnl_Bebidas, null);
 
-		modelBebidas = new DefaultTableModel(null, this.nombreColumnas);
-		setTblBebidas(new JTable(modelBebidas));
-		tblBebidas.getColumnModel().getColumn(0).setPreferredWidth(103);
-		tblBebidas.getColumnModel().getColumn(0).setResizable(false);
-		tblBebidas.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tblBebidas.getColumnModel().getColumn(1).setResizable(false);
-		scPnl_Bebidas.setViewportView(tblBebidas);
-
+		modelConAlcohol = new DefaultTableModel(null, this.nombreColumnas);
+		setTblBebidas(new JTable(modelConAlcohol));
+		tblConAlcohol.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblConAlcohol.getColumnModel().getColumn(0).setResizable(false);
+		tblConAlcohol.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblConAlcohol.getColumnModel().getColumn(1).setResizable(false);
+		scPnl_Bebidas.setViewportView(tblConAlcohol);
+		
+		JScrollPane scrSinAlcohol = new JScrollPane();
+		tbdPane.addTab("Sin Alcohol", null, scrSinAlcohol, null);
+		
+		modelSinAlcohol = new DefaultTableModel(null, this.nombreColumnas);
+		tblSinAlcohol = new JTable(modelSinAlcohol);
+		tblSinAlcohol.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblSinAlcohol.getColumnModel().getColumn(0).setResizable(false);
+		tblSinAlcohol.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblSinAlcohol.getColumnModel().getColumn(1).setResizable(false);
+		scrSinAlcohol.setViewportView(tblSinAlcohol);
+		
+		JScrollPane scrCafe = new JScrollPane();
+		tbdPane.addTab("Cafeteria", null, scrCafe, null);
+		
+		modelCafe = new DefaultTableModel(null, this.nombreColumnas);
+		tblCafe = new JTable(modelCafe);
+		tblCafe.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblCafe.getColumnModel().getColumn(0).setResizable(false);
+		tblCafe.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblCafe.getColumnModel().getColumn(1).setResizable(false);
+		scrCafe.setViewportView(tblCafe);
+		
 		JScrollPane scPnl_Menu = new JScrollPane();
-		tabbedPane.addTab("Menús", null, scPnl_Menu, null);
+		tbdPane.addTab("Menús", null, scPnl_Menu, null);
 
 		setModelMenus(new DefaultTableModel(null, this.nombreColumnas));
 		setTblMenu(new JTable(modelMenus));
@@ -267,11 +293,11 @@ public class TomaDePedido extends JFrame {
 	}
 
 	public DefaultTableModel getModelBebidas() {
-		return modelBebidas;
+		return modelConAlcohol;
 	}
 
 	public void setModelBebidas(DefaultTableModel modelBebidas) {
-		this.modelBebidas = modelBebidas;
+		this.modelConAlcohol = modelBebidas;
 	}
 
 	public String[] getNombreColumnas() {
@@ -323,11 +349,11 @@ public class TomaDePedido extends JFrame {
 	}
 
 	public JTable getTblBebidas() {
-		return tblBebidas;
+		return tblConAlcohol;
 	}
 
 	public void setTblBebidas(JTable tblBebidas) {
-		this.tblBebidas = tblBebidas;
+		this.tblConAlcohol = tblBebidas;
 	}
 
 	public DefaultTableModel getModelMenus() {
@@ -383,11 +409,11 @@ public class TomaDePedido extends JFrame {
 	}
 	
 	public JTabbedPane getTabbedPane() {
-		return tabbedPane;
+		return tbdPane;
 	}
 
 	public void setTabbedPane(JTabbedPane tabbedPane) {
-		this.tabbedPane = tabbedPane;
+		this.tbdPane = tabbedPane;
 	}
 
 	public JTextPane getTxtObservaciones() {
@@ -404,5 +430,37 @@ public class TomaDePedido extends JFrame {
 
 	public void setTxfTotal(JTextField txfTotal) {
 		this.txfTotal = txfTotal;
+	}
+
+	public DefaultTableModel getModelSinAlcohol() {
+		return modelSinAlcohol;
+	}
+
+	public void setModelSinAlcohol(DefaultTableModel modelSinAlcohol) {
+		this.modelSinAlcohol = modelSinAlcohol;
+	}
+
+	public DefaultTableModel getModelCafe() {
+		return modelCafe;
+	}
+
+	public void setModelCafe(DefaultTableModel modelCafe) {
+		this.modelCafe = modelCafe;
+	}
+
+	public JTable getTblSinAlcohol() {
+		return tblSinAlcohol;
+	}
+
+	public void setTblSinAlcohol(JTable tblSinAlcohol) {
+		this.tblSinAlcohol = tblSinAlcohol;
+	}
+
+	public JTable getTblCafe() {
+		return tblCafe;
+	}
+
+	public void setTblCafe(JTable tblCafe) {
+		this.tblCafe = tblCafe;
 	}
 }

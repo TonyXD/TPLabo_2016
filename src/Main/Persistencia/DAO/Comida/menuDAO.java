@@ -21,14 +21,14 @@ public class menuDAO {
 	private static final String readall = "SELECT * FROM menu";
 
 	private static final Conexion conexion = Conexion.getConexion();
-
+	
 	public boolean insert(menuDTO menu) {
 		PreparedStatement statement;
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
 			statement.setInt(1, menu.getIdMenu());
 			statement.setString(2, menu.getNombre());
-			statement.setBigDecimal(3, menu.getPrecio());
+			statement.setDouble(3, menu.getPrecio());
 			statement.setObject(4, menu.getEntrada());
 			statement.setObject(5, menu.getPrincipal());
 			statement.setObject(6, menu.getPostre());
@@ -76,7 +76,7 @@ public class menuDAO {
 
 				menus.add(new menuDTO(resultSet.getInt("idMenu"), 
 						resultSet.getString("nombre"),
-						resultSet.getBigDecimal("precio"), 
+						resultSet.getDouble("precio"), 
 						(ArrayList<entradaDTO>) resultSet.getObject("entrada"),
 						(ArrayList<principalDTO>) resultSet.getObject("principal"),
 						(ArrayList<postreDTO>) resultSet.getObject("postre"),
@@ -98,7 +98,7 @@ public class menuDAO {
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(update);
 			statement.setString(1, menu.getNombre());
-			statement.setBigDecimal(2, menu.getPrecio());
+			statement.setDouble(2, menu.getPrecio());
 			statement.setObject(3, menu.getEntrada());
 			statement.setObject(4, menu.getPrincipal());
 			statement.setObject(5, menu.getPostre());

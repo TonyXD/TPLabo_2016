@@ -20,7 +20,7 @@ import Persistencia.Conexion.Conexion;
 
 public class pedidoDAO {
 
-	private static final String insert = "INSERT INTO pedido(idPedido, ) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String insert = "INSERT INTO pedido(idPedido, ) VALUES(?,?,?,?,?,?,?)";
 	private static final String delete = "DELETE FROM pedido WHERE idPedido = ?";
 	private static final String readall = "SELECT * FROM pedido";
 	private static final Conexion conexion = Conexion.getConexion();
@@ -30,12 +30,6 @@ public class pedidoDAO {
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
 			statement.setInt(1, pedido.getIdPedido());
-			statement.setObject(2, pedido.getEntrada());
-			statement.setObject(3, pedido.getPrincipal());
-			statement.setObject(4, pedido.getPostre());
-			statement.setObject(5, pedido.getConAlcohol());
-			statement.setObject(6, pedido.getSinAlcohol());
-			statement.setObject(7, pedido.getCafe());
 			statement.setObject(8, pedido.getMozo());
 			statement.setObject(9, pedido.getMesa());
 			statement.setInt(10, pedido.getEstado().getIdEstado());
