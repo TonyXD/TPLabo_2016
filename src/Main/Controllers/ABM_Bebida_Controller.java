@@ -64,9 +64,9 @@ public class ABM_Bebida_Controller implements ActionListener {
 		String tipo = "";
 
 		if (indice == 0) {
-			tipo = "Con Alcohol";
-		} else if (indice == 1) {
 			tipo = "Sin Alcohol";
+		} else if (indice == 1) {
+			tipo = "Con Alcohol";
 		} else {
 			tipo = "Cafeteria";
 		}
@@ -89,7 +89,7 @@ public class ABM_Bebida_Controller implements ActionListener {
 
 			for (int i = 0; i < this.bebidas.size(); i++) {
 
-				if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
+				if (this.bebidas.get(i).getTipo().equals("Sin Alcohol")) {
 
 					Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio().toString() };
 					this.vistaBebida.getModelPersonas().addRow(fila);
@@ -99,7 +99,7 @@ public class ABM_Bebida_Controller implements ActionListener {
 
 			for (int i = 0; i < this.bebidas.size(); i++) {
 
-				if (this.bebidas.get(i).getTipo().equals("Sin Alcohol")) {
+				if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
 
 					Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio().toString() };
 					this.vistaBebida.getModelPersonas().addRow(fila);
@@ -132,7 +132,7 @@ public class ABM_Bebida_Controller implements ActionListener {
 
 				for (int i = 0; i < this.bebidas.size(); i++) {
 
-					if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
+					if (this.bebidas.get(i).getTipo().equals("Sin Alcohol")) {
 
 						if (posicion == filaSeleccion) {
 
@@ -148,7 +148,7 @@ public class ABM_Bebida_Controller implements ActionListener {
 
 				for (int i = 0; i < this.bebidas.size(); i++) {
 
-					if (this.bebidas.get(i).getTipo().equals("Sin Alcohol")) {
+					if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
 
 						if (posicion == filaSeleccion) {
 
@@ -197,11 +197,11 @@ public class ABM_Bebida_Controller implements ActionListener {
 
 			if (indice == 0) {
 
-				String tipo = "Con Alcohol";
+				String tipo = "Sin Alcohol";
 
 				for (int i = 0; i < this.bebidas.size(); i++) {
 
-					if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
+					if (this.bebidas.get(i).getTipo().equals("Sin Alcohol")) {
 
 						if (posicion == filaSeleccion) {
 
@@ -215,11 +215,11 @@ public class ABM_Bebida_Controller implements ActionListener {
 				}
 			} else if (indice == 1) {
 
-				String tipo = "Sin Alcohol";
+				String tipo = "Con Alcohol";
 
 				for (int i = 0; i < this.bebidas.size(); i++) {
 
-					if (this.bebidas.get(i).getTipo().equals("Sin Alcohol")) {
+					if (this.bebidas.get(i).getTipo().equals("Con Alcohol")) {
 
 						if (posicion == filaSeleccion) {
 

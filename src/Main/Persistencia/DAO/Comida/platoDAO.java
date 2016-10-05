@@ -11,10 +11,10 @@ import Persistencia.Conexion.Conexion;
 
 public class platoDAO {
 
-	private static final String insert = "INSERT INTO plato(idPlato, nombre, precio, tipo) VALUES(?,?,?,?)";
-	private static final String delete = "DELETE FROM plato WHERE idPlato = ?";
-	private static final String update = "UPDATE plato SET nombre=?, precio=?, tipo=? WHERE idPlato=?";
-	private static final String readall = "SELECT * FROM plato";
+	private static final String insert = "INSERT INTO platos(idPlato, nombre, precio, tipo) VALUES(?,?,?,?)";
+	private static final String delete = "DELETE FROM platos WHERE idPlato = ?";
+	private static final String update = "UPDATE platos SET nombre=?, precio=?, tipo=? WHERE idPlato=?";
+	private static final String readall = "SELECT * FROM platos";
 	private static final Conexion conexion = Conexion.getConexion();
 	
 	

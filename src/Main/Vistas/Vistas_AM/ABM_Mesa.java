@@ -15,6 +15,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.SpinnerNumberModel;
 
 public class ABM_Mesa extends JFrame {
 
@@ -133,18 +134,22 @@ public class ABM_Mesa extends JFrame {
 		contentPane.add(btnEditar);
 
 		spnCapacidadEd = new JSpinner();
+		spnCapacidadEd.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spnCapacidadEd.setBounds(85, 407, 65, 20);
 		contentPane.add(spnCapacidadEd);
 
 		spnPisoEd = new JSpinner();
+		spnPisoEd.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spnPisoEd.setBounds(285, 373, 65, 20);
 		contentPane.add(spnPisoEd);
 
 		spnCapacidad = new JSpinner();
+		spnCapacidad.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spnCapacidad.setBounds(85, 588, 65, 20);
 		contentPane.add(spnCapacidad);
 
 		spnPiso = new JSpinner();
+		spnPiso.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		spnPiso.setBounds(285, 554, 65, 20);
 		contentPane.add(spnPiso);
 

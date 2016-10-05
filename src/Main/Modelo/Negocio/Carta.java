@@ -11,13 +11,6 @@ import Persistencia.DAO.Comida.platoDAO;
 
 public class Carta {
 	
-//	private entradaDAO entrada;
-//	private principalDAO principal;
-//	private postreDAO postre;
-//	private conAlcoholDAO conAlcohol;
-//	private sinAlcoholDAO sinAlcohol;
-//	private cafeDAO cafe;
-	
 	private platoDAO plato;
 	private bebidaDAO bebida;
 	

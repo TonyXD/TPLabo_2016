@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ControlDeMesa.ControlDeMesa;
+import Modelo.DTO.General.estadoDTO;
 import Modelo.DTO.General.mesaDTO;
 import Modelo.DTO.General.pedidoDTO;
 import Modelo.Negocio.Carta;
@@ -27,11 +28,12 @@ public class GestorPedidos_Controller implements ActionListener {
 	private ControlDeMesa genControl;
 	private Ticket genTicket;
 
-	public GestorPedidos_Controller(GestorPedidos vistaMesas, Pedido pedido, Restorant resto) {
+	public GestorPedidos_Controller(GestorPedidos vistaMesas, Pedido pedido, Restorant resto, Carta carta) {
 
 		this.setVistaMesas(vistaMesas);
 		this.setPedido(pedido);
 		this.setResto(resto);
+		this.carta = carta;
 
 		this.vistaMesas.getBtnAsignarMesa().addActionListener(this);
 		this.vistaMesas.getBtnPedido().addActionListener(this);
@@ -54,8 +56,20 @@ public class GestorPedidos_Controller implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == this.vistaMesas.getBtnAsignarMesa()) {
-			
-			
+
+			int filaSelect = this.vistaMesas.getTblPedido().getSelectedRow();
+			if(filaSelect>=0){
+				
+				estadoDTO estadoAux = new estadoDTO(2, "Asiganda", false, false, true);
+				mesaDTO mesaAux = new mesaDTO(this.mesas.get(filaSelect).getIdMesa(),
+						this.mesas.get(filaSelect).getNumero(), this.mesas.get(filaSelect).getCapacidad(),
+						this.mesas.get(filaSelect).getPiso(), this.mesas.get(filaSelect).getSector(), estadoAux);
+				
+				this.resto.editarMesa(mesaAux);
+				
+				this.cargarTabla();
+				
+			}
 			
 		} else if (e.getSource() == this.vistaMesas.getBtnPedido()) {
 
@@ -112,26 +126,20 @@ public class GestorPedidos_Controller implements ActionListener {
 	}
 
 	public void cargarTabla() {
-
+		
+		this.vistaMesas.getModelPedido().setRowCount(0);
+		this.vistaMesas.getModelPedido().setColumnCount(0);
+		this.vistaMesas.getModelPedido().setColumnIdentifiers(this.vistaMesas.getNombreColumnas());
+		
+		this.mesas = resto.obtenerMesas();
+		
 		for (int i = 0; i < mesas.size(); i++) {
 
-			for (int j = 0; i < pedidos.size(); j++) {
-				
-				for(int x =0;x<pedidos.get(j).getMesa().size();x++){
-					
-					if (mesas.get(i).getIdMesa() == pedidos.get(j).getMesa().get(x).getIdMesa()){
-						
-						Object[] fila = { this.mesas.get(i).getNumero(), this.mesas.get(i).getCapacidad(),
-								this.mesas.get(i).getPiso(), this.mesas.get(i).getSector(),
-								this.mesas.get(i).getEstado().getDescripcion(), this.pedidos.get(j).getFecha().toString()};
-						this.vistaMesas.getModelPedido().addRow(fila);
-						
-					}
-					
-				}
-				
-				
-			}
+			Object[] fila = { this.mesas.get(i).getNumero(), this.mesas.get(i).getCapacidad(),
+					this.mesas.get(i).getPiso(), this.mesas.get(i).getSector(),
+					this.mesas.get(i).getEstado().getDescripcion() };
+			this.vistaMesas.getModelPedido().addRow(fila);
+
 		}
 	}
 

@@ -33,6 +33,8 @@ public class ABM_Menus extends JFrame {
 
 	
 	public ABM_Menus(GestorDeCarta_Controller padre) {
+		setResizable(false);
+		setAlwaysOnTop(true);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent arg0) {

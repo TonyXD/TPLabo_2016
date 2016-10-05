@@ -11,10 +11,10 @@ import Persistencia.Conexion.Conexion;
 
 public class bebidaDAO {
 
-	private static final String insert = "INSERT INTO bebida(idBebida, nombre, precio, tipo) VALUES(?,?,?,?)";
-	private static final String delete = "DELETE FROM bebida WHERE idBebida = ?";
-	private static final String update = "UPDATE bebida SET nombre=?, precio=?, tipo=? WHERE idBebida=?";
-	private static final String readall = "SELECT * FROM bebida";
+	private static final String insert = "INSERT INTO bebidas(idBebida, nombre, precio, tipo) VALUES(?,?,?,?)";
+	private static final String delete = "DELETE FROM bebidas WHERE idBebida = ?";
+	private static final String update = "UPDATE bebidas SET nombre=?, precio=?, tipo=? WHERE idBebida=?";
+	private static final String readall = "SELECT * FROM bebidas";
 	private static final Conexion conexion = Conexion.getConexion();
 	
 	
@@ -48,6 +48,8 @@ public class bebidaDAO {
 			if (chequeoUpdate > 0) // Si se ejecuta devuelvo true
 				return true;
 		} catch (SQLException e) {
+			
+			e.printStackTrace();
 		} finally // Se ejecuta siempre
 		{
 			conexion.cerrarConexion();

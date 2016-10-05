@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import Modelo.DTO.Bebidas.bebidaDTO;
+import Modelo.DTO.Comidas.menuDTO;
 import Modelo.DTO.Comidas.platoDTO;
 import Modelo.Negocio.Carta;
 import Vistas.Encargado.GestorDeCarta;
@@ -17,6 +18,7 @@ public class GestorDeCarta_Controller implements ActionListener {
 	
 	private List<platoDTO> platos;
 	private List<bebidaDTO> bebidas;
+	private List<menuDTO> menus;
  
 	private GestorDeCarta vistaCarta;
 	private Carta carta;
@@ -38,6 +40,7 @@ public class GestorDeCarta_Controller implements ActionListener {
 		
 		this.platos = carta.obtenerPlatos();
 		this.bebidas = carta.obtenerBebidas();
+		this.menus = carta.obtenermenus();
 		
 		this.cargarTablas();
 	}
@@ -83,6 +86,7 @@ public class GestorDeCarta_Controller implements ActionListener {
 				
 				Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
 				this.vistaCarta.getModelEntrada().addRow(fila);
+				
 			}else if(this.platos.get(i).getTipo().equals("Principal")){
 				
 				Object[] fila = { this.platos.get(i).getNombre(), this.platos.get(i).getPrecio().toString() };
@@ -104,7 +108,7 @@ public class GestorDeCarta_Controller implements ActionListener {
 				Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio() };
 				this.vistaCarta.getModelConAlcohol().addRow(fila);
 				
-			}if(this.bebidas.get(i).getTipo().equals("Con Alcohol")){
+			}if(this.bebidas.get(i).getTipo().equals("Sin Alcohol")){
 				
 				Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio() };
 				this.vistaCarta.getModelSinAlcohol().addRow(fila);
@@ -114,6 +118,13 @@ public class GestorDeCarta_Controller implements ActionListener {
 				Object[] fila = { this.bebidas.get(i).getNombre(), this.bebidas.get(i).getPrecio() };
 				this.vistaCarta.getModelCafe().addRow(fila);
 			}
+		}
+		
+		for (int i = 0; i < this.menus.size(); i++) {
+			
+			Object[] fila = { this.menus.get(i).getNombre(), this.menus.get(i).getPrecio() };
+			this.vistaCarta.getModelMenu().addRow(fila);
+			
 		}
 	}
 
@@ -164,6 +175,14 @@ public class GestorDeCarta_Controller implements ActionListener {
 
 	public void setBebidas(List<bebidaDTO> bebidas) {
 		this.bebidas = bebidas;
+	}
+
+	public List<menuDTO> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<menuDTO> menus) {
+		this.menus = menus;
 	}
 
 }

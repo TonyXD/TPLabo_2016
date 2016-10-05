@@ -28,6 +28,7 @@ extends JFrame {
 	private JButton btnAsignarMesa;
 
 	public GestorPedidos() {
+		setResizable(false);
 		setAlwaysOnTop(true);
 		setTitle("Gestor de Pedidos");
 //		setIconImage(Toolkit.getDefaultToolkit().getImage(GestorMesas.class.getResource("/Imagenes/dishes-798316_1280.png")));

@@ -42,8 +42,7 @@ public class Alta_Menu extends JFrame {
 	private DefaultTableModel modelCafe;
 	private DefaultTableModel modelMenu;
 	
-	private JTabbedPane tbdPaneComidas;
-	private JTabbedPane tbdPaneBebidas;
+	private JTabbedPane tbdPane;
 	
 	private JButton btnAgregarAlMenu;
 	private JButton btnQuitarDelMenu;
@@ -81,20 +80,12 @@ public class Alta_Menu extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		tbdPaneComidas = new JTabbedPane(JTabbedPane.TOP);
-		tbdPaneComidas.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-//				tbdPaneBebidas.setSelectedIndex(-1);
-				
-			}
-		});
-		tbdPaneComidas.setBounds(10, 11, 703, 349);
-		panel.add(tbdPaneComidas);
+		tbdPane = new JTabbedPane(JTabbedPane.TOP);
+		tbdPane.setBounds(10, 11, 703, 703);
+		panel.add(tbdPane);
 		
 		JScrollPane scpEntrada = new JScrollPane();
-		tbdPaneComidas.addTab("Entrada", null, scpEntrada, null);
+		tbdPane.addTab("Entrada", null, scpEntrada, null);
 		
 		modelEntrada = new DefaultTableModel(null, this.nombreColumnas);
 		tblEntrada =new JTable(modelEntrada);
@@ -105,7 +96,7 @@ public class Alta_Menu extends JFrame {
 		scpEntrada.setViewportView(tblEntrada);
 		
 		JScrollPane scrPrincipal = new JScrollPane();
-		tbdPaneComidas.addTab("Principal", null, scrPrincipal, null);
+		tbdPane.addTab("Principal", null, scrPrincipal, null);
 		
 		modelPrincipal = new DefaultTableModel(null, this.nombreColumnas);
 		tblPrincipal = new JTable(modelPrincipal);
@@ -116,7 +107,7 @@ public class Alta_Menu extends JFrame {
 		scrPrincipal.setViewportView(tblPrincipal);
 		
 		JScrollPane scrPostre = new JScrollPane();
-		tbdPaneComidas.addTab("Postre", null, scrPostre, null);
+		tbdPane.addTab("Postre", null, scrPostre, null);
 		
 		modelPostre = new DefaultTableModel(null, this.nombreColumnas);
 		tblPostre = new JTable(modelPostre);
@@ -126,31 +117,8 @@ public class Alta_Menu extends JFrame {
 		tblPostre.getColumnModel().getColumn(1).setResizable(false);
 		scrPostre.setViewportView(tblPostre);
 		
-		
-		tbdPaneBebidas = new JTabbedPane(JTabbedPane.TOP);
-		tbdPaneBebidas.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-//				tbdPaneComidas.setSelectedIndex(-1);
-			}
-		});
-		tbdPaneBebidas.setBounds(10, 370, 703, 344);
-		panel.add(tbdPaneBebidas);
-		
-		JScrollPane scrConAlcohol = new JScrollPane();
-		tbdPaneBebidas.addTab("Con Alcohol", null, scrConAlcohol, null);
-		
-		modelConAlcohol = new DefaultTableModel(null, this.nombreColumnas);
-		tblConAlcohol = new JTable(modelConAlcohol);
-		tblConAlcohol.getColumnModel().getColumn(0).setPreferredWidth(103);
-		tblConAlcohol.getColumnModel().getColumn(0).setResizable(false);
-		tblConAlcohol.getColumnModel().getColumn(1).setPreferredWidth(100);
-		tblConAlcohol.getColumnModel().getColumn(1).setResizable(false);
-		scrConAlcohol.setViewportView(tblConAlcohol);
-		
 		JScrollPane scrSinAlcohol = new JScrollPane();
-		tbdPaneBebidas.addTab("Sin Alcohol", null, scrSinAlcohol, null);
+		tbdPane.addTab("Sin Alcohol", null, scrSinAlcohol, null);
 		
 		modelSinAlcohol = new DefaultTableModel(null, this.nombreColumnas);
 		tblSinAlcohol = new JTable(modelSinAlcohol);
@@ -160,8 +128,19 @@ public class Alta_Menu extends JFrame {
 		tblSinAlcohol.getColumnModel().getColumn(1).setResizable(false);
 		scrSinAlcohol.setViewportView(tblSinAlcohol);
 		
+		JScrollPane scrConAlcohol = new JScrollPane();
+		tbdPane.addTab("Con Alcohol", null, scrConAlcohol, null);
+		
+		modelConAlcohol = new DefaultTableModel(null, this.nombreColumnas);
+		tblConAlcohol = new JTable(modelConAlcohol);
+		tblConAlcohol.getColumnModel().getColumn(0).setPreferredWidth(103);
+		tblConAlcohol.getColumnModel().getColumn(0).setResizable(false);
+		tblConAlcohol.getColumnModel().getColumn(1).setPreferredWidth(100);
+		tblConAlcohol.getColumnModel().getColumn(1).setResizable(false);
+		scrConAlcohol.setViewportView(tblConAlcohol);
+		
 		JScrollPane scrCafe = new JScrollPane();
-		tbdPaneBebidas.addTab("Cafeteria", null, scrCafe, null);
+		tbdPane.addTab("Cafeteria", null, scrCafe, null);
 		
 		modelCafe = new DefaultTableModel(null, this.nombreColumnas);
 		tblCafe = new JTable(modelCafe);
@@ -313,19 +292,19 @@ public class Alta_Menu extends JFrame {
 	}
 
 	public JTabbedPane getTbdPaneBebidas() {
-		return tbdPaneBebidas;
+		return tbdPane;
 	}
 
 	public void setTbdPaneBebidas(JTabbedPane tbdPaneBebidas) {
-		this.tbdPaneBebidas = tbdPaneBebidas;
+		this.tbdPane = tbdPaneBebidas;
 	}
 
 	public JTabbedPane getTbdPaneComidas() {
-		return tbdPaneComidas;
+		return tbdPane;
 	}
 
 	public void setTbdPaneComidas(JTabbedPane tbdPaneComidas) {
-		this.tbdPaneComidas = tbdPaneComidas;
+		this.tbdPane = tbdPaneComidas;
 	}
 
 	public JTable getTblEntrada() {

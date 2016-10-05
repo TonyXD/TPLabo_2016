@@ -13,6 +13,38 @@ CREATE TABLE `tplabo_2016`.`estados` (
     PRIMARY KEY (`idEstados`)
 );
 
+INSERT INTO `tplabo_2016`.`estados`
+VALUES(
+	0, "Libre", 1,0,0);
+	
+	INSERT INTO `tplabo_2016`.`estados`
+VALUES(
+	0, "Asignada", 1,0,0);
+	
+	INSERT INTO `tplabo_2016`.`estados`
+VALUES(
+	0, "Servida", 1,0,0);
+	
+	INSERT INTO `tplabo_2016`.`estados`
+VALUES(
+	0, "Reservada", 1,0,0);
+	
+	INSERT INTO `tplabo_2016`.`estados`
+VALUES(
+	0, "Finalizada", 1,0,0);
+	
+	INSERT INTO `tplabo_2016`.`estados`
+VALUES(
+	0, "Nuevo", 0,0,1);
+	
+	INSERT INTO `tplabo_2016`.`estados`
+VALUES(
+	0, "Completo", 0,0,1);
+	
+	INSERT INTO `tplabo_2016`.`estados`
+VALUES(
+	0, "Finalizado", 0,0,1);
+
 CREATE TABLE `tplabo_2016`.`mozo` (
     `idMozo` INT NOT NULL AUTO_INCREMENT,
     `nombre` VARCHAR(45) NULL,
@@ -33,25 +65,25 @@ CREATE TABLE `tplabo_2016`.`mesa` (
 
 CREATE TABLE `tplabo_2016`.`platos` (
 	idPlato INT NOT NULL AUTO_INCREMENT,
-	nombrePlato VARCHAR(45)NOT NULL,
-	precioPlato DECIMAL NOT NULL,
-	tipoPlato VARCHAR(45) NOT NULL,
+	nombre VARCHAR(45)NOT NULL,
+	precio DECIMAL NOT NULL,
+	tipo VARCHAR(45) NOT NULL,
 	PRIMARY KEY (idPlato)
 	
 );
 
 CREATE TABLE `tplabo_2016`.`bebidas` (
 	idBebida INT NOT NULL AUTO_INCREMENT,
-	nombreBebida VARCHAR (45) NOT NULL,
-	precioBebida DECIMAL NOT NULL,
-	tipoBebida VARCHAR(45) NOT NULL,
+	nombre VARCHAR (45) NOT NULL,
+	precio DECIMAL NOT NULL,
+	tipo VARCHAR(45) NOT NULL,
 	PRIMARY KEY (idBebida)
 );
 
 CREATE TABLE `tplabo_2016`.`menu` (
 	idMenu INT NOT NULL AUTO_INCREMENT,
-	nombreMenu VARCHAR(45) NOT NULL,
-	precioMenu DECIMAL NOT NULL,
+	nombre VARCHAR(45) NOT NULL,
+	precio DECIMAL NOT NULL,
 	PRIMARY KEY (idMenu)
 );
 
@@ -96,8 +128,7 @@ CREATE TABLE `tplabo_2016`.`pedido_bebida`(
 CREATE TABLE `tplabo_2016`.`pedido_menu`(
 	idPedido INT NOT NULL,
 	idMenu INT NOT NULL,
-	FOREIGN KEY (idPedido) REFERENCES `tplabo_2016`.`pedidos` (idPedido),
-	FOREIGN KEY (idMenu) REFERENCES `tplabo_2016`.`menu` (idMenu)
+	FOREIGN KEY (idPedido) REFERENCES `tplabo_2016`.`pedidos` (idPedido)
 );
 
 CREATE TABLE `tplabo_2016`.`pedido_mesa`(

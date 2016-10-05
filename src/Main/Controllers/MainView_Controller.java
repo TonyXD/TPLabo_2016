@@ -47,7 +47,7 @@ public class MainView_Controller implements ActionListener{
 		}else if(e.getSource() == this.vistaEncargado.getBtnVerPedido()){
 			
 			GestorPedidos vistaPedido = new GestorPedidos();
-			GestorPedidos_Controller controlPedido = new GestorPedidos_Controller(vistaPedido, pedido, resto);
+			GestorPedidos_Controller controlPedido = new GestorPedidos_Controller(vistaPedido, pedido, resto, carta);
 			vistaPedido.setVisible(true);
 			
 		}else if(e.getSource() == this.vistaEncargado.getBtnVerCarta()){
